@@ -1,0 +1,38 @@
+# Security + caching for Apache (Hostinger and most shared hosts). Needs mod_headers, mod_expires, mod_deflate
+# (all enabled by default on Hostinger). Delete this file if you host on Netlify/Cloudflare and use _headers.
+
+<IfModule mod_headers.c>
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; frame-src https://maps.google.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  Header always set X-Frame-Options "DENY"
+  # Turn HSTS on only after https:// works for the whole domain (it is remembered by browsers):
+  # Header always set Strict-Transport-Security "max-age=31536000"
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 day"
+  ExpiresByType application/javascript "access plus 1 day"
+  ExpiresByType text/javascript "access plus 1 day"
+  ExpiresByType image/svg+xml "access plus 1 day"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/avif "access plus 30 days"
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript application/json image/svg+xml application/xml
+</IfModule>
+
+# Redirect http -> https and pick ONE canonical host. Un-comment after confirming the real domain
+# (the pages currently declare https://www.grafixclub.in/ as canonical):
+# RewriteEngine On
+# RewriteCond %{HTTPS} off [OR]
+# RewriteCond %{HTTP_HOST} !^www\.grafixclub\.in$ [NC]
+# RewriteRule ^(.*)$ https://www.grafixclub.in/$1 [R=301,L]
+
+# Never serve the developer-only folders if they are uploaded by mistake.
+RedirectMatch 404 ^/(tests|tools)(/|$)

@@ -1,0 +1,7 @@
+# Grafix Club – crawl rules.
+# Nothing is blocked: search.html is kept out of the index with a noindex meta tag, and Google
+# can only see that tag if the page is NOT disallowed here. CSS and JavaScript stay crawlable.
+User-agent: *
+Disallow:
+
+Sitemap: https://www.grafixclub.in/sitemap.xml

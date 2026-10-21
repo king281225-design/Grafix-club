@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Only indexable pages are listed. search.html is noindex, so it is deliberately absent.
+       Add new real pages here (and a <lastmod> that matches the real edit date). -->
+  <url>
+    <loc>https://www.grafixclub.in/</loc>
+  </url>
+</urlset>
