@@ -93,6 +93,45 @@
     { key: "swagatam", label: "Hindi welcome", cfg: { t: ["\u0938\u094D\u0935\u093E\u0917\u0924\u092E\u094D", ""], f: "kalam", c: "gold", w: 3 } }
   ];
 
+
+  /* Ready-made designs shown in the "Design collection" section (original text designs, rendered live; not photos).
+     Each cfg goes through normalize() before use, so a bad entry can never reach the page. */
+  const COLLECTION_CATEGORIES = [
+    { key: "name", label: "Names & home" }, { key: "wedding", label: "Wedding & events" }, { key: "cafe", label: "Cafe & restaurant" },
+    { key: "shop", label: "Shop & business" }, { key: "quotes", label: "Quotes & vibes" }, { key: "kids", label: "Kids & fun" },
+    { key: "gym", label: "Gym & studio" }, { key: "hindi", label: "Hindi" }
+  ];
+  const D = (id, cat, title, t, f, c, o) => ({ id, cat, title, cfg: Object.assign({ t, f, c, w: 3 }, o || {}) });
+  const COLLECTION = [
+    D("ananya", "name", "Soft pink name", ["Ananya", ""], "script", "pink", { g: "night" }),
+    D("aryan", "name", "Gamer room", ["Aryan", ""], "orbitron", "cyan", { g: "black" }),
+    D("kavya", "name", "Name with heart", ["Kavya", ""], "dancing", "rose", { i: "heart", g: "purple" }),
+    D("home", "name", "Home sweet home", ["Home", "Sweet Home"], "satisfy", "white", { c2: "peach", g: "wood" }),
+    D("vows", "wedding", "Mr & Mrs", ["Mr & Mrs", ""], "vibes", "rose", { i: "heart", w: 4, g: "night" }),
+    D("married", "wedding", "Just married", ["Just", "Married"], "sacra", "gold", { c2: "white", g: "navy" }),
+    D("together", "wedding", "Better together", ["Better", "Together"], "neon", "lavender", { c2: "pink", g: "purple" }),
+    D("sangeet", "wedding", "Sangeet night", ["Sangeet", "Night"], "yellow", "magenta", { c2: "gold", w: 4, g: "black" }),
+    D("coffee", "cafe", "Coffee and chai", ["Coffee", "& Chai"], "monoton", "peach", { c2: "cyan", g: "terracotta" }),
+    D("fresh", "cafe", "Fresh and hot", ["Fresh", "& Hot"], "lobster", "orange", { c2: "lemon", g: "brick" }),
+    D("eat", "cafe", "Eat, drink, repeat", ["Eat Drink", "Repeat"], "bungee", "red", { c2: "white", g: "black" }),
+    D("sweet", "cafe", "Sweet tooth", ["Sweet", "Tooth"], "kaushan", "rose", { c2: "mint", g: "navy" }),
+    D("open", "shop", "OPEN sign", ["OPEN", ""], "block", "red", { w: 2, g: "black" }),
+    D("welcome", "shop", "Welcome", ["Welcome", ""], "script", "gold", { g: "wood" }),
+    D("salon", "shop", "Salon and spa", ["Beauty", "Salon"], "vibes", "pink", { c2: "white", b: "rect", g: "night" }),
+    D("studio", "shop", "Studio name", ["Photo", "Studio"], "righteous", "coolwhite", { c2: "blue", g: "concrete" }),
+    D("vibes", "quotes", "Good vibes", ["Good", "Vibes"], "marker", "cyan", { c2: "magenta", g: "black" }),
+    D("dream", "quotes", "Dream big", ["Dream", "Big"], "caveat", "lemon", { c2: "orange", g: "navy" }),
+    D("love", "quotes", "Love is all", ["Love", "Is All"], "dancing", "red", { i: "heart", g: "black" }),
+    D("stars", "quotes", "Be a star", ["Be A", "Star"], "satisfy", "gold", { c2: "lavender", i: "star", g: "purple" }),
+    D("kids", "kids", "Play room", ["Play", "Room"], "bungee", "lime", { c2: "orange", g: "navy" }),
+    D("moon", "kids", "Little moon", ["Sweet", "Dreams"], "sacra", "lemon", { c2: "lavender", i: "moon", g: "navy" }),
+    D("fit", "gym", "No pain, no gain", ["No Pain", "No Gain"], "block", "red", { c2: "white", w: 4, g: "concrete" }),
+    D("flex", "gym", "Beast mode", ["Beast", "Mode"], "orbitron", "lime", { c2: "cyan", g: "black" }),
+    D("swagat", "hindi", "Swagatam", ["\u0938\u094D\u0935\u093E\u0917\u0924\u092E\u094D", ""], "kalam", "gold", { g: "wood" }),
+    D("shubh", "hindi", "Shubh labh", ["\u0936\u0941\u092D", "\u0932\u093E\u092D"], "rozha", "orange", { c2: "gold", g: "brick" }),
+    D("ghar", "hindi", "Home name", ["\u092E\u0947\u0930\u093E \u0918\u0930", ""], "yatra", "rose", { g: "purple" })
+  ];
+
   const LIMITS = { line: 20, notes: 200, wMin: 1, wMax: 8, wStep: 0.5, maxLines: 2 };
   const DEFAULTS = Object.freeze({ t: ["Your Name", ""], f: "script", c: "pink", w: 3, b: "none", u: "indoor", x: "pickup", i: "none", n: "", c2: "", g: "night", gc: "" });
 
@@ -254,5 +293,5 @@
     return { ok: true, type: real, message: "" };
   }
 
-  return { FONTS, COLORS, BACKDROPS, colorOf, luminance, isLightWall, BACKINGS, USES, FITTINGS, ICONS, PRESETS, LIMITS, DEFAULTS, FILE_TYPES, normalize, estimate, encode, decode, summary, buildMessage, checkFile, sniff, find, money, hasNonLatin };
+  return { FONTS, COLORS, BACKDROPS, colorOf, luminance, isLightWall, BACKINGS, USES, FITTINGS, ICONS, PRESETS, COLLECTION, COLLECTION_CATEGORIES, LIMITS, DEFAULTS, FILE_TYPES, normalize, estimate, encode, decode, summary, buildMessage, checkFile, sniff, find, money, hasNonLatin };
 });

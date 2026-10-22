@@ -503,6 +503,15 @@
     el("howText").textContent = t;
   })();
 
+  /* lets the Design collection open a ready-made design in this studio */
+  window.GCStudio = { load(cfg, title) {
+    const c = N.normalize(Object.assign({}, N.DEFAULTS, cfg)).config;
+    writeCfg(c); render();
+    const n = el("restoreNote"); n.textContent = "Started from the \u201C" + (title || "collection") + "\u201D design. Change anything you like."; n.hidden = false; announce(n.textContent);
+    const s = el("studio"); if (s) s.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    setTimeout(() => f.l1.focus({ preventScroll: true }), 400);
+  } };
+
   /* ---------------- initial state: link > preset > draft > default ---------------- */
   (function init() {
     const sp = new URLSearchParams(location.search);
