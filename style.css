@@ -676,3 +676,4 @@ html.motion-off .marquee-track .dup{display:none}
 .ig-badge{position:absolute;top:8px;left:8px;padding:3px 9px;border-radius:999px;background:rgba(0,0,0,.72);color:#fff;font-size:.72rem;font-weight:700}
 .gal-sub{font:700 1.1rem var(--ff-d);margin-bottom:14px;color:var(--mute)}
 .note.center{text-align:center}
+.quotes blockquote .stars{color:var(--gold);letter-spacing:.12em;margin-bottom:6px}

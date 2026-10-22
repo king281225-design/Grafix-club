@@ -21,6 +21,11 @@ const CONFIG = {
      and the button opens the review box directly. Or paste your Business Profile review link into links.googleReview. */
   googlePlaceId: "",
 
+  /* Show real Google reviews automatically: connect the shop at featurable.com (free plan), then paste the widget's
+     data URL here, e.g. "https://api.featurable.com/api/v1/widgets/<widget-id>". Leave "" to keep the reviews below as they are.
+     Only api.featurable.com is allowed by the security policy. */
+  googleReviewsFeed: "",
+
   /* Automatic Instagram gallery: paste the JSON feed URL from a feed service (e.g. https://feeds.behold.so/XXXX).
      Leave "" to show only the "Follow on Instagram" button. Only feeds.behold.so is allowed by the security policy. */
   instagramFeed: "",
