@@ -645,3 +645,18 @@ html.motion-off .marquee-track .dup{display:none}
 .pl-steel .pl-l{background:linear-gradient(180deg,#fafafa,#aeb4bb 50%,#7d848c);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(.025em .04em .01em rgba(0,0,0,.75));letter-spacing:.12em}
 .pl-box{background:linear-gradient(180deg,#ffffff,#e9f4ff);padding:.5em 1.2em;border-radius:.35em;border:.08em solid #cfd6de;box-shadow:0 0 .9em .25em rgba(160,215,255,.6),0 .4em .9em rgba(0,0,0,.5);color:#0b63b6}
 .pl-box .pl-l2{color:#2a2a30}
+.cw-w-cream{background:linear-gradient(160deg,#f3ecdc,#ddd2ba)}
+.cw-w-slat{background:repeating-linear-gradient(90deg,#4a3323 0 16px,#3e2a1d 16px 18px)}
+.pl-arch{width:56%;aspect-ratio:3/4;border-radius:50% 50% .15em .15em/32% 32% .15em .15em;background:linear-gradient(135deg,#1c1c20,#08080a);border:.06em solid var(--g);box-shadow:0 .4em .9em rgba(0,0,0,.45);padding:.6em .3em;gap:.2em;color:var(--g);justify-content:center}
+.pl-arch .pl-l{background:linear-gradient(180deg,#f6dd8f,#c99a3c);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:.8em;white-space:nowrap}
+.pl-arch .pl-l2{font-size:.9em}
+.pl-marble{background:linear-gradient(115deg,transparent 40%,rgba(120,120,130,.25) 41%,transparent 43%),linear-gradient(60deg,transparent 60%,rgba(120,120,130,.2) 61%,transparent 63%),linear-gradient(135deg,#fafafa,#dedee2);padding:.5em 1em;border-radius:.15em;box-shadow:0 .4em .9em rgba(0,0,0,.4);color:#8a6218}
+.pl-marble .pl-l{background:linear-gradient(180deg,#d8b45a,#8a6218);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pl-edge{background:linear-gradient(135deg,#202024,#0b0b0d);padding:.5em 1em;border-radius:.15em;border:.04em solid rgba(255,235,190,.9);box-shadow:0 0 .25em .06em rgba(255,225,160,.9),0 0 1.1em .3em rgba(255,200,110,.45);color:#fff3d6}
+.pl-brass-wood{background:repeating-linear-gradient(90deg,#4e2f19 0 12px,#442a16 12px 14px);padding:.5em 1em;border-radius:.15em;border:.05em solid #2d1b0d;box-shadow:0 .4em .9em rgba(0,0,0,.4)}
+.pl-brass-wood .pl-l{background:linear-gradient(180deg,#ffe8a0,#c99634 60%,#92671a);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(.02em .04em .02em rgba(0,0,0,.8))}
+.pl-matte-white .pl-l{color:#f6f4ef;text-shadow:.03em .05em .08em rgba(0,0,0,.55);letter-spacing:.04em}
+.pl-wood-letters .pl-l{background:linear-gradient(180deg,#9b6a3d,#6a4426);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(.025em .04em .015em rgba(0,0,0,.55));letter-spacing:.1em}
+.pl-black-gold-3d .pl-l{color:#0c0c0e;-webkit-text-stroke:.03em #d6a53e;text-shadow:.03em .05em .1em rgba(0,0,0,.5);letter-spacing:.06em}
+.pl-round-box{aspect-ratio:1;height:86%;width:auto;border-radius:50%;background:radial-gradient(circle,#fffdf3,#f2e8c8);border:.08em solid #b98a2c;box-shadow:0 0 .9em .25em rgba(255,225,150,.6),0 .4em .9em rgba(0,0,0,.5);color:#6a4c12;padding:0 .3em}
+.pl-round-box .pl-l{color:#8a6218;letter-spacing:.1em}

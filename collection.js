@@ -38,7 +38,15 @@
     P("lt-front", "letters", "Front-lit LED letters", "front", ["MOBILE", "HUB"], "bungee", "acrylic-led-letters", "Bright LED faces", "dark"),
     P("lt-board", "letters", "LED shop board", "board", ["Fresh Sweets", "Open daily"], "righteous", "led-shop-board", "Backlit board, outdoor-ready", "dark"),
     P("lt-steel", "letters", "Brushed steel letters", "steel", ["STUDIO", ""], "block", "steel-acrylic-letters", "Silver brushed steel", "concrete"),
-    P("lt-clinic", "letters", "Clinic light box", "box", ["Smile", "Dental Care"], "righteous", "led-shop-board", "Backlit box with printed face", "dark")
+    P("lt-clinic", "letters", "Clinic light box", "box", ["Smile", "Dental Care"], "righteous", "led-shop-board", "Backlit box with printed face", "dark"),
+    P("pl-arch", "plates", "Arch name plate", "arch", ["Anand", "Nivas"], "vibes", "acrylic-name-plate", "Matte black arch, gold lettering", "light"),
+    P("pl-marble", "plates", "Marble look plate", "marble", ["The Kapoors", "Villa 12"], "righteous", "acrylic-name-plate", "Marble finish, brass lettering", "stone"),
+    P("pl-edge", "plates", "Edge-lit acrylic plate", "edge", ["Aarav", "Residence"], "righteous", "led-name-plate", "Soft glow around the edge", "stone"),
+    P("pl-brass-wood", "plates", "Walnut and brass plate", "brass-wood", ["Seema's Nivas", "11/73"], "vibes", "steel-name-plate", "Walnut wood, raised brass letters", "light"),
+    P("lt-reception", "letters", "Matte white reception logo", "matte-white", ["Luxe", "Studio"], "vibes", "acrylic-led-letters", "Matte 3D letters on a slat wall", "slat"),
+    P("lt-wood", "letters", "Wooden cafe letters", "wood-letters", ["CAFE", "BREW"], "block", "steel-acrylic-letters", "Cut wood-look letters", "cream"),
+    P("lt-black-gold", "letters", "Black and gold 3D letters", "black-gold-3d", ["NOIR", "Fashion"], "righteous", "steel-acrylic-letters", "Black acrylic with gold edge", "light"),
+    P("lt-round", "letters", "Round light box", "round-box", ["HAIR", "SALON"], "righteous", "led-shop-board", "Circular backlit sign", "slat")
   ];
   const priceText = id => {
     const p = typeof GCCatalogue !== "undefined" && GCCatalogue.byId.get(id);
