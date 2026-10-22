@@ -32,6 +32,7 @@
 <script src="neon-model.js" defer></script>
 <script src="studio.js" defer></script>
 <script src="collection.js" defer></script>
+<script src="instagram.js" defer></script>
 <script src="app.js" defer></script>
 <!--@jsonld-->
 <script type="application/ld+json">
@@ -76,7 +77,8 @@
       ],
       "sameAs": [
         "https://share.google/le0RUSxiwVPWliVLf",
-        "https://www.justdial.com/Delhi/Grafix-Club-Opposite-Dilli-Heart-Janakpuri/011P1228636379E9G4A7_BZDET"
+        "https://www.justdial.com/Delhi/Grafix-Club-Opposite-Dilli-Heart-Janakpuri/011P1228636379E9G4A7_BZDET",
+        "https://www.instagram.com/grafix.club/"
       ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
@@ -832,6 +834,15 @@
       <h2 id="gallery-h">Real work. <em>Real shop.</em></h2>
       <p class="lead">A look at our counter, our neon wall and the plates and boards we make every day.</p>
     </header>
+    <div class="ig" id="igBlock">
+      <div class="ig-head">
+        <h3><svg class="ic" aria-hidden="true"><use href="#i-ig"/></svg> Latest from Instagram <span>@grafix.club</span></h3>
+        <a class="btn btn-ghost btn-sm" id="igFollow" href="https://www.instagram.com/grafix.club/" target="_blank" rel="noopener">Follow on Instagram<span class="sr-only"> (opens in a new tab)</span></a>
+      </div>
+      <p class="ig-note" id="igNote" hidden></p>
+      <ul class="ig-grid" id="igGrid" hidden></ul>
+    </div>
+    <h3 class="gal-sub" id="galSub">In the workshop</h3>
     <div class="gallery" id="gallery-grid">
 <!--@gallery-->
       <button class="g-item" type="button" aria-haspopup="dialog" data-src="assets/shop/p1.jpg" data-alt="Our shopfront: name plates, LED &amp; neon boards"><img src="assets/shop/p1.jpg" alt="Our shopfront: name plates, LED &amp; neon boards" loading="lazy" decoding="async" width="360" height="360"><span aria-hidden="true">Our shopfront: name plates, LED &amp; neon boards</span></button>

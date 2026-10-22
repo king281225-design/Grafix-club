@@ -14,9 +14,12 @@ const CONFIG = {
     googleReview: "https://www.google.com/search?q=Grafix+Club+Janakpuri+reviews", // replace with your g.page/r/.../review link
     justdial: "https://www.justdial.com/Delhi/Grafix-Club-Opposite-Dilli-Heart-Janakpuri/011P1228636379E9G4A7_BZDET",
     directions: "https://www.google.com/maps/dir/?api=1&destination=Grafix+Club+WZ-79%2FC6+Gali+No+7+Virender+Nagar+Janakpuri+Delhi+110058",
-    instagram: "",   // e.g. "https://www.instagram.com/yourhandle/"
+    instagram: "https://www.instagram.com/grafix.club/",
     facebook: ""     // e.g. "https://www.facebook.com/yourpage"
   },
+  /* Automatic Instagram gallery: paste the JSON feed URL from a feed service (e.g. https://feeds.behold.so/XXXX).
+     Leave "" to show only the "Follow on Instagram" button. Only feeds.behold.so is allowed by the security policy. */
+  instagramFeed: "",
   fallback: {
     instagram: "https://www.google.com/search?q=Grafix+Club+Janakpuri+instagram",
     facebook: "https://www.facebook.com/search/top?q=Grafix%20Club%20Delhi"

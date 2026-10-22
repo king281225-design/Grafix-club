@@ -660,3 +660,18 @@ html.motion-off .marquee-track .dup{display:none}
 .pl-black-gold-3d .pl-l{color:#0c0c0e;-webkit-text-stroke:.03em #d6a53e;text-shadow:.03em .05em .1em rgba(0,0,0,.5);letter-spacing:.06em}
 .pl-round-box{aspect-ratio:1;height:86%;width:auto;border-radius:50%;background:radial-gradient(circle,#fffdf3,#f2e8c8);border:.08em solid #b98a2c;box-shadow:0 0 .9em .25em rgba(255,225,150,.6),0 .4em .9em rgba(0,0,0,.5);color:#6a4c12;padding:0 .3em}
 .pl-round-box .pl-l{color:#8a6218;letter-spacing:.1em}
+
+/* ---------- Gallery: Instagram feed ---------- */
+.ig{margin-bottom:36px}
+.ig-head{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px}
+.ig-head h3{font:700 1.2rem var(--ff-d);display:flex;align-items:center;gap:10px}
+.ig-head h3 span{color:var(--mute);font-weight:500;font-size:.95rem}
+.ig-head .ic{width:24px;height:24px}
+.ig-note{color:var(--mute);font-size:.92rem;margin-bottom:12px}
+.ig-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.ig-grid li{position:relative;border-radius:14px;overflow:hidden;background:var(--bg3);aspect-ratio:1}
+.ig-grid a{display:block;width:100%;height:100%}
+.ig-grid img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.ig-grid a:hover img{transform:scale(1.05)}
+.ig-badge{position:absolute;top:8px;left:8px;padding:3px 9px;border-radius:999px;background:rgba(0,0,0,.72);color:#fff;font-size:.72rem;font-weight:700}
+.gal-sub{font:700 1.1rem var(--ff-d);margin-bottom:14px;color:var(--mute)}
