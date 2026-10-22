@@ -129,7 +129,28 @@
     D("flex", "gym", "Beast mode", ["Beast", "Mode"], "orbitron", "lime", { c2: "cyan", g: "black" }),
     D("swagat", "hindi", "Swagatam", ["\u0938\u094D\u0935\u093E\u0917\u0924\u092E\u094D", ""], "kalam", "gold", { g: "wood" }),
     D("shubh", "hindi", "Shubh labh", ["\u0936\u0941\u092D", "\u0932\u093E\u092D"], "rozha", "orange", { c2: "gold", g: "brick" }),
-    D("ghar", "hindi", "Home name", ["\u092E\u0947\u0930\u093E \u0918\u0930", ""], "yatra", "rose", { g: "purple" })
+    D("ghar", "hindi", "Home name", ["\u092E\u0947\u0930\u093E \u0918\u0930", ""], "yatra", "rose", { g: "purple" }),
+    D("vihaan", "name", "Bold boy's name", ["Vihaan", ""], "kaushan", "blue", { g: "black" }),
+    D("ishita", "name", "Dreamy name", ["Ishita", ""], "neon", "lavender", { i: "star", g: "night" }),
+    D("mehendi", "wedding", "Mehendi night", ["Mehendi", "Night"], "yellow", "lime", { c2: "gold", w: 4, g: "green" }),
+    D("savedate", "wedding", "Save the date", ["Save The", "Date"], "satisfy", "white", { c2: "pink", g: "navy" }),
+    D("chaitime", "cafe", "Chai time", ["Chai", "Time"], "lobster", "lemon", { c2: "orange", g: "terracotta" }),
+    D("burger", "cafe", "Burger bar", ["Burger", "Bar"], "bungee", "orange", { c2: "red", g: "black" }),
+    D("boutique", "shop", "Boutique", ["Boutique", "Store"], "vibes", "rose", { c2: "white", b: "rect", g: "night" }),
+    D("techzone", "shop", "Tech zone", ["Tech", "Zone"], "orbitron", "cyan", { c2: "magenta", g: "black" }),
+    D("wild", "quotes", "Stay wild", ["Stay", "Wild"], "kaushan", "green", { c2: "lime", g: "black" }),
+    D("happen", "quotes", "Make it happen", ["Make It", "Happen"], "caveat", "orange", { c2: "gold", g: "concrete" }),
+    D("dino", "kids", "Dino land", ["Dino", "Land"], "bungee", "green", { c2: "lemon", g: "navy" }),
+    D("littlestar", "kids", "Little star", ["Little", "Star"], "dancing", "lemon", { c2: "pink", i: "star", g: "purple" }),
+    D("princess", "kids", "Princess room", ["Princess", "Room"], "vibes", "pink", { c2: "lavender", i: "heart", g: "night" }),
+    D("superkid", "kids", "Super kid", ["Super", "Kid"], "marker", "red", { c2: "cyan", g: "black" }),
+    D("rise", "gym", "Rise and grind", ["Rise", "& Grind"], "block", "orange", { c2: "white", w: 4, g: "black" }),
+    D("trainhard", "gym", "Train hard", ["Train", "Hard"], "righteous", "red", { c2: "gold", g: "concrete" }),
+    D("yoga", "gym", "Yoga studio", ["Yoga", "Studio"], "sacra", "mint", { c2: "lavender", g: "green" }),
+    D("fitlife", "gym", "Fit life", ["Fit", "Life"], "monoton", "lime", { c2: "cyan", g: "black" }),
+    D("diwali", "hindi", "Shubh Deepawali", ["\u0936\u0941\u092D", "\u0926\u0940\u092A\u093E\u0935\u0932\u0940"], "rozha", "orange", { c2: "gold", g: "brick" }),
+    D("vivah", "hindi", "Shubh Vivah", ["\u0936\u0941\u092D", "\u0935\u093F\u0935\u093E\u0939"], "yatra", "rose", { c2: "gold", i: "heart", g: "purple" }),
+    D("mithai", "hindi", "Mithai ghar", ["\u092E\u093F\u0920\u093E\u0908", "\u0918\u0930"], "kalam", "lemon", { c2: "orange", g: "wood" })
   ];
 
   const LIMITS = { line: 20, notes: 200, wMin: 1, wMax: 8, wStep: 0.5, maxLines: 2 };
