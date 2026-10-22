@@ -9,7 +9,12 @@
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const waUrl = msg => "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg || CONFIG.defaultMsg);
-  const social = k => CONFIG.links[k] || CONFIG.fallback[k];
+  /* "Write a Google review": with CONFIG.googlePlaceId set, the button opens Google's review box for the shop directly
+     (the customer only picks stars and types). Otherwise it uses CONFIG.links.googleReview (e.g. a g.page/r/.../review link). */
+  const PLACE_ID = /^ChIJ[A-Za-z0-9_-]{15,}$/;
+  const social = k => (k === "googleReview" && PLACE_ID.test(String(CONFIG.googlePlaceId || ""))
+    ? "https://search.google.com/local/writereview?placeid=" + encodeURIComponent(CONFIG.googlePlaceId)
+    : CONFIG.links[k] || CONFIG.fallback[k]);
   const safeStore = {
     get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
     set(k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { return false; } },

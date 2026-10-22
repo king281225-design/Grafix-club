@@ -17,6 +17,10 @@ const CONFIG = {
     instagram: "https://www.instagram.com/grafix.club/",
     facebook: ""     // e.g. "https://www.facebook.com/yourpage"
   },
+  /* Google review button: paste the shop's Google Place ID (starts with "ChIJ", find it with Google's Place ID Finder)
+     and the button opens the review box directly. Or paste your Business Profile review link into links.googleReview. */
+  googlePlaceId: "",
+
   /* Automatic Instagram gallery: paste the JSON feed URL from a feed service (e.g. https://feeds.behold.so/XXXX).
      Leave "" to show only the "Follow on Instagram" button. Only feeds.behold.so is allowed by the security policy. */
   instagramFeed: "",
