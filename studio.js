@@ -32,7 +32,13 @@
     }).join("") + "</div></div>").join("");
   }
 
+  const stepH = (n, t) => '<h4 class="step"><span class="step-n" aria-hidden="true">' + n + "</span>" + t + "</h4>";
+  const SIZES = [{ w: 2, label: "Regular" }, { w: 3, label: "Medium" }, { w: 4, label: "Large" }, { w: 5, label: "Extra large" }];
+  const sizeCardsHtml = () => '<div class="chips size-cards">' + SIZES.map(z =>
+    '<label class="ochip size-card"><input type="radio" name="sizepreset" value="' + z.w + '"><span class="chip-body"><span class="chip-t">' + z.label + '</span><small class="chip-h" id="sz-dim-' + z.w + '"></small><b class="sz-price" id="sz-price-' + z.w + '"></b></span></label>').join("") + "</div>";
+
   const formHtml =
+    stepH(1, "Type your text") +
     '<div class="field">' +
       '<div class="field-row"><label for="f-l1">Line 1 <em class="req">(required)</em></label><span class="count" id="c-l1" aria-hidden="true"></span></div>' +
       '<input type="text" id="f-l1" name="l1" maxlength="60" autocomplete="off" spellcheck="false" aria-describedby="m-l1" value="">' +
@@ -43,7 +49,9 @@
       '<input type="text" id="f-l2" name="l2" maxlength="60" autocomplete="off" spellcheck="false" aria-describedby="m-l2" value="">' +
       '<p class="msg" id="m-l2" aria-live="polite"></p>' +
     "</div>" +
+    stepH(2, "Pick your font") +
     fieldset('Style: <b id="fontName"></b>', fontGroupsHtml()) +
+    stepH(3, "Select your colour") +
     fieldset('Colour: <b id="colorName"></b>', '<div class="swatches">' + N.COLORS.map((c, i) =>
       '<label class="swatch" style="--c:' + c.hex + '"><input type="radio" name="color" value="' + c.key + '"' + (i === 0 ? " checked" : "") + '><span class="sw-dot" aria-hidden="true"></span><span class="sr-only">' + esc(c.label) + "</span></label>").join("") +
       '<label class="swatch swatch-custom" id="customSwatch" style="--c:#ff2e93"><input type="radio" name="color" value="custom"><span class="sw-dot" aria-hidden="true"></span><span class="sr-only">Custom colour</span></label>' +
@@ -53,12 +61,20 @@
       '<label for="f-c2">Line 2 colour <em class="opt">(optional, for a two-colour sign)</em></label>' +
       '<select id="f-c2" name="c2"><option value="">Same as line 1</option>' + N.COLORS.map(c => '<option value="' + c.key + '">' + esc(c.label) + "</option>").join("") + "</select>" +
     "</div>" +
+    stepH(4, "Select your size") +
+    fieldset('Size: <b id="sizeName"></b>', sizeCardsHtml() + '<p class="hint">Heights are approximate: they depend on your lettering style and number of lines. The price on each card is the estimate for your text at that width.</p>') +
     '<div class="field">' +
-      '<div class="field-row"><label for="f-w">Width</label><output id="widthOut" for="f-w"></output></div>' +
+      '<div class="field-row"><label for="f-w">Exact width <em class="opt">(or pick a size above)</em></label><output id="widthOut" for="f-w"></output></div>' +
       '<input type="range" id="f-w" name="width" min="' + N.LIMITS.wMin + '" max="' + N.LIMITS.wMax + '" step="' + N.LIMITS.wStep + '" value="3" aria-describedby="h-w">' +
       '<p class="hint" id="h-w">From ' + N.LIMITS.wMin + " to " + N.LIMITS.wMax + " feet. Height follows from the style and number of lines.</p>" +
     "</div>" +
+    stepH(5, "Add-ons") +
+    fieldset("Backing", '<div class="chips col">' + radios("backing", N.BACKINGS) + "</div>") +
+    fieldset("Where will it be used?", '<div class="chips">' + radios("use", N.USES) + "</div>") +
+    fieldset("Mounting and fitting", '<div class="chips">' + radios("fit", N.FITTINGS) + "</div>") +
     fieldset("Symbol (optional)", '<div class="chips">' + radios("icon", N.ICONS, o => (o.d ? '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="' + o.d + '" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>' : "") + '<span class="chip-t">' + esc(o.label) + "</span>") + "</div>") +
+    '<div class="own-design"><b>Have your own logo or design?</b><p>Send it to us on WhatsApp and we will reply with a mock-up and a price.</p><a class="btn btn-ghost btn-sm" id="ownDesign" target="_blank" rel="noopener">WhatsApp us your design<span class="sr-only"> (opens in a new tab)</span></a></div>' +
+    stepH(6, "Make it yours") +
     fieldset("Preview background", '<div class="chips bg-chips">' +
       radios("bg", N.BACKDROPS.concat([{ key: "custom", label: "Your colour", c: "" }, { key: "photo", label: "Your wall photo", c: "" }]), o =>
         '<span class="bg-dot' + (o.key === "custom" ? " bg-custom" : o.key === "photo" ? " bg-photo" : "") + '" style="--b:' + (o.c || "#888") + '" aria-hidden="true"></span><span class="chip-t">' + esc(o.label) + "</span>") + "</div>" +
@@ -73,9 +89,6 @@
         '<button type="button" class="btn btn-ghost btn-sm" id="bgRemove" hidden>Remove wall photo</button>' +
       "</div>" +
       '<p class="hint">Only changes how the preview looks, so you can imagine the sign on your own wall. It never changes the price.</p>') +
-    fieldset("Backing", '<div class="chips col">' + radios("backing", N.BACKINGS) + "</div>") +
-    fieldset("Where will it be used?", '<div class="chips">' + radios("use", N.USES) + "</div>") +
-    fieldset("Mounting and fitting", '<div class="chips">' + radios("fit", N.FITTINGS) + "</div>") +
     '<div class="field">' +
       '<div class="field-row"><label for="f-n">Notes for our team <em class="opt">(optional)</em></label><span class="count" id="c-n" aria-hidden="true"></span></div>' +
       '<textarea id="f-n" name="notes" rows="3" maxlength="400" aria-describedby="m-n"></textarea>' +
@@ -313,19 +326,38 @@
       ? 'Preview of your sign: "' + cfg.t.filter(Boolean).join(" / ") + '" in ' + N.colorOf(cfg.c).label.toLowerCase() + (cfg.t[1] && cfg.c2 ? " and " + N.colorOf(cfg.c2).label.toLowerCase() : "") + ", " + N.find(N.FONTS, cfg.f).label.toLowerCase() + " style, about " + cfg.w + " feet wide. Visual approximation only."
       : "Preview placeholder. Enter your text to see the sign.");
 
+    updateSizeCards(cfg);
     renderEstimate(cfg, est);
     updateLinks(cfg, est);
     scheduleAutosave(cfg);
   }
 
+  /* ---------------- size cards: width x height and price for each size, for the current text and style ---------------- */
+  const inch = ft => Math.max(1, Math.round(ft * 12));
+  function updateSizeCards(cfg) {
+    let matched = "";
+    SIZES.forEach(z => {
+      const e = N.estimate(Object.assign({}, cfg, { w: z.w }), RATES);
+      el("sz-dim-" + z.w).textContent = inch(z.w) + " \u00D7 " + inch(e.size.h) + " in";
+      el("sz-price-" + z.w).textContent = valid ? N.money(e.total) : "";
+      if (cfg.w === z.w) matched = String(z.w);
+    });
+    form.querySelectorAll("input[name=sizepreset]").forEach(r => { r.checked = r.value === matched; });
+    const lab = SIZES.find(z => z.w === cfg.w);
+    el("sizeName").textContent = lab ? lab.label : "Custom (" + cfg.w + " ft wide)";
+  }
+  Array.from(form.querySelectorAll("input[name=sizepreset]")).forEach(r => r.addEventListener("input", () => { if (r.checked) f.width.value = r.value; }));
+  el("ownDesign").href = waUrl("Hi Grafix Club, I have my own logo/design and would like a neon sign. I will send it here.");
+
   function renderEstimate(cfg, est) {
     const body = el("estBody"), totalEl = el("estTotal"), conf = el("estConfirm");
     if (!valid) {
-      totalEl.textContent = "–"; body.innerHTML = '<tr><td colspan="2">Fix the highlighted fields to see an estimate.</td></tr>'; conf.innerHTML = "";
+      totalEl.textContent = "–"; el("buyTotal").textContent = "–"; el("buyPrefix").textContent = ""; body.innerHTML = '<tr><td colspan="2">Fix the highlighted fields to see an estimate.</td></tr>'; conf.innerHTML = "";
       el("estPrefix").textContent = ""; return;
     }
     el("estPrefix").textContent = "Estimated from";
     totalEl.textContent = N.money(est.total);
+    el("buyPrefix").textContent = "Estimated from"; el("buyTotal").textContent = N.money(est.total);
     body.innerHTML = est.rows.map(r => "<tr><th scope=\"row\">" + esc(r.label) + "</th><td>" + N.money(r.amount) + "</td></tr>").join("") +
       '<tr class="sum"><th scope="row">Estimated total</th><td>' + N.money(est.total) + "</td></tr>";
     if (est.toConfirm.length) {
@@ -345,7 +377,8 @@
     const msg = valid ? message(cfg, est, true) : "";
     wa.href = valid ? waUrl(msg) : "#studio-form-start";
     mail.href = valid ? "mailto:" + CONFIG.email + "?subject=" + encodeURIComponent("Neon sign design: " + cfg.t.filter(Boolean).join(" ")) + "&body=" + encodeURIComponent(msg) : "#studio-form-start";
-    [wa, mail].forEach(a => a.setAttribute("aria-disabled", String(!valid)));
+    const top = el("sendWaTop"); top.href = wa.href;
+    [wa, mail, top].forEach(a => a.setAttribute("aria-disabled", String(!valid)));
     const u = valid ? designUrl(cfg) : "";
     el("designUrl").value = u || (valid ? "Link sharing needs the live website address" : "");
     el("copyLink").disabled = !valid || !u;
@@ -361,6 +394,7 @@
     guard = Date.now(); announce(label); return true;
   }
   el("sendWa").addEventListener("click", e => guardSend(e, "Opening WhatsApp with your design."));
+  el("sendWaTop").addEventListener("click", e => guardSend(e, "Opening WhatsApp with your design."));
   el("sendMail").addEventListener("click", e => guardSend(e, "Opening your e-mail app with your design."));
 
   el("shareBtn").addEventListener("click", async e => {

@@ -677,3 +677,17 @@ html.motion-off .marquee-track .dup{display:none}
 .gal-sub{font:700 1.1rem var(--ff-d);margin-bottom:14px;color:var(--mute)}
 .note.center{text-align:center}
 .quotes blockquote .stars{color:var(--gold);letter-spacing:.12em;margin-bottom:6px}
+
+/* ---------- Neon Studio: numbered steps, size cards, order row ---------- */
+.step{display:flex;align-items:center;gap:10px;font:700 1.05rem var(--ff-d);margin:26px 0 12px;padding-top:18px;border-top:1px solid var(--line)}
+.step:first-child{margin-top:0;padding-top:0;border-top:0}
+.step-n{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--gold);color:#1a1200;font:800 .9rem var(--ff-b)}
+.size-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr))}
+.size-card .chip-body{align-items:flex-start;text-align:left;gap:2px;min-height:96px}
+.size-card .chip-h{display:block;color:var(--mute)}
+.sz-price{color:var(--gold);font-size:1.05rem;margin-top:2px}
+.buy-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:16px;background:var(--bg2);border:1px solid var(--line)}
+.buy-price{font-size:.95rem;color:var(--mute)}
+.buy-price b{font:800 1.8rem var(--ff-d);color:var(--gold);margin-left:6px}
+.own-design{margin:22px 0 0;padding:16px 18px;border-radius:16px;border:1.5px dashed rgba(255,255,255,.25);display:grid;gap:8px;justify-items:start}
+.own-design p{color:var(--mute);font-size:.92rem}
