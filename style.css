@@ -725,6 +725,7 @@ html.motion-off .marquee-track .dup{display:none}
 .szc-row{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 6px;text-align:center;font-size:.8rem;color:#cfcfd6}
 .szc-row+.szc-row{border-top:1px solid #fff}
 .szc-row b{font-size:1.05rem;color:#fff}
+.szc-note{display:block;border-top:1px solid #fff;padding:8px 6px;text-align:center;font-size:.76rem;color:#cfcfd6}
 .szc:hover .szc-body{background:#141414}
 .szc input:checked+.szc-body .szc-head{background:#9900ff}
 .szc input:checked+.szc-body{border-color:#9900ff;box-shadow:0 0 0 1px #9900ff}

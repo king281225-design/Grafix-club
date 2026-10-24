@@ -28,7 +28,7 @@
   const head = (id, title, nameId, extra) => '<div class="cfg-head"><h4 id="' + id + '">' + title + "</h4>" + (nameId ? '<b class="sel-name" id="' + nameId + '"></b>' : "") + (extra || "") + "</div>";
   const sizeCardsHtml = () => '<div class="size-grid">' + N.SIZES.map((z, i) =>
     '<label class="szc"><input type="radio" name="size" value="' + z.key + '"' + (i === 0 ? " checked" : "") + '><span class="szc-body"><span class="szc-head">' + z.label + "</span>" +
-    '<span class="szc-row"><span>Width</span><b>' + z.w + ' inches</b></span><span class="szc-row"><span>Height</span><b>' + z.h + " inches</b></span></span></label>").join("") + "</div>";
+    '<span class="szc-row"><span>Width</span><b>' + z.w + ' inches</b></span><span class="szc-row"><span>Height</span><b>' + z.h + ' inches</b></span><span class="szc-note">per letter</span></span></label>').join("") + "</div>";
   const WALL_LABEL = { photo: "Custom Background" };
   const bgThumbsHtml = () => '<div class="bg-grid">' + N.BACKDROPS.concat([{ key: "photo", label: WALL_LABEL.photo }]).map((o, i) =>
     '<label class="bgc"><input type="radio" name="bg" value="' + o.key + '"' + (i === 0 ? " checked" : "") + '><span class="bgc-body"><span class="bgt bgt-' + o.key + '" aria-hidden="true">' + (o.key === "photo" ? '<svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 16V5m0 0l-4 4m4-4l4 4M5 19h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : "") + '</span><span class="bgc-t">' + esc(o.label) + "</span></span></label>").join("") + "</div>";
