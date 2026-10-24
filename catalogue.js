@@ -51,8 +51,8 @@
     { id: "steel-name-plate", cat: "Name Plates", name: "Steel letter name plate", desc: "Gold / silver / black", price: 1499, unit: "from", basis: "from", lit: false, materials: ["Steel"], tags: ["gold", "silver", "black", "letters"], image: "d7-solanki" },
     { id: "led-name-plate", cat: "Name Plates", name: "LED backlit name plate", desc: "Warm or cool white", price: 1999, unit: "from", basis: "from", lit: true, materials: [], tags: ["backlit", "warm white", "cool white", "led"], image: "d3-rohit-ananya" },
     // ---- Lamination & Stickers
-    { id: "scooty-lamination", cat: "Lamination & Stickers", name: "Scooty lamination", desc: "Partial or full body", price: 799, unit: "from", basis: "from", lit: false, materials: [], tags: ["scooty", "wrap", "body"], image: "i-vinyl-wrap" },
-    { id: "bike-lamination", cat: "Lamination & Stickers", name: "Bike lamination", desc: "Tank, mudguard, full wrap", price: 999, unit: "from", basis: "from", lit: false, materials: [], tags: ["bike", "tank", "mudguard", "wrap"], image: "i-vinyl-black" },
+    { id: "scooty-lamination", cat: "Lamination & Stickers", name: "Scooty lamination", desc: "Partial or full body", price: 799, unit: "from", basis: "from", lit: false, materials: [], tags: ["scooty", "wrap", "body"], image: "d36-scooty-sporty" },
+    { id: "bike-lamination", cat: "Lamination & Stickers", name: "Bike lamination", desc: "Tank, mudguard, full wrap", price: 999, unit: "from", basis: "from", lit: false, materials: [], tags: ["bike", "tank", "mudguard", "wrap"], image: "d34-bike-orange" },
     { id: "car-decal", cat: "Lamination & Stickers", name: "Car decal / graphics", desc: "Vinyl cut, any design", price: 399, unit: "from", basis: "from", lit: false, materials: ["Vinyl"], tags: ["car", "graphics", "vinyl cut"], image: "i-car-decal" },
     { id: "computerised-sticker", cat: "Lamination & Stickers", name: "Computerised sticker", desc: "Name, logo, small decals", price: 49, unit: "per piece", basis: "piece", lit: false, materials: ["Vinyl"], tags: ["decal", "logo", "name", "vinyl"], image: "i-vinyl-apply" }
   ];
@@ -60,6 +60,13 @@
   /** Alt text for card photos. "d*" are design pictures (assets/designs); "p*" are the shop's own photos (assets/shop); "i-*" are free-licence stock photos (assets/ideas),
       shown with an "Illustrative photo" badge – they show the product type, not Grafix Club's own work. */
   const IMAGE_ALT = {
+    "d32-bike-blue": "Bike lamination idea: sports bike with matte blue graphics",
+    "d33-bike-neon": "Bike lamination idea: sports bike with neon green graphics",
+    "d34-bike-orange": "Bike lamination idea: sports bike with orange graphics",
+    "d35-scooty-floral": "Scooty lamination idea: black scooty with pink flowers",
+    "d36-scooty-sporty": "Scooty lamination idea: white scooty with teal graphics",
+    "d37-scooty-matte": "Scooty lamination idea: matte black scooty with red graphics",
+    "d38-scooty-elegant": "Scooty lamination idea: white scooty with lilac graphics",
     "d1-ram-harleen": "Neon sign idea: two names in warm yellow script inside a pink neon heart",
     "d31-happy-place-orange": "Neon quote sign in orange script beside a palm plant",
     "d28-coffee": "Warm yellow Coffee neon sign with a cup on a clear backing",
@@ -71,8 +78,6 @@
     "d3-rohit-ananya": "Name plate idea: frosted plate with a warm backlight and script names",
     "i-plate-bike": "Motorbike number plate (illustrative photo)",
     "i-plate-car": "Car with a number plate (illustrative photo)",
-    "i-vinyl-wrap": "Installer applying blue vinyl to a car door (illustrative photo)",
-    "i-vinyl-black": "Installer smoothing black vinyl on a car (illustrative photo)",
     "i-car-decal": "Car with vinyl decals and graphics (illustrative photo)",
     "i-vinyl-apply": "Installer applying a white vinyl wrap to a car (illustrative photo)",
     p12: "3D acrylic number plates displayed at Grafix Club",

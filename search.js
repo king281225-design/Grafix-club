@@ -88,7 +88,7 @@
     const cat = C.catByName.get(p.cat);
     const tid = "t-" + p.id;
     const img = h("img", { src: (p.image.indexOf("i-") === 0 ? "assets/ideas/" : /^d\d/.test(p.image) ? "assets/designs/" : "assets/shop/") + p.image + ".jpg", alt: C.IMAGE_ALT[p.image] || p.name, width: "360", height: "360", loading: "lazy", decoding: "async" });
-    const imgBox = h("div", { class: p.image.indexOf("i-") === 0 ? "pcard-img stock" : "pcard-img" }, [img]);
+    const imgBox = h("div", { class: p.image.indexOf("i-") === 0 ? "pcard-img stock" : /^d3[2-8]/.test(p.image) ? "pcard-img concept" : "pcard-img" }, [img]);
     img.addEventListener("error", () => { imgBox.textContent = ""; imgBox.appendChild(h("div", { class: "state-box", text: "Photo unavailable" })); });
     const tags = h("ul", { class: "tags", "aria-label": "Features" });
     if (p.lit) tags.appendChild(h("li", { class: "tag", text: "Illuminated" }));

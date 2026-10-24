@@ -23,7 +23,8 @@
     { key: "plates", label: "Name plates" },
     { key: "neon", label: "Neon designs" },
     { key: "led", label: "LED boards" },
-    { key: "acrylic", label: "Acrylic" }
+    { key: "acrylic", label: "Acrylic" },
+    { key: "lamination", label: "Bike & scooty lamination" }
   ];
   /* every picture fills its card (cropped to 4:3); POS keeps the lettering in view on tall pictures */
   const POS = { "d2-sharma": "50% 12%", "d4-vinay-priyanka": "50% 48%", "d8-seemas-nivas": "50% 52%", "d9-nanak": "50% 28%", "d13-backlit-directory": "50% 12%", "d14-sawants": "50% 42%", "d16-sri-nivas": "50% 30%", "d17-sanu": "50% 45%", "d25-happy-birthday": "50% 48%", "d31-happy-place-orange": "50% 33%", "d24-open-welcome": "50% 42%", "d20-coffee-time": "50% 45%", "d22-gold-3d-letters": "50% 55%", "d19-dhruv": "50% 38%", "d11-cafe-board": "50% 22%" };
@@ -60,7 +61,14 @@
     I("ac-frosted", "acrylic", "Frosted acrylic lobby sign", "d23-frosted-acrylic", 900, 675, "Office sign idea: frosted acrylic panel on silver standoffs with black raised letters and a leaf logo", "acrylic-name-plate", "Frosted acrylic with raised letters"),
     I("ac-gold-leaf", "acrylic", "Black and gold leaf plate", "d5-priyanka-abhishek", 900, 600, "Name plate idea: black acrylic plate with gold mirror leaf motif and gold script names", "acrylic-name-plate", "Black acrylic with gold lettering"),
     I("ac-arch", "acrylic", "Arch plate with gold vine", "d4-vinay-priyanka", 842, 900, "Name plate idea: matte black arch-shaped plate with gold leaf vine, a house number and two names", "acrylic-name-plate", "Matte black arch plate"),
-    I("ac-gold-3d", "acrylic", "Gold 3D letters on black", "d9-nanak", 675, 900, "Name plate idea: matte black plate with raised gold 3D script lettering", "acrylic-name-plate", "Raised gold lettering")
+    I("ac-gold-3d", "acrylic", "Gold 3D letters on black", "d9-nanak", 675, 900, "Name plate idea: matte black plate with raised gold 3D script lettering", "acrylic-name-plate", "Raised gold lettering"),
+    I("lm-bike-blue", "lamination", "Matte blue bike graphics", "d32-bike-blue", 800, 600, "Bike lamination idea: sports bike with matte blue and white sharp-edged graphics over black", "bike-lamination", "Matte blue bike graphics"),
+    I("lm-bike-neon", "lamination", "Neon green bike graphics", "d33-bike-neon", 800, 600, "Bike lamination idea: sports bike with neon yellow-green slashes over a black body", "bike-lamination", "Neon edition bike graphics"),
+    I("lm-bike-orange", "lamination", "Orange graphic bike wrap", "d34-bike-orange", 800, 600, "Bike lamination idea: sports bike with bold orange tiger-stripe graphics over black", "bike-lamination", "Orange graphic bike wrap"),
+    I("lm-scooty-floral", "lamination", "Floral scooty wrap", "d35-scooty-floral", 800, 600, "Scooty lamination idea: black scooty with pink cherry blossom flowers on the front and side panels", "scooty-lamination", "Floral scooty wrap"),
+    I("lm-scooty-sporty", "lamination", "Sporty white and teal scooty", "d36-scooty-sporty", 800, 600, "Scooty lamination idea: white scooty with sharp teal and blue sporty graphics", "scooty-lamination", "Sporty scooty graphics"),
+    I("lm-scooty-matte", "lamination", "Matte black scooty with red", "d37-scooty-matte", 800, 600, "Scooty lamination idea: matte black scooty with dark red angular graphics", "scooty-lamination", "Matte finish scooty wrap"),
+    I("lm-scooty-elegant", "lamination", "Elegant white and lilac scooty", "d38-scooty-elegant", 800, 600, "Scooty lamination idea: white scooty with soft lilac and purple graphics", "scooty-lamination", "Elegant scooty graphics")
   ].sort((a, b) => ORDER.indexOf(a.cat) - ORDER.indexOf(b.cat));
   const byId = new Map(items.map(i => [i.id, i]));
   const catLabel = key => (CATS.find(c => c.key === key) || {}).label || key;
