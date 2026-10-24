@@ -25,6 +25,8 @@
     { key: "led", label: "LED boards" },
     { key: "acrylic", label: "Acrylic" }
   ];
+  /* every picture fills its card (cropped to 4:3); POS keeps the lettering in view on tall pictures */
+  const POS = { "d2-sharma": "50% 12%", "d4-vinay-priyanka": "50% 48%", "d8-seemas-nivas": "50% 52%", "d9-nanak": "50% 28%", "d13-backlit-directory": "50% 12%", "d11-cafe-board": "50% 22%" };
   const I = (id, cat, title, file, w, h, alt, product, sub) => ({ id, cat, title, file, w, h, alt, product, sub, priceText: priceText(product) });
   const ORDER = CATS.map(c => c.key);
   const items = [
@@ -56,7 +58,7 @@
   const cardHtml = i => {
     const on = fav.includes(i.id);
     return '<li class="coll-card" data-id="' + i.id + '" data-cat="' + i.cat + '">' +
-      '<div class="cw cw-photo"><img src="assets/designs/' + i.file + '.jpg" alt="' + esc(i.alt) + '" width="' + i.w + '" height="' + i.h + '" loading="lazy" decoding="async"></div>' +
+      '<div class="cw cw-photo"' + (POS[i.file] ? ' style="--pos:' + POS[i.file] + '"' : "") + '><img src="assets/designs/' + i.file + '.jpg" alt="' + esc(i.alt) + '" width="' + i.w + '" height="' + i.h + '" loading="lazy" decoding="async"></div>' +
       '<div class="coll-body"><div class="coll-top"><div><h3>' + esc(i.title) + '</h3><p class="coll-cat">' + esc(catLabel(i.cat)) + "</p></div>" +
         '<button type="button" class="fav" data-fav="' + i.id + '" aria-pressed="' + on + '" aria-label="Shortlist ' + esc(i.title) + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + N.find(N.ICONS, "heart").d + '"/></svg></button></div>' +
         '<p class="coll-meta">' + esc(i.sub) + ". Final design is confirmed on a mock-up.</p>" +
