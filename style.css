@@ -245,8 +245,17 @@ details p{color:var(--mute);padding-bottom:20px}
 .info-list a{color:#fff;text-decoration:underline;text-decoration-color:rgba(255,255,255,.25);text-underline-offset:3px}
 .info-list a:hover{color:var(--gold)}
 .open-now{display:inline-block;margin-left:10px;font-size:.82rem;font-weight:600}
-.map{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);min-height:380px;filter:invert(.92) hue-rotate(180deg) saturate(.85) brightness(.95) contrast(.95)}
-.map iframe{width:100%;height:100%;min-height:380px;border:0;display:block}
+.map{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);min-height:380px;background:#120f1c}
+.map iframe{width:100%;height:100%;min-height:380px;border:0;display:block;filter:invert(.92) hue-rotate(180deg) saturate(.85) brightness(.95) contrast(.95)}
+/* shown only when the page blocks the Google frame (see app.js), so there is never an empty box */
+.map-fallback{display:none;position:absolute;inset:0}
+.map.no-frame .map-fallback{display:block}
+.map.no-frame iframe{display:none}
+.mf-art{position:absolute;inset:0;width:100%;height:100%}
+.mf-card{position:absolute;left:16px;right:16px;bottom:16px;display:grid;gap:8px;padding:16px 18px;border-radius:14px;background:rgba(7,6,11,.9);border:1px solid var(--line)}
+.mf-card b{font:700 1.1rem var(--ff-d);color:var(--gold)}
+.mf-card span{color:#cfcfd6;font-size:.92rem;line-height:1.5}
+.mf-actions{margin-top:4px}
 .socials{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
 .soc{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;border:1px solid var(--line);background:rgba(255,255,255,.04);transition:.25s}
 .soc .ic{width:22px;height:22px}

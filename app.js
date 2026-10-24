@@ -127,5 +127,11 @@
   /* ---------- neon flicker on the hero heading ---------- */
   if (!reduce) setTimeout(() => $$("[data-flicker]").forEach((e, i) => { e.style.animationDelay = (i * .9) + "s"; e.classList.add("flick"); }), 1600);
 
+  /* ---------- map: if the page's security policy blocks the Google frame, show the address card instead of an empty box ---------- */
+  (function mapFallback() {
+    const box = $("#mapBox"); if (!box) return;
+    document.addEventListener("securitypolicyviolation", e => { if (/frame/.test(e.effectiveDirective || e.violatedDirective || "")) box.classList.add("no-frame"); });
+  })();
+
   const yr = $("#yr"); if (yr) yr.textContent = new Date().getFullYear();
 })();

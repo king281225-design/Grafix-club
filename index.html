@@ -928,8 +928,24 @@
         </div>
         <div class="socials" id="socialsVisit"></div>
       </div>
-      <div class="map reveal">
-        <iframe title="Grafix Club on Google Maps" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://maps.google.com/maps?q=Grafix%20Club%2C%20WZ-79%2FC6%2C%20Gali%20No%207%2C%20Virender%20Nagar%2C%20Janakpuri%2C%20Delhi%20110058&amp;output=embed"></iframe>
+      <div class="map reveal" id="mapBox">
+        <div class="map-fallback">
+          <svg class="mf-art" viewBox="0 0 600 380" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+          <rect width="600" height="380" fill="#120f1c"/>
+          <g fill="none" stroke="#2a2440" stroke-width="14" stroke-linecap="round"><path d="M-20 90 L620 60"/><path d="M-20 250 L620 290"/><path d="M120 -20 L160 400"/><path d="M430 -20 L400 400"/><path d="M-20 170 L620 190" stroke-width="22" stroke="#34294f"/></g>
+          <g fill="none" stroke="#221c36" stroke-width="6" stroke-linecap="round"><path d="M-20 130 L620 120"/><path d="M-20 215 L620 240"/><path d="M270 -20 L285 400"/><path d="M60 -20 L40 400"/><path d="M540 -20 L560 400"/></g>
+          <g fill="#1a1530"><rect x="190" y="95" width="70" height="52" rx="6"/><rect x="300" y="205" width="80" height="60" rx="6"/><rect x="450" y="110" width="70" height="46" rx="6"/><rect x="60" y="205" width="60" height="50" rx="6"/></g>
+          <ellipse cx="300" cy="188" rx="52" ry="16" fill="#ff2e93" opacity=".18"/>
+          <path d="M300 188 C283 160 270 146 270 126 a30 30 0 1 1 60 0 c0 20 -13 34 -30 62z" fill="#ff2e93"/>
+          <circle cx="300" cy="126" r="12" fill="#120f1c"/>
+        </svg>
+          <div class="mf-card">
+            <b>Grafix Club</b>
+            <span>WZ-79/C6, Gali No 7, Block VB, Virender Nagar, Opposite Dilli Heart, Janakpuri, Delhi 110058</span>
+            <span class="mf-actions"><a class="btn btn-gold" href="https://www.google.com/maps/search/?api=1&amp;query=Grafix+Club+WZ-79%2FC6+Gali+No+7+Virender+Nagar+Janakpuri+Delhi+110058" target="_blank" rel="noopener">Open in Google Maps<span class="sr-only"> (opens in a new tab)</span></a></span>
+          </div>
+        </div>
+        <iframe id="mapFrame" title="Grafix Club on Google Maps" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://maps.google.com/maps?q=Grafix%20Club%2C%20WZ-79%2FC6%2C%20Gali%20No%207%2C%20Virender%20Nagar%2C%20Janakpuri%2C%20Delhi%20110058&amp;output=embed"></iframe>
       </div>
     </div>
   </div>
