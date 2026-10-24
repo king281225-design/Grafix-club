@@ -26,7 +26,7 @@
     { key: "acrylic", label: "Acrylic" }
   ];
   /* every picture fills its card (cropped to 4:3); POS keeps the lettering in view on tall pictures */
-  const POS = { "d2-sharma": "50% 12%", "d4-vinay-priyanka": "50% 48%", "d8-seemas-nivas": "50% 52%", "d9-nanak": "50% 28%", "d13-backlit-directory": "50% 12%", "d14-sawants": "50% 42%", "d16-sri-nivas": "50% 30%", "d17-sanu": "50% 45%", "d20-coffee-time": "50% 45%", "d22-gold-3d-letters": "50% 55%", "d19-dhruv": "50% 38%", "d11-cafe-board": "50% 22%" };
+  const POS = { "d2-sharma": "50% 12%", "d4-vinay-priyanka": "50% 48%", "d8-seemas-nivas": "50% 52%", "d9-nanak": "50% 28%", "d13-backlit-directory": "50% 12%", "d14-sawants": "50% 42%", "d16-sri-nivas": "50% 30%", "d17-sanu": "50% 45%", "d25-happy-birthday": "50% 48%", "d31-happy-place-orange": "50% 33%", "d24-open-welcome": "50% 42%", "d20-coffee-time": "50% 45%", "d22-gold-3d-letters": "50% 55%", "d19-dhruv": "50% 38%", "d11-cafe-board": "50% 22%" };
   const I = (id, cat, title, file, w, h, alt, product, sub) => ({ id, cat, title, file, w, h, alt, product, sub, priceText: priceText(product) });
   const ORDER = CATS.map(c => c.key);
   const items = [
@@ -40,6 +40,14 @@
     I("pl-wood-brass", "plates", "Teak plate with brass figure", "d19-dhruv", 736, 736, "Name plate idea: teak wood plate with raised brass lettering, a house number, a flute and a brass figure", "steel-name-plate", "Teak and brass plate"),
     I("pl-coffee-time", "plates", "Black cut-out wall sign", "d20-coffee-time", 900, 900, "Wall sign idea: black laser-cut metal lettering with a coffee cup and bean on a light wood-panel wall", "steel-acrylic-letters", "Cut-out metal wall sign"),
     I("ne-heart", "neon", "Heart neon name sign", "d1-ram-harleen", 890, 755, "Neon sign idea: two names in warm yellow script inside a pink neon heart with small hearts, on a black wall", "neon-name-sign", "Neon name sign"),
+    I("ne-open", "neon", "Open welcome neon sign", "d24-open-welcome", 679, 679, "Neon sign idea: hanging open sign with pink OPEN letters, light-blue welcome script and a yellow border in a shop window", "neon-name-sign", "Hanging shop sign in three colours"),
+    I("ne-birthday", "neon", "Happy Birthday neon sign", "d25-happy-birthday", 720, 900, "Neon sign idea: Happy Birthday in blue script and pink block letters with three yellow neon stars on a wall", "neon-name-sign", "Party sign in blue, pink and yellow"),
+    I("ne-diwali", "neon", "Happy Diwali neon with diya", "d26-happy-diwali", 736, 723, "Neon sign idea: Happy Diwali in pink script with a blue and yellow diya lamp, hanging on a brick wall", "neon-name-sign", "Festival sign with diya"),
+    I("ne-shubh", "neon", "Shubh Deepawali neon in Hindi", "d27-shubh-deepawali", 736, 736, "Neon sign idea: Shubh Deepawali in Hindi, pink lettering with a yellow diya lamp, hanging on a chain", "neon-name-sign", "Hindi festival sign with diya"),
+    I("ne-coffee", "neon", "Coffee neon sign with cup", "d28-coffee", 736, 736, "Neon sign idea: warm yellow Coffee script with a steaming cup on a clear backing, on a brick wall", "neon-name-sign", "Cafe sign in warm yellow"),
+    I("ne-coffee-house", "neon", "Coffee House neon logo", "d29-coffee-house", 736, 736, "Neon sign idea: amber cup and house-roof line drawing with white Coffee House lettering on a dark wall", "neon-name-sign", "Cafe logo in amber and white"),
+    I("ne-happy-place-green", "neon", "Happy place neon with leaves", "d30-happy-place-green", 736, 736, "Neon sign idea: white this is my happy place script with two green neon leaf sprigs on a dark wall", "neon-name-sign", "Quote sign with green leaves"),
+    I("ne-happy-place", "neon", "Happy place neon quote", "d31-happy-place-orange", 863, 900, "Neon sign idea: orange neon quote THIS IS MY happy place in capitals and script beside a palm plant", "neon-name-sign", "Quote sign in orange"),
     I("led-krishna", "led", "Backlit plate with Krishna motif", "d3-rohit-ananya", 900, 600, "Name plate idea: frosted acrylic plate with a warm backlight, a flute-and-feather motif and two names", "led-name-plate", "Backlit LED name plate"),
     I("led-om-wood", "led", "Wood plate with Om and warm glow", "d6-flat-104", 900, 600, "Name plate idea: carved wood plate with an Om symbol, gold lettering and a warm backlight", "led-name-plate", "Carved wood plate with LED backlight"),
     I("led-om-stone", "led", "Backlit Om plate on stone", "d8-seemas-nivas", 661, 900, "Name plate idea: black plate with an Om symbol and a warm halo glow, mounted on a stone wall", "led-name-plate", "Backlit plate with halo glow"),
