@@ -35,21 +35,21 @@
 
   const PRODUCTS = [
     // ---- Neon Signs
-    { id: "neon-name-sign", cat: "Neon Signs", name: "Custom neon name sign", desc: "Up to 2 ft wide, 12V LED neon", price: 2499, unit: "from", basis: "from", lit: true, materials: ["LED neon"], tags: ["name", "birthday", "wedding", "custom", "cafe"], image: "i-neon-script", studio: "name" },
-    { id: "neon-logo-quote", cat: "Neon Signs", name: "Custom neon logo / quote", desc: "Priced by area, any colour", price: 800, unit: "per sq ft", basis: "sqft", lit: true, materials: ["LED neon"], tags: ["logo", "quote", "business", "custom"], image: "i-neon-quote", studio: "name" },
-    { id: "neon-acrylic-backboard", cat: "Neon Signs", name: "Neon + acrylic backboard", desc: "Cut-to-shape or rectangle", price: 1000, unit: "per sq ft", basis: "sqft", lit: true, materials: ["LED neon", "Acrylic"], tags: ["backboard", "backing"], image: "i-neon-shop", studio: "backboard" },
+    { id: "neon-name-sign", cat: "Neon Signs", name: "Custom neon name sign", desc: "Up to 2 ft wide, 12V LED neon", price: 2499, unit: "from", basis: "from", lit: true, materials: ["LED neon"], tags: ["name", "birthday", "wedding", "custom", "cafe"], image: "d1-ram-harleen", studio: "name" },
+    { id: "neon-logo-quote", cat: "Neon Signs", name: "Custom neon logo / quote", desc: "Priced by area, any colour", price: 800, unit: "per sq ft", basis: "sqft", lit: true, materials: ["LED neon"], tags: ["logo", "quote", "business", "custom"], image: "d31-happy-place-orange", studio: "name" },
+    { id: "neon-acrylic-backboard", cat: "Neon Signs", name: "Neon + acrylic backboard", desc: "Cut-to-shape or rectangle", price: 1000, unit: "per sq ft", basis: "sqft", lit: true, materials: ["LED neon", "Acrylic"], tags: ["backboard", "backing"], image: "d28-coffee", studio: "backboard" },
     // ---- LED Boards
-    { id: "led-shop-board", cat: "LED Boards", name: "LED shop sign board", desc: "Backlit, outdoor-ready", price: 600, unit: "per sq ft", basis: "sqft", lit: true, materials: [], tags: ["shop", "outdoor", "signage", "backlit", "signboard"], image: "i-led-shopfront" },
-    { id: "acrylic-led-letters", cat: "LED Boards", name: "3D acrylic LED letters", desc: "Front-lit or halo-lit", price: 750, unit: "per sq ft", basis: "sqft", lit: true, materials: ["Acrylic"], tags: ["3d", "front-lit", "halo-lit", "letters", "shop"], image: "i-led-letters" },
-    { id: "steel-acrylic-letters", cat: "LED Boards", name: "Steel / acrylic letters", desc: "Brushed steel, gold, black", price: 150, unit: "per inch", basis: "inch", lit: false, materials: ["Steel", "Acrylic"], tags: ["letters", "gold", "black", "brushed"], image: "i-steel-letters" },
+    { id: "led-shop-board", cat: "LED Boards", name: "LED shop sign board", desc: "Backlit, outdoor-ready", price: 600, unit: "per sq ft", basis: "sqft", lit: true, materials: [], tags: ["shop", "outdoor", "signage", "backlit", "signboard"], image: "d12-restaurant-board" },
+    { id: "acrylic-led-letters", cat: "LED Boards", name: "3D acrylic LED letters", desc: "Front-lit or halo-lit", price: 750, unit: "per sq ft", basis: "sqft", lit: true, materials: ["Acrylic"], tags: ["3d", "front-lit", "halo-lit", "letters", "shop"], image: "d10-halo-letters" },
+    { id: "steel-acrylic-letters", cat: "LED Boards", name: "Steel / acrylic letters", desc: "Brushed steel, gold, black", price: 150, unit: "per inch", basis: "inch", lit: false, materials: ["Steel", "Acrylic"], tags: ["letters", "gold", "black", "brushed"], image: "d2-sharma" },
     // ---- Number Plates
     { id: "bike-3d-plate", cat: "Number Plates", name: "3D acrylic number plate, bike", desc: "Black, white or carbon finish", price: 349, unit: "per plate", basis: "piece", lit: false, materials: ["Acrylic"], tags: ["bike", "3d", "carbon", "raised letters"], image: "i-plate-bike" },
     { id: "car-3d-plate", cat: "Number Plates", name: "3D acrylic number plate, car", desc: "Pair, raised letters", price: 799, unit: "per pair", basis: "piece", lit: false, materials: ["Acrylic"], tags: ["car", "3d", "pair", "raised letters"], image: "i-plate-car" },
     { id: "led-edge-plate", cat: "Number Plates", name: "LED edge-lit plate", desc: "Illuminated border", price: 1499, unit: "per pair", basis: "piece", lit: true, materials: [], tags: ["edge-lit", "border", "led"], image: "p12" },
     // ---- Name Plates
-    { id: "acrylic-name-plate", cat: "Name Plates", name: "Acrylic name plate", desc: "Home, office, clinic", price: 699, unit: "from", basis: "from", lit: false, materials: ["Acrylic"], tags: ["home", "office", "clinic"], image: "p9" },
-    { id: "steel-name-plate", cat: "Name Plates", name: "Steel letter name plate", desc: "Gold / silver / black", price: 1499, unit: "from", basis: "from", lit: false, materials: ["Steel"], tags: ["gold", "silver", "black", "letters"], image: "p9" },
-    { id: "led-name-plate", cat: "Name Plates", name: "LED backlit name plate", desc: "Warm or cool white", price: 1999, unit: "from", basis: "from", lit: true, materials: [], tags: ["backlit", "warm white", "cool white", "led"], image: "p9" },
+    { id: "acrylic-name-plate", cat: "Name Plates", name: "Acrylic name plate", desc: "Home, office, clinic", price: 699, unit: "from", basis: "from", lit: false, materials: ["Acrylic"], tags: ["home", "office", "clinic"], image: "d5-priyanka-abhishek" },
+    { id: "steel-name-plate", cat: "Name Plates", name: "Steel letter name plate", desc: "Gold / silver / black", price: 1499, unit: "from", basis: "from", lit: false, materials: ["Steel"], tags: ["gold", "silver", "black", "letters"], image: "d7-solanki" },
+    { id: "led-name-plate", cat: "Name Plates", name: "LED backlit name plate", desc: "Warm or cool white", price: 1999, unit: "from", basis: "from", lit: true, materials: [], tags: ["backlit", "warm white", "cool white", "led"], image: "d3-rohit-ananya" },
     // ---- Lamination & Stickers
     { id: "scooty-lamination", cat: "Lamination & Stickers", name: "Scooty lamination", desc: "Partial or full body", price: 799, unit: "from", basis: "from", lit: false, materials: [], tags: ["scooty", "wrap", "body"], image: "i-vinyl-wrap" },
     { id: "bike-lamination", cat: "Lamination & Stickers", name: "Bike lamination", desc: "Tank, mudguard, full wrap", price: 999, unit: "from", basis: "from", lit: false, materials: [], tags: ["bike", "tank", "mudguard", "wrap"], image: "i-vinyl-black" },
@@ -57,27 +57,25 @@
     { id: "computerised-sticker", cat: "Lamination & Stickers", name: "Computerised sticker", desc: "Name, logo, small decals", price: 49, unit: "per piece", basis: "piece", lit: false, materials: ["Vinyl"], tags: ["decal", "logo", "name", "vinyl"], image: "i-vinyl-apply" }
   ];
 
-  /** Alt text for card photos. "p*" are the shop's own photos (assets/shop); "i-*" are free-licence stock photos (assets/ideas),
+  /** Alt text for card photos. "d*" are design pictures (assets/designs); "p*" are the shop's own photos (assets/shop); "i-*" are free-licence stock photos (assets/ideas),
       shown with an "Illustrative photo" badge – they show the product type, not Grafix Club's own work. */
   const IMAGE_ALT = {
-    "i-neon-script": "Pink neon sign shaped like a hand (illustrative photo)",
-    "i-neon-quote": "White neon quote sign on a dark wall (illustrative photo)",
-    "i-neon-shop": "Red and blue neon signs in a shop window (illustrative photo)",
-    "i-led-shopfront": "Lit signboards on a shopfront at night (illustrative photo)",
-    "i-led-letters": "Illuminated LED signboard with lit lettering (illustrative photo)",
-    "i-steel-letters": "Raised metal number on a wall (illustrative photo)",
+    "d1-ram-harleen": "Neon sign idea: two names in warm yellow script inside a pink neon heart",
+    "d31-happy-place-orange": "Neon quote sign in orange script beside a palm plant",
+    "d28-coffee": "Warm yellow Coffee neon sign with a cup on a clear backing",
+    "d12-restaurant-board": "Shop sign idea: black fascia board with glowing warm script lettering",
+    "d10-halo-letters": "Halo-lit cream 3D script letters on a dark slat facade",
+    "d2-sharma": "Name sign idea: black cut-out lettering on a textured wall",
+    "d5-priyanka-abhishek": "Name plate idea: black acrylic plate with gold leaf motif and gold script names",
+    "d7-solanki": "Name plate idea: walnut plate with a brass frame and raised brass lettering",
+    "d3-rohit-ananya": "Name plate idea: frosted plate with a warm backlight and script names",
     "i-plate-bike": "Motorbike number plate (illustrative photo)",
     "i-plate-car": "Car with a number plate (illustrative photo)",
     "i-vinyl-wrap": "Installer applying blue vinyl to a car door (illustrative photo)",
     "i-vinyl-black": "Installer smoothing black vinyl on a car (illustrative photo)",
     "i-car-decal": "Car with vinyl decals and graphics (illustrative photo)",
     "i-vinyl-apply": "Installer applying a white vinyl wrap to a car (illustrative photo)",
-    p7: "Custom neon sign being made",
-    p1: "Illuminated LED signboard with gold lettering",
     p12: "3D acrylic number plates displayed at Grafix Club",
-    p9: "Wall of acrylic name plates",
-    p11: "Vinyl rolls and cutting machine in the workshop",
-    p10: "Steel letters and cut-outs"
   };
 
   /* ---------------- facets ---------------- */
