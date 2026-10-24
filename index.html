@@ -749,7 +749,7 @@
     <header class="sec-head reveal">
       <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Neon Studio</p>
       <h2 id="studio-h">Design your own <em>neon sign</em> live.</h2>
-      <p class="lead">Type your text, choose a style, colour, size and backing, and see an approximate preview with an estimate. Send it to us and we will confirm the final design and price.</p>
+      <p class="lead">Type your text, pick a font, colour, size and background, and see a live preview with an estimate. Send it to us and we will confirm the final design and price.</p>
     </header>
 
     <noscript>
@@ -773,7 +773,11 @@
           <span id="presetsLabel">Start from an example, or <a class="text-link" href="#collection">browse the design collection</a>:</span>
           <div id="presets" role="group" aria-labelledby="presetsLabel"></div>
         </div>
+      </div>
 
+      <div class="studio-right">
+        <h3 class="studio-sub" id="studio-form-start" tabindex="-1">Customise your sign</h3>
+        <form class="controls" id="studioForm" novalidate aria-labelledby="studio-form-start"></form>
         <section class="estimate-card" aria-labelledby="est-h">
           <h3 id="est-h">Your estimate</h3>
           <p class="est-line"><span id="estPrefix"></span> <b id="estTotal">–</b></p>
@@ -784,11 +788,6 @@
             <p id="howText"></p>
           </details>
         </section>
-      </div>
-
-      <div class="studio-right">
-        <h3 class="studio-sub" id="studio-form-start" tabindex="-1">Customise your sign</h3>
-        <form class="controls" id="studioForm" novalidate aria-labelledby="studio-form-start"></form>
         <section class="send-box" aria-labelledby="send-h">
           <h3 id="send-h">Send your design to us</h3>
           <div class="send-row">

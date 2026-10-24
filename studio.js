@@ -21,24 +21,20 @@
   }).join("");
   const fieldset = (legend, body, id, cls) => '<fieldset class="field' + (cls ? " " + cls : "") + '"' + (id ? ' id="' + id + '"' : "") + "><legend>" + legend + "</legend>" + body + "</fieldset>";
 
-  /** Font chips grouped by style; each chip is drawn in its own font. */
-  function fontGroupsHtml() {
-    const groups = [];
-    N.FONTS.forEach(ft => { let g = groups.find(x => x.name === ft.group); if (!g) groups.push(g = { name: ft.group, items: [] }); g.items.push(ft); });
-    let first = true;
-    return groups.map(g => '<div class="chip-group" role="group" aria-label="' + esc(g.name) + '"><p class="group-h">' + esc(g.name) + '</p><div class="chips">' + g.items.map(ft => {
-      const html = '<label class="ochip chip-font"><input type="radio" name="font" value="' + ft.key + '"' + (first ? " checked" : "") + '><span class="chip-body"><span class="chip-t"' + (ft.deva ? ' lang="hi"' : "") + ' style="font-family:' + ft.css + '">' + esc(ft.label) + "</span></span></label>";
-      first = false; return html;
-    }).join("") + "</div></div>").join("");
-  }
+  /** The 15 style buttons, each drawn in its own font. */
+  const fontButtonsHtml = () => '<div class="font-grid">' + N.FONTS.map((ft, i) =>
+    '<label class="fbtn"><input type="radio" name="font" value="' + ft.key + '"' + (i === 0 ? " checked" : "") + '><span class="fbtn-t" style="font-family:' + ft.css + '">' + esc(ft.label) + "</span></label>").join("") + "</div>";
 
-  const stepH = (n, t) => '<h4 class="step"><span class="step-n" aria-hidden="true">' + n + "</span>" + t + "</h4>";
-  const SIZES = [{ w: 2, label: "Regular" }, { w: 3, label: "Medium" }, { w: 4, label: "Large" }, { w: 5, label: "Extra large" }];
-  const sizeCardsHtml = () => '<div class="chips size-cards">' + SIZES.map(z =>
-    '<label class="ochip size-card"><input type="radio" name="sizepreset" value="' + z.w + '"><span class="chip-body"><span class="chip-t">' + z.label + '</span><small class="chip-h" id="sz-dim-' + z.w + '"></small><b class="sz-price" id="sz-price-' + z.w + '"></b></span></label>').join("") + "</div>";
+  const head = (id, title, nameId, extra) => '<div class="cfg-head"><h4 id="' + id + '">' + title + "</h4>" + (nameId ? '<b class="sel-name" id="' + nameId + '"></b>' : "") + (extra || "") + "</div>";
+  const sizeCardsHtml = () => '<div class="size-grid">' + N.SIZES.map((z, i) =>
+    '<label class="szc"><input type="radio" name="size" value="' + z.key + '"' + (i === 0 ? " checked" : "") + '><span class="szc-body"><span class="szc-head">' + z.label + "</span>" +
+    '<span class="szc-row"><span>Width</span><b>' + z.w + ' inches</b></span><span class="szc-row"><span>Height</span><b>' + z.h + " inches</b></span></span></label>").join("") + "</div>";
+  const WALL_LABEL = { photo: "Custom Background" };
+  const bgThumbsHtml = () => '<div class="bg-grid">' + N.BACKDROPS.concat([{ key: "photo", label: WALL_LABEL.photo }]).map((o, i) =>
+    '<label class="bgc"><input type="radio" name="bg" value="' + o.key + '"' + (i === 0 ? " checked" : "") + '><span class="bgc-body"><span class="bgt bgt-' + o.key + '" aria-hidden="true">' + (o.key === "photo" ? '<svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 16V5m0 0l-4 4m4-4l4 4M5 19h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : "") + '</span><span class="bgc-t">' + esc(o.label) + "</span></span></label>").join("") + "</div>";
 
   const formHtml =
-    stepH(1, "Type your text") +
+    head("h-text", "Your Text") +
     '<div class="field">' +
       '<div class="field-row"><label for="f-l1">Line 1 <em class="req">(required)</em></label><span class="count" id="c-l1" aria-hidden="true"></span></div>' +
       '<input type="text" id="f-l1" name="l1" maxlength="60" autocomplete="off" spellcheck="false" aria-describedby="m-l1" value="">' +
@@ -49,38 +45,20 @@
       '<input type="text" id="f-l2" name="l2" maxlength="60" autocomplete="off" spellcheck="false" aria-describedby="m-l2" value="">' +
       '<p class="msg" id="m-l2" aria-live="polite"></p>' +
     "</div>" +
-    stepH(2, "Pick your font") +
-    fieldset('Style: <b id="fontName"></b>', fontGroupsHtml()) +
-    stepH(3, "Select your colour") +
-    fieldset('Colour: <b id="colorName"></b>', '<div class="swatches">' + N.COLORS.map((c, i) =>
-      '<label class="swatch" style="--c:' + c.hex + '"><input type="radio" name="color" value="' + c.key + '"' + (i === 0 ? " checked" : "") + '><span class="sw-dot" aria-hidden="true"></span><span class="sr-only">' + esc(c.label) + "</span></label>").join("") +
-      '<label class="swatch swatch-custom" id="customSwatch" style="--c:#ff2e93"><input type="radio" name="color" value="custom"><span class="sw-dot" aria-hidden="true"></span><span class="sr-only">Custom colour</span></label>' +
-      '<label class="custom-pick" for="f-custom">Pick your own <input type="color" id="f-custom" name="custom" value="#ff2e93"></label></div>' +
-      '<p class="msg" id="m-color" aria-live="polite"></p>') +
-    '<div class="field" id="c2Field" hidden>' +
-      '<label for="f-c2">Line 2 colour <em class="opt">(optional, for a two-colour sign)</em></label>' +
-      '<select id="f-c2" name="c2"><option value="">Same as line 1</option>' + N.COLORS.map(c => '<option value="' + c.key + '">' + esc(c.label) + "</option>").join("") + "</select>" +
-    "</div>" +
-    stepH(4, "Select your size") +
-    fieldset('Size: <b id="sizeName"></b>', sizeCardsHtml() + '<p class="hint">Heights are approximate: they depend on your lettering style and number of lines. The price on each card is the estimate for your text at that width.</p>') +
-    '<div class="field">' +
-      '<div class="field-row"><label for="f-w">Exact width <em class="opt">(or pick a size above)</em></label><output id="widthOut" for="f-w"></output></div>' +
-      '<input type="range" id="f-w" name="width" min="' + N.LIMITS.wMin + '" max="' + N.LIMITS.wMax + '" step="' + N.LIMITS.wStep + '" value="3" aria-describedby="h-w">' +
-      '<p class="hint" id="h-w">From ' + N.LIMITS.wMin + " to " + N.LIMITS.wMax + " feet. Height follows from the style and number of lines.</p>" +
-    "</div>" +
-    stepH(5, "Add-ons") +
-    fieldset("Backing", '<div class="chips col">' + radios("backing", N.BACKINGS) + "</div>") +
-    fieldset("Where will it be used?", '<div class="chips">' + radios("use", N.USES) + "</div>") +
-    fieldset("Mounting and fitting", '<div class="chips">' + radios("fit", N.FITTINGS) + "</div>") +
-    fieldset("Symbol (optional)", '<div class="chips">' + radios("icon", N.ICONS, o => (o.d ? '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="' + o.d + '" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>' : "") + '<span class="chip-t">' + esc(o.label) + "</span>") + "</div>") +
-    '<div class="own-design"><b>Have your own logo or design?</b><p>Send it to us on WhatsApp and we will reply with a mock-up and a price.</p><a class="btn btn-ghost btn-sm" id="ownDesign" target="_blank" rel="noopener">WhatsApp us your design<span class="sr-only"> (opens in a new tab)</span></a></div>' +
-    stepH(6, "Make it yours") +
-    fieldset("Preview background", '<div class="chips bg-chips">' +
-      radios("bg", N.BACKDROPS.concat([{ key: "custom", label: "Your colour", c: "" }, { key: "photo", label: "Your wall photo", c: "" }]), o =>
-        '<span class="bg-dot' + (o.key === "custom" ? " bg-custom" : o.key === "photo" ? " bg-photo" : "") + '" style="--b:' + (o.c || "#888") + '" aria-hidden="true"></span><span class="chip-t">' + esc(o.label) + "</span>") + "</div>" +
-      '<div class="bg-extra" id="bgCustomRow" hidden><label class="custom-pick" for="f-bgcolor">Wall colour <input type="color" id="f-bgcolor" name="bgcolor" value="#1b1b2f"></label></div>' +
+    '<fieldset class="field cfg-sec" aria-labelledby="h-font"><legend class="sr-only">Pick Your Font</legend>' + head("h-font", "Pick Your Font", "fontName") + fontButtonsHtml() + "</fieldset>" +
+    '<fieldset class="field cfg-sec" aria-labelledby="h-colour"><legend class="sr-only">Select Your Colour</legend>' + head("h-colour", "Select Your Colour", "colorName") +
+      '<div class="swatches">' + N.COLORS.map((c, i) =>
+        '<label class="swatch" style="--c:' + c.hex + '"><input type="radio" name="color" value="' + c.key + '"' + (i === 1 ? " checked" : "") + '><span class="sw-dot" aria-hidden="true"></span><span class="sr-only">' + esc(c.label) + "</span></label>").join("") + "</div>" +
+      '<div class="field c2-field" id="c2Field" hidden><label for="f-c2">Line 2 colour <em class="opt">(optional, for a two-colour sign)</em></label>' +
+      '<select id="f-c2" name="c2"><option value="">Same as line 1</option>' + N.COLORS.map(c => '<option value="' + c.key + '">' + esc(c.label) + "</option>").join("") + "</select></div>" +
+      '<p class="msg" id="m-color" aria-live="polite"></p></fieldset>' +
+    '<fieldset class="field cfg-sec" aria-labelledby="h-size"><legend class="sr-only">Select Size</legend>' +
+      head("h-size", "Select Size", "sizeName", '<button type="button" class="help-btn" id="sizeHelpBtn" aria-expanded="false" aria-controls="sizeHelp"><span aria-hidden="true">?</span><span class="sr-only">What do these sizes mean?</span></button>') +
+      '<p class="help-pop" id="sizeHelp" role="note" hidden>These dimensions are the physical size of the lettering for each option, in inches. The full sign gets longer as you add more text. The sign you see on screen is a proportional representation, not an exact measurement, and we confirm the final size on your mock-up.</p>' +
+      sizeCardsHtml() + "</fieldset>" +
+    '<fieldset class="field cfg-sec" aria-labelledby="h-bg"><legend class="sr-only">Choose Your Background</legend>' + head("h-bg", "Choose Your Background", "bgName") + bgThumbsHtml() +
       '<div class="bg-extra" id="bgPhotoRow" hidden>' +
-        '<label for="f-bgfile">Photo of your wall <em class="opt">(PNG, JPG or WebP)</em></label>' +
+        '<label for="f-bgfile">Upload a photo of your wall or room <em class="opt">(PNG, JPG or WebP)</em></label>' +
         '<input type="file" id="f-bgfile" accept="image/png,image/jpeg,image/webp" aria-describedby="h-bgfile m-bg">' +
         '<p class="hint" id="h-bgfile">Up to ' + CONFIG.maxUploadMB + " MB. It stays on your device and is only used for this preview, so it is not sent or saved. If you want us to see your wall, attach the same photo in the chat.</p>" +
         '<p class="msg" id="m-bg" aria-live="polite"></p>' +
@@ -88,19 +66,26 @@
         '<input type="range" id="f-dim" name="dim" min="0" max="70" step="5" value="35" hidden>' +
         '<button type="button" class="btn btn-ghost btn-sm" id="bgRemove" hidden>Remove wall photo</button>' +
       "</div>" +
-      '<p class="hint">Only changes how the preview looks, so you can imagine the sign on your own wall. It never changes the price.</p>') +
-    '<div class="field">' +
-      '<div class="field-row"><label for="f-n">Notes for our team <em class="opt">(optional)</em></label><span class="count" id="c-n" aria-hidden="true"></span></div>' +
-      '<textarea id="f-n" name="notes" rows="3" maxlength="400" aria-describedby="m-n"></textarea>' +
-      '<p class="msg" id="m-n" aria-live="polite"></p>' +
-    "</div>" +
-    '<div class="field">' +
-      '<label for="f-file">Reference image or PDF <em class="opt">(optional)</em></label>' +
-      '<input type="file" id="f-file" accept="image/png,image/jpeg,image/webp,application/pdf" aria-describedby="h-file m-file">' +
-      '<p class="hint" id="h-file">PNG, JPG, WebP or PDF, up to ' + CONFIG.maxUploadMB + " MB. It stays on your device. WhatsApp links cannot attach files, so after the chat opens, attach the same file there.</p>" +
-      '<p class="msg" id="m-file" aria-live="polite"></p>' +
-      '<div class="file-chip" id="fileChip" hidden></div>' +
-    "</div>" +
+      '<p class="hint">Only changes how the preview looks, so you can imagine the sign on your own wall. It never changes the price.</p></fieldset>' +
+    '<details class="cfg-more" id="cfgMore"><summary>More options: backing, outdoor use, fitting, symbol, notes</summary>' +
+      fieldset("Backing", '<div class="chips col">' + radios("backing", N.BACKINGS) + "</div>") +
+      fieldset("Where will it be used?", '<div class="chips">' + radios("use", N.USES) + "</div>") +
+      fieldset("Mounting and fitting", '<div class="chips">' + radios("fit", N.FITTINGS) + "</div>") +
+      fieldset("Symbol (optional)", '<div class="chips">' + radios("icon", N.ICONS, o => (o.d ? '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="' + o.d + '" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>' : "") + '<span class="chip-t">' + esc(o.label) + "</span>") + "</div>") +
+      '<div class="field">' +
+        '<div class="field-row"><label for="f-n">Notes for our team <em class="opt">(optional)</em></label><span class="count" id="c-n" aria-hidden="true"></span></div>' +
+        '<textarea id="f-n" name="notes" rows="3" maxlength="400" aria-describedby="m-n"></textarea>' +
+        '<p class="msg" id="m-n" aria-live="polite"></p>' +
+      "</div>" +
+      '<div class="field">' +
+        '<label for="f-file">Reference image or PDF <em class="opt">(optional)</em></label>' +
+        '<input type="file" id="f-file" accept="image/png,image/jpeg,image/webp,application/pdf" aria-describedby="h-file m-file">' +
+        '<p class="hint" id="h-file">PNG, JPG, WebP or PDF, up to ' + CONFIG.maxUploadMB + " MB. It stays on your device. WhatsApp links cannot attach files, so after the chat opens, attach the same file there.</p>" +
+        '<p class="msg" id="m-file" aria-live="polite"></p>' +
+        '<div class="file-chip" id="fileChip" hidden></div>' +
+      "</div>" +
+    "</details>" +
+    '<div class="own-design"><b>Have your own logo or design?</b><p>Send it to us on WhatsApp and we will reply with a mock-up and a price.</p><a class="btn btn-ghost btn-sm" id="ownDesign" target="_blank" rel="noopener">WhatsApp us your design<span class="sr-only"> (opens in a new tab)</span></a></div>' +
     '<div class="form-actions"><button type="button" class="btn btn-ghost" id="resetBtn">Reset design</button></div>';
 
   const form = $("#studioForm");
@@ -112,15 +97,13 @@
   /* ---------------- state ---------------- */
   let bgUrl = "", bgImg = null, file = null, fileUrl = "", lastCfg = N.normalize(N.DEFAULTS).config, valid = true, touchedSend = false, restoredNote = "";
 
-  const readRaw = () => ({ t: [f.l1.value, f.l2.value], f: f.font.value, c: f.color.value === "custom" ? f.custom.value : f.color.value, c2: f.c2.value, g: f.bg.value, gc: f.bgcolor.value, w: f.width.value, b: f.backing.value, u: f.use.value, x: f.fit.value, i: f.icon.value, n: f.notes.value });
+  const readRaw = () => ({ t: [f.l1.value, f.l2.value], f: f.font.value, c: f.color.value, c2: f.c2.value, g: f.bg.value, z: f.size.value, b: f.backing.value, u: f.use.value, x: f.fit.value, i: f.icon.value, n: f.notes.value });
   function writeCfg(cfg) {
-    f.l1.value = cfg.t[0]; f.l2.value = cfg.t[1] || ""; f.font.value = cfg.f;
-    if (/^#/.test(cfg.c)) { f.color.value = "custom"; f.custom.value = cfg.c; } else f.color.value = cfg.c;
-    f.c2.value = cfg.c2 || ""; f.bg.value = cfg.g || "night"; if (cfg.gc) f.bgcolor.value = cfg.gc; f.width.value = cfg.w;
+    f.l1.value = cfg.t[0]; f.l2.value = cfg.t[1] || ""; f.font.value = cfg.f; f.color.value = cfg.c;
+    f.c2.value = cfg.c2 || ""; f.bg.value = cfg.g || "mauve"; f.size.value = cfg.z;
     f.backing.value = cfg.b; f.use.value = cfg.u; f.fit.value = cfg.x; f.icon.value = cfg.i; f.notes.value = cfg.n || "";
+    if (cfg.b !== "none" || cfg.u !== "indoor" || cfg.x !== "pickup" || cfg.i !== "none" || cfg.n) el("cfgMore").open = true;
   }
-  f.custom.addEventListener("input", () => { f.color.value = "custom"; });
-  f.bgcolor.addEventListener("input", () => { f.bg.value = "custom"; });
   const baseUrl = () => location.href.split(/[?#]/)[0];
   const designUrl = cfg => (location.protocol === "file:" ? "" : baseUrl() + "?design=" + N.encode(cfg) + "#studio");
 
@@ -132,7 +115,7 @@
   const addCss = href => { const link = document.createElement("link"); link.rel = "stylesheet"; link.href = href; document.head.appendChild(link); };
   function needFont(key) {
     if (!fontsRequested) return;
-    const ft = N.find(N.FONTS, key); if (loadedFonts.has(ft.gf)) return; loadedFonts.add(ft.gf);
+    const ft = N.fontOf(key); if (loadedFonts.has(ft.gf)) return; loadedFonts.add(ft.gf);
     addCss("https://fonts.googleapis.com/css2?" + gfFamily(ft) + "&display=swap");
     if (document.fonts) document.fonts.load('48px "' + ft.gf + '"').catch(() => {});
   }
@@ -141,7 +124,7 @@
     const glyphs = Array.from(new Set(N.FONTS.map(ft => ft.label).join(""))).join("");
     addCss("https://fonts.googleapis.com/css2?" + N.FONTS.map(gfFamily).join("&") + "&text=" + encodeURIComponent(glyphs) + "&display=swap");
     if (document.fonts) document.fonts.addEventListener("loadingdone", () => draw(lastCfg, photoOpt()));
-    needFont(lastCfg.f);
+    needFont(drawFont(lastCfg).key);
   }
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { ensureFonts(); io.disconnect(); } }, { rootMargin: "700px 0px" });
@@ -157,6 +140,16 @@
     return n;
   }
   const tint = hex => { const n = parseInt(hex.slice(1), 16); const m = c => Math.round(c + (255 - c) * 0.82); return "rgb(" + m(n >> 16) + "," + m((n >> 8) & 255) + "," + m(n & 255) + ")"; };
+  /** Dark colours (blue, green) get a lighter glow so they still read as light; the tube itself keeps the exact hex. */
+  const glowOf = hex => {
+    const l = N.luminance(hex); if (l >= 0.5) return hex;
+    const n = parseInt(hex.slice(1), 16), t = Math.min(0.5, (0.5 - l) * 1.1), m = c => Math.round(c + (255 - c) * t);
+    return "rgb(" + m(n >> 16) + "," + m((n >> 8) & 255) + "," + m(n & 255) + ")";
+  };
+  /** Hindi letters need a font that has them; the preview falls back to Quirky when the chosen style has none. */
+  const DEVA = /[ऀ-ॿ]/;
+  const drawFont = cfg => { const ft = N.fontOf(cfg.f); return (DEVA.test(cfg.t.join("")) && !ft.deva) ? N.fontOf("quirky") : ft; };
+  const SCALE = { regular: 0.74, medium: 0.87, large: 1 };
 
   function measureWidth(text, fontCss, size) {
     const t = node("text", { "font-family": fontCss, "font-size": size, x: 0, y: 0, visibility: "hidden" }, svg);
@@ -168,39 +161,60 @@
   }
 
   const photoOpt = () => (f.bg.value === "photo" && bgImg ? { url: bgUrl, dim: +f.dim.value } : null);
-  /** Fills <defs> with the chosen wall (pattern or gradient) under the id gcWall. */
-  function paintWall(defs, cfg) {
+  /** Fills <defs> with the chosen wall under the id gcWall (a pattern or gradient) and returns extra overlay nodes to draw on top (texture). */
+  function paintWall(defs, cfg, W, H) {
     const pat = (w, h) => node("pattern", { id: "gcWall", width: w, height: h, patternUnits: "userSpaceOnUse" }, defs);
-    const grad = (c1, c2) => { const g = node("linearGradient", { id: "gcWall", x1: 0, y1: 0, x2: 0.6, y2: 1 }, defs); node("stop", { offset: "0", "stop-color": c1 }, g); node("stop", { offset: "1", "stop-color": c2 }, g); };
+    const grad = (c1, c2, id) => { const g = node("radialGradient", { id: id || "gcWall", cx: 0.5, cy: 0.42, r: 0.85 }, defs); node("stop", { offset: "0", "stop-color": c1 }, g); node("stop", { offset: "1", "stop-color": c2 }, g); };
     const dots = (p, color, pts) => pts.forEach(q => node("circle", { cx: q[0], cy: q[1], r: q[2] || 1.2, fill: color }, p));
+    // grain: fractal noise tinted by a colour matrix, drawn over the wall at a low opacity
+    const grain = (id, freq, alpha, rgb) => { const fl = node("filter", { id, x: 0, y: 0, width: "100%", height: "100%" }, defs); node("feTurbulence", { type: "fractalNoise", baseFrequency: freq, numOctaves: 3, seed: 7, result: "n" }, fl); node("feColorMatrix", { type: "matrix", values: "0 0 0 0 " + rgb[0] + " 0 0 0 0 " + rgb[1] + " 0 0 0 0 " + rgb[2] + " 0 0 0 " + alpha + " 0" }, fl); };
+    const overlays = [];
     switch (cfg.g) {
-      case "brick": { const p = pat(120, 60); node("rect", { width: 120, height: 60, fill: "#2d1713" }, p); node("path", { d: "M0 0h120M0 30h120M0 60h120M0 0v30M60 0v30M30 30v30M90 30v30", stroke: "#1b0e0c", "stroke-width": 3, fill: "none" }, p); break; }
-      case "wood": { const p = pat(90, 24); node("rect", { width: 90, height: 24, fill: "#2a1c12" }, p); node("path", { d: "M0 0v24M45 0v24", stroke: "#150e08", "stroke-width": 3, fill: "none" }, p); node("path", { d: "M18 0v24M66 0v24", stroke: "#36251a", "stroke-width": 1.5, fill: "none" }, p); break; }
-      case "light": { const p = pat(40, 40); node("rect", { width: 40, height: 40, fill: "#ddd7cd" }, p); dots(p, "#cfc8bc", [[12, 14], [29, 31]]); break; }
-      case "cream": { const p = pat(50, 50); node("rect", { width: 50, height: 50, fill: "#efe6d2" }, p); dots(p, "#e2d7bd", [[10, 12], [34, 20], [22, 40], [44, 44]]); break; }
-      case "marble": { const p = pat(400, 300); node("rect", { width: 400, height: 300, fill: "#e9e9ec" }, p); node("path", { d: "M-10 60C80 90 120 20 210 70S330 130 410 80M60 300C100 220 190 230 230 150S320 60 360 -10", stroke: "#c4c4cc", "stroke-width": 2.4, fill: "none", opacity: 0.8 }, p); node("path", { d: "M-10 200C60 170 150 210 220 190S340 230 410 190", stroke: "#d4d4da", "stroke-width": 1.4, fill: "none" }, p); break; }
-      case "concrete": { const p = pat(60, 60); node("rect", { width: 60, height: 60, fill: "#3b3e44" }, p); node("path", { d: "M0 59h60M59 0v59", stroke: "#2f3237", "stroke-width": 2, fill: "none" }, p); dots(p, "#45484f", [[9, 11], [38, 17], [22, 42], [51, 49], [15, 29]]); dots(p, "#34373c", [[28, 8], [45, 33], [6, 50]]); break; }
-      case "terracotta": { const p = pat(50, 50); node("rect", { width: 50, height: 50, fill: "#6a3524" }, p); dots(p, "#783d2a", [[10, 12], [34, 20], [22, 40], [44, 44]]); dots(p, "#5d2e1f", [[28, 6], [6, 34], [40, 8]]); break; }
-      case "black": { const p = pat(80, 80); node("rect", { width: 80, height: 80, fill: "#050507" }, p); break; }
-      case "navy": grad("#0b1330", "#16306a"); break;
-      case "purple": grad("#1b0833", "#4d1263"); break;
-      case "green": grad("#0a1f16", "#17452f"); break;
-      case "custom": { const p = pat(40, 40); node("rect", { width: 40, height: 40, fill: cfg.gc }, p); break; }
-      default: { const p = pat(80, 40); node("rect", { width: 80, height: 40, fill: "#100e17" }, p); node("path", { d: "M0 39h80M40 0v39", stroke: "#1a1724", "stroke-width": 2, fill: "none" }, p); }
+      case "brick": {
+        const p = pat(160, 80);
+        node("rect", { width: 160, height: 80, fill: "#1b0e0b" }, p);
+        [["#3d1c15", 2, 2, 74, 34], ["#34170f", 82, 2, 76, 34], ["#40201a", -38, 42, 74, 34], ["#351810", 42, 42, 74, 34], ["#3b1d16", 122, 42, 74, 34]].forEach(b => node("rect", { x: b[1], y: b[2], width: b[3], height: b[4], rx: 2, fill: b[0] }, p));
+        node("path", { d: "M8 8h50M90 10h60M52 48h56M10 66h40", stroke: "rgba(255,255,255,.05)", "stroke-width": 2, fill: "none" }, p);
+        grain("gcGrain", 0.9, 0.5, [0, 0, 0]); overlays.push("gcGrain"); break;
+      }
+      case "wood": {
+        const p = pat(240, 56);
+        node("rect", { width: 240, height: 56, fill: "#6b4423" }, p);
+        [["#7a4e29", 0, 26], ["#5f3b1d", 26, 30]].forEach(b => node("rect", { x: 0, y: b[1], width: 240, height: b[2], fill: b[0] }, p));
+        node("path", { d: "M0 25.5h240M0 55.5h240", stroke: "#2c1a0c", "stroke-width": 2.5, fill: "none" }, p);
+        node("path", { d: "M0 8c40-6 70 6 110 0s80-6 130 0M0 17c50 4 90-4 140 1s70 2 100-1M0 38c30-5 80 5 120 0s70-4 120 1M0 47c60 3 100-3 150 0s60 2 90 0", stroke: "rgba(40,22,8,.45)", "stroke-width": 1.2, fill: "none" }, p);
+        node("path", { d: "M70 3v22M170 30v24", stroke: "rgba(0,0,0,.35)", "stroke-width": 1.5 }, p);
+        grain("gcGrain", "0.02 0.6", 0.35, [0, 0, 0]); overlays.push("gcGrain"); break;
+      }
+      case "concrete": {
+        grad("#7b7e84", "#4a4d53");
+        grain("gcGrain", 0.65, 0.55, [0, 0, 0]); overlays.push("gcGrain");
+        const pores = pat(97, 83); node("rect", { width: 97, height: 83, fill: "none" }, pores); dots(pores, "rgba(30,30,34,.55)", [[9, 11, 1.1], [41, 23, 1.5], [70, 7, 0.9], [22, 58, 1.3], [84, 66, 1.1], [58, 74, 0.8], [33, 40, 0.8]]); dots(pores, "rgba(255,255,255,.12)", [[15, 30, 1.2], [63, 49, 1], [48, 12, 0.9]]);
+        pores.setAttribute("id", "gcPores"); overlays.push("pores"); break;
+      }
+      case "white": {
+        grad("#f4f1ec", "#d8d3ca");
+        grain("gcGrain", 0.8, 0.22, [0.35, 0.3, 0.25]); overlays.push("gcGrain"); break;
+      }
+      default: {   // mauve: dark purple plaster with a soft vignette
+        grad("#4a2a52", "#1c0d22");
+        grain("gcGrain", 0.75, 0.38, [0, 0, 0]); overlays.push("gcGrain");
+      }
     }
+    return overlays;
   }
 
   function draw(cfg, bgPhoto) {
-    const font = N.find(N.FONTS, cfg.f), color = N.colorOf(cfg.c);
+    const font = drawFont(cfg), color = N.colorOf(cfg.c);
     const color2 = cfg.t[1] && cfg.c2 ? N.colorOf(cfg.c2) : color, light = !bgPhoto && N.isLightWall(cfg);
     const lineColor = i => (i === 1 ? color2 : color);
     const lines = (cfg.t[1] ? [cfg.t[0], cfg.t[1]] : [cfg.t[0]]);
     const show = lines.map(s => s || "");
     const placeholder = !show[0];
     if (placeholder) show[0] = "Your text";
-    const W = 800, signX = 80, signW = 600, y0 = 56;
+    const W = 800, signW = 600, signX = (W - signW) / 2, y0 = 70;
     const signH = Math.round(signW * font.ratio * lines.length), band = signH / lines.length;
-    const H = y0 + signH + 96;
+    const H = y0 + signH + 110;
     const icon = N.find(N.ICONS, cfg.i);
     const iconSize = icon.d ? Math.min(band * 0.7, 150) : 0, gap = icon.d ? 36 : 0;
     const textLeft = signX + iconSize + gap, textW = signW - iconSize - gap, cx = textLeft + textW / 2;
@@ -208,14 +222,16 @@
     while (svg.firstChild) svg.removeChild(svg.firstChild);
     svg.setAttribute("viewBox", "0 0 " + W + " " + H);
     const defs = node("defs", {}, svg);
-    const mkFilter = (id, dev) => { const fl = node("filter", { id, x: "-30%", y: "-60%", width: "160%", height: "220%" }, defs); node("feGaussianBlur", { stdDeviation: dev }, fl); };
-    mkFilter("gcGlowWide", 17); mkFilter("gcGlowTight", 5);
-    paintWall(defs, cfg);
+    const mkFilter = (id, dev) => { const fl = node("filter", { id, x: "-40%", y: "-80%", width: "180%", height: "260%" }, defs); node("feGaussianBlur", { stdDeviation: dev }, fl); };
+    mkFilter("gcGlowWide", 26); mkFilter("gcGlowMid", 11); mkFilter("gcGlowTight", 4); mkFilter("gcShadow", 7);
+    const overlays = paintWall(defs, cfg, W, H);
     node("rect", { x: 0, y: 0, width: W, height: H, fill: "url(#gcWall)" }, svg);
     if (bgPhoto) {
       const clip = node("clipPath", { id: "gcBgClip" }, defs); node("rect", { x: 0, y: 0, width: W, height: H }, clip);
       node("image", { href: bgPhoto.url, x: 0, y: 0, width: W, height: H, preserveAspectRatio: "xMidYMid slice", "clip-path": "url(#gcBgClip)" }, svg);
       node("rect", { x: 0, y: 0, width: W, height: H, fill: "#000", opacity: bgPhoto.dim / 100 }, svg);
+    } else {
+      overlays.forEach(o => { if (o === "pores") node("rect", { x: 0, y: 0, width: W, height: H, fill: "url(#gcPores)" }, svg); else node("rect", { x: 0, y: 0, width: W, height: H, filter: "url(#" + o + ")", opacity: 1 }, svg); });
     }
 
     // font size: fit the widest line to the available width, never taller than the line band
@@ -223,8 +239,21 @@
     const widest = Math.max.apply(null, show.map(s => measureWidth(s, font.css, probe)));
     const fs = Math.max(18, Math.min(probe * textW / widest, band * 0.92));
 
+    // the whole sign (spill, tubes, hardware, dimension marks) scales with the chosen size, around the middle of the wall
+    const k = SCALE[cfg.z] || 1, midY = y0 + signH / 2;
+    const sign = node("g", { transform: "translate(" + W / 2 + " " + midY + ") scale(" + k + ") translate(" + (-W / 2) + " " + (-midY) + ")" }, svg);
+
+    // light spilling onto the wall: a soft pool of the neon colour behind the sign
+    const spill = (id, hex, op) => { const g = node("radialGradient", { id }, defs); node("stop", { offset: "0", "stop-color": hex, "stop-opacity": op }, g); node("stop", { offset: "0.55", "stop-color": hex, "stop-opacity": op * 0.35 }, g); node("stop", { offset: "1", "stop-color": hex, "stop-opacity": 0 }, g); };
+    const gA = glowOf(color.hex), gB = glowOf(color2.hex);
+    spill("gcSpillA", gA, light ? 0.35 : 0.62); spill("gcSpillB", gB, light ? 0.3 : 0.55);
+    const two = cfg.t[1] && gA !== gB;
+    const spillStyle = light ? "" : "mix-blend-mode:screen";
+    node("ellipse", { cx: two ? W / 2 - 110 : W / 2, cy: midY, rx: signW * (two ? 0.62 : 0.78), ry: signH * 1.15 + 60, fill: "url(#gcSpillA)", style: spillStyle, opacity: placeholder ? 0.3 : 1 }, sign);
+    if (two) node("ellipse", { cx: W / 2 + 110, cy: midY, rx: signW * 0.62, ry: signH * 1.15 + 60, fill: "url(#gcSpillB)", style: spillStyle }, sign);
+
     // sign area outline (what the estimate is based on)
-    node("rect", { x: signX, y: y0, width: signW, height: signH, rx: 10, fill: "none", stroke: light ? "rgba(0,0,0,.3)" : "rgba(255,255,255,.22)", "stroke-width": 2, "stroke-dasharray": "10 8" }, svg);
+    node("rect", { x: signX, y: y0, width: signW, height: signH, rx: 10, fill: "none", stroke: light ? "rgba(0,0,0,.28)" : "rgba(255,255,255,.2)", "stroke-width": 2, "stroke-dasharray": "10 8" }, sign);
 
     const drawLines = (parent, attrsIn) => {
       const attrsFor = i => (typeof attrsIn === "function" ? attrsIn(i) : attrsIn), attrs = attrsFor(0);
@@ -243,36 +272,46 @@
     // backing
     if (cfg.b === "rect") {
       const pad = 34;
-      node("rect", { x: signX - pad, y: y0 - pad, width: signW + pad * 2, height: signH + pad * 2, rx: 22, fill: light ? "rgba(255,255,255,.45)" : "rgba(190,225,255,.07)", stroke: light ? "rgba(0,0,0,.3)" : "rgba(255,255,255,.4)", "stroke-width": 2 }, svg);
-      [[-pad + 16, -pad + 16], [signW + pad - 16, -pad + 16], [-pad + 16, signH + pad - 16], [signW + pad - 16, signH + pad - 16]].forEach(p => node("circle", { cx: signX + p[0], cy: y0 + p[1], r: 5, fill: "rgba(255,255,255,.3)" }, svg));
+      node("rect", { x: signX - pad, y: y0 - pad, width: signW + pad * 2, height: signH + pad * 2, rx: 22, fill: light ? "rgba(255,255,255,.45)" : "rgba(190,225,255,.07)", stroke: light ? "rgba(0,0,0,.3)" : "rgba(255,255,255,.4)", "stroke-width": 2 }, sign);
     } else if (cfg.b === "shape") {
-      const g = node("g", { "stroke-linejoin": "round" }, svg);
+      const g = node("g", { "stroke-linejoin": "round" }, sign);
       drawLines(g, { fill: "rgba(190,225,255,.13)", stroke: "rgba(190,225,255,.2)", "stroke-width": 42, "stroke-linejoin": "round", opacity: placeholder ? 0.5 : 1 });
     }
 
-    const wrap = node("g", { opacity: placeholder ? 0.35 : 1 }, svg);
-    drawLines(node("g", { filter: "url(#gcGlowWide)", opacity: light ? 0.55 : 0.95 }, wrap), i => ({ fill: lineColor(i).hex, stroke: lineColor(i).hex, "stroke-width": 9 }));
-    drawLines(node("g", { filter: "url(#gcGlowTight)" }, wrap), i => ({ fill: lineColor(i).hex, stroke: lineColor(i).hex, "stroke-width": 5 }));
-    drawLines(node("g", {}, wrap), i => ({ fill: light ? lineColor(i).hex : tint(lineColor(i).hex), stroke: lineColor(i).hex, "stroke-width": 2.4, "paint-order": "stroke" }));
+    // soft shadow the sign throws on the wall, then the wide, medium and tight glow layers and the tube itself
+    const wrap = node("g", { opacity: placeholder ? 0.35 : 1 }, sign);
+    drawLines(node("g", { filter: "url(#gcShadow)", transform: "translate(7 12)", opacity: light ? 0.38 : 0.5 }, wrap), { fill: "#000", stroke: "#000", "stroke-width": 6 });
+    drawLines(node("g", { filter: "url(#gcGlowWide)", opacity: light ? 0.3 : 0.9 }, wrap), i => ({ fill: glowOf(lineColor(i).hex), stroke: glowOf(lineColor(i).hex), "stroke-width": 12 }));
+    drawLines(node("g", { filter: "url(#gcGlowMid)", opacity: light ? 0.35 : 0.95 }, wrap), i => ({ fill: glowOf(lineColor(i).hex), stroke: glowOf(lineColor(i).hex), "stroke-width": 8 }));
+    if (!light) drawLines(node("g", { filter: "url(#gcGlowTight)" }, wrap), i => ({ fill: lineColor(i).hex, stroke: lineColor(i).hex, "stroke-width": 5 }));
+    drawLines(node("g", {}, wrap), i => ({ fill: light ? lineColor(i).hex : tint(lineColor(i).hex), stroke: lineColor(i).hex, "stroke-width": 2.6, "paint-order": "stroke" }));
 
-    // dimension marks
-    const dim = node("g", { stroke: light ? "#4b465f" : "#a9a3c0", "stroke-width": 2, fill: "none", "stroke-linecap": "round" }, svg);
-    const yB = y0 + signH + 46;
+    // mounting hardware: four small standoffs at the corners of the sign
+    const hw = node("g", {}, sign);
+    [[signX - 14, y0 - 14], [signX + signW + 14, y0 - 14], [signX - 14, y0 + signH + 14], [signX + signW + 14, y0 + signH + 14]].forEach(q => {
+      node("circle", { cx: q[0] + 2, cy: q[1] + 3, r: 7, fill: "rgba(0,0,0,.4)" }, hw);
+      node("circle", { cx: q[0], cy: q[1], r: 6.5, fill: light ? "#8b8782" : "#6d6a73", stroke: light ? "#5b5853" : "#35333b", "stroke-width": 1.5 }, hw);
+      node("circle", { cx: q[0] - 1.8, cy: q[1] - 1.8, r: 2, fill: "rgba(255,255,255,.7)" }, hw);
+    });
+
+    // dimension marks (overall size of the sign for the chosen letters, in inches)
+    const dim = node("g", { stroke: light ? "#4b465f" : "#c9c4de", "stroke-width": 2, fill: "none", "stroke-linecap": "round", opacity: 0.9 }, sign);
+    const yB = y0 + signH + 52;
     node("path", { d: "M" + signX + " " + yB + "H" + (signX + signW) + "M" + signX + " " + (yB - 8) + "v16M" + (signX + signW) + " " + (yB - 8) + "v16" }, dim);
-    const xR = signX + signW + 42;
+    const xR = signX + signW + 46;
     node("path", { d: "M" + xR + " " + y0 + "V" + (y0 + signH) + "M" + (xR - 8) + " " + y0 + "h16M" + (xR - 8) + " " + (y0 + signH) + "h16" }, dim);
     const est = N.estimate(cfg, RATES);
-    const lab = (x, y, txt, rot) => { const t = node("text", { x, y, fill: "#c9c4de", stroke: "none", "font-family": "Inter, Arial, sans-serif", "font-size": 27, "font-weight": 600, "text-anchor": "middle", "dominant-baseline": "central" }, svg); if (rot) t.setAttribute("transform", "rotate(-90 " + x + " " + y + ")"); t.textContent = txt; };
-    // labels sit on a small dark plate so the line never crosses the text
-    node("rect", { x: signX + signW / 2 - 62, y: yB - 18, width: 124, height: 36, rx: 8, fill: "#0a0910" }, svg);
-    lab(signX + signW / 2, yB, cfg.w + " ft");
-    node("rect", { x: xR - 18, y: y0 + signH / 2 - 90, width: 36, height: 180, rx: 8, fill: "#0a0910" }, svg);
-    lab(xR, y0 + signH / 2, "about " + est.size.h + " ft", true);
+    const lab = (x, y, txt, rot) => { const t = node("text", { x, y, fill: light ? "#2d2a3a" : "#e4e0f2", stroke: "none", "font-family": "Inter, Arial, sans-serif", "font-size": 24 / k, "font-weight": 600, "text-anchor": "middle", "dominant-baseline": "central" }, sign); if (rot) t.setAttribute("transform", "rotate(-90 " + x + " " + y + ")"); t.textContent = txt; };
+    const plate = light ? "#f4f1ec" : "#0a0910";
+    node("rect", { x: signX + signW / 2 - 78 / k, y: yB - 18 / k, width: 156 / k, height: 36 / k, rx: 9, fill: plate }, sign);
+    lab(signX + signW / 2, yB, "about " + est.size.w + " in");
+    node("rect", { x: xR - 18 / k, y: y0 + signH / 2 - 78 / k, width: 36 / k, height: 156 / k, rx: 9, fill: plate }, sign);
+    lab(xR, y0 + signH / 2, "about " + est.size.h + " in", true);
     return est;
   }
 
   function showFallbackPreview(cfg) {
-    const color = N.colorOf(cfg.c), font = N.find(N.FONTS, cfg.f);
+    const color = N.colorOf(cfg.c), font = drawFont(cfg);
     preview.classList.add("is-fallback");
     fallback.hidden = false; svg.setAttribute("hidden", "");
     fallback.style.setProperty("--neon", color.hex); fallback.style.fontFamily = font.css;
@@ -295,16 +334,14 @@
     // labels / counters
     el("colorName").textContent = N.colorOf(cfg.c).label;
     el("fontName").textContent = N.find(N.FONTS, cfg.f).label;
+    el("sizeName").textContent = N.sizeOf(cfg.z).label;
     el("c2Field").hidden = !cfg.t[1];
-    el("customSwatch").style.setProperty("--c", f.custom.value);
-    const cm = el("m-color"); cm.textContent = r.warnings.color || ""; cm.className = "msg" + (r.warnings.color ? " warn" : "");
-    needFont(cfg.f);
+    needFont(drawFont(cfg).key);
     const bgMode = f.bg.value;
-    el("bgCustomRow").hidden = bgMode !== "custom"; el("bgPhotoRow").hidden = bgMode !== "photo";
+    el("bgName").textContent = bgMode === "photo" ? "Custom Background" : N.find(N.BACKDROPS, cfg.g).label;
+    el("bgPhotoRow").hidden = bgMode !== "photo";
     el("dimRow").hidden = el("f-dim").hidden = el("bgRemove").hidden = !bgImg;
     el("dimOut").textContent = f.dim.value + "%";
-    el("widthOut").textContent = cfg.w + " ft";
-    f.width.setAttribute("aria-valuetext", cfg.w + (cfg.w === 1 ? " foot" : " feet"));
     const len = s => Array.from(String(s).trim()).length;
     const cnt = (id, n, max) => { const c = el(id); c.textContent = n + "/" + max; c.classList.toggle("over", n > max); };
     cnt("c-l1", len(raw.t[0]), N.LIMITS.line); cnt("c-l2", len(raw.t[1]), N.LIMITS.line); cnt("c-n", len(raw.n), N.LIMITS.notes);
@@ -320,33 +357,24 @@
       try { if (window.__gcForcePreviewFail) throw new Error("forced"); est = draw(cfg, photoOpt()); }
       catch (e) { showFallbackPreview(cfg); }
     } else showFallbackPreview(cfg);
-    const sizeTxt = "Approx. " + est.size.w + " ft wide × " + est.size.h + " ft high (" + est.size.area + " sq ft)";
-    el("sizeTag").textContent = sizeTxt;
+    el("sizeTag").textContent = est.size.label + " letters (" + est.size.letterW + " in wide, " + est.size.letterH + " in high each): the whole sign is about " + est.size.w + " × " + est.size.h + " in.";
     svg.setAttribute("aria-label", cfg.t[0]
-      ? 'Preview of your sign: "' + cfg.t.filter(Boolean).join(" / ") + '" in ' + N.colorOf(cfg.c).label.toLowerCase() + (cfg.t[1] && cfg.c2 ? " and " + N.colorOf(cfg.c2).label.toLowerCase() : "") + ", " + N.find(N.FONTS, cfg.f).label.toLowerCase() + " style, about " + cfg.w + " feet wide. Visual approximation only."
+      ? 'Preview of your sign: "' + cfg.t.filter(Boolean).join(" / ") + '" in ' + N.colorOf(cfg.c).label.toLowerCase() + (cfg.t[1] && cfg.c2 ? " and " + N.colorOf(cfg.c2).label.toLowerCase() : "") + ", " + N.find(N.FONTS, cfg.f).label.toLowerCase() + " style, " + N.sizeOf(cfg.z).label.toLowerCase() + " size, about " + est.size.w + " by " + est.size.h + " inches, on the " + (f.bg.value === "photo" ? "custom background" : N.find(N.BACKDROPS, cfg.g).label.toLowerCase()) + ". Visual approximation only."
       : "Preview placeholder. Enter your text to see the sign.");
 
-    updateSizeCards(cfg);
     renderEstimate(cfg, est);
     updateLinks(cfg, est);
     scheduleAutosave(cfg);
   }
 
-  /* ---------------- size cards: width x height and price for each size, for the current text and style ---------------- */
-  const inch = ft => Math.max(1, Math.round(ft * 12));
-  function updateSizeCards(cfg) {
-    let matched = "";
-    SIZES.forEach(z => {
-      const e = N.estimate(Object.assign({}, cfg, { w: z.w }), RATES);
-      el("sz-dim-" + z.w).textContent = inch(z.w) + " \u00D7 " + inch(e.size.h) + " in";
-      el("sz-price-" + z.w).textContent = valid ? N.money(e.total) : "";
-      if (cfg.w === z.w) matched = String(z.w);
-    });
-    form.querySelectorAll("input[name=sizepreset]").forEach(r => { r.checked = r.value === matched; });
-    const lab = SIZES.find(z => z.w === cfg.w);
-    el("sizeName").textContent = lab ? lab.label : "Custom (" + cfg.w + " ft wide)";
-  }
-  Array.from(form.querySelectorAll("input[name=sizepreset]")).forEach(r => r.addEventListener("input", () => { if (r.checked) f.width.value = r.value; }));
+  /* ---------------- size help (the ? button beside "Select Size") ---------------- */
+  (function sizeHelp() {
+    const btn = el("sizeHelpBtn"), pop = el("sizeHelp");
+    const set = open => { pop.hidden = !open; btn.setAttribute("aria-expanded", String(open)); };
+    btn.addEventListener("click", () => set(pop.hidden));
+    pop.addEventListener("click", () => set(false));
+    form.addEventListener("keydown", e => { if (e.key === "Escape" && !pop.hidden) { set(false); btn.focus(); } });
+  })();
   el("ownDesign").href = waUrl("Hi Grafix Club, I have my own logo/design and would like a neon sign. I will send it here.");
 
   function renderEstimate(cfg, est) {
@@ -459,7 +487,7 @@
   function dropBg() {
     if (bgUrl) URL.revokeObjectURL(bgUrl);
     bgUrl = ""; bgImg = null; el("f-bgfile").value = ""; setMsg("bg", "f-bgfile", "");
-    if (f.bg.value === "photo") f.bg.value = "night";
+    if (f.bg.value === "photo") f.bg.value = "mauve";
   }
   el("f-bgfile").addEventListener("change", async e => {
     const picked = e.target.files && e.target.files[0];
@@ -525,8 +553,8 @@
 
   /* ---------------- "how is this estimated" text, built from the live settings ---------------- */
   (function howText() {
-    let t = "The neon price is the sign's width multiplied by its estimated height, charged at " + N.money(RATES.neonRatePerSqFt) + " per sq ft and rounded to the nearest ₹100. " +
-      "Height is estimated from the style: roughly " + Math.min.apply(null, N.FONTS.map(x => x.ratio)) + " to " + Math.max.apply(null, N.FONTS.map(x => x.ratio)) + " × the width per line, depending on the lettering (tall block letters are the smallest, flowing scripts the largest). " +
+    let t = "The sign's length comes from your text: each letter takes the width of the size you pick (" + N.SIZES.map(z => z.label + " " + z.w + " in").join(", ") + "), and its height is the size's letter height (" + N.SIZES.map(z => z.h + " in").join(", ") + ") for each line. " +
+      "The neon price is that width multiplied by that height, charged at " + N.money(RATES.neonRatePerSqFt) + " per sq ft and rounded to the nearest ₹100. " +
       "An acrylic backing adds the difference between our neon-with-backboard rate (" + N.money(RATES.neonBackboardRatePerSqFt) + " per sq ft) and the neon rate. " +
       "Orders that come to less than " + N.money(RATES.neonMinPrice) + " are shown at " + N.money(RATES.neonMinPrice) + ". " +
       "Outdoor use, fitting, symbols and your notes are quoted by hand. GST extra where applicable. This is an estimate, not an offer, and no payment is taken on this website.";

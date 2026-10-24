@@ -12,7 +12,7 @@
   const RATES = { neonRatePerSqFt: CONFIG.neonRatePerSqFt, neonBackboardRatePerSqFt: CONFIG.neonBackboardRatePerSqFt, neonMinPrice: CONFIG.neonMinPrice };
   const LS_FAV = "gc.collection.fav";
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  const WIDE = new Set(["monoton", "bungee", "orbitron", "righteous"]);
+  const WIDE = new Set(["monoton", "bungee", "orbitron", "righteous", "funky", "grooving", "robo", "stylish"]);
 
   /* every design is validated by the same model the Studio uses */
   const items = N.COLLECTION.map(d => {
@@ -54,7 +54,7 @@
     return p.basis === "from" ? "From " + N.money(p.price) : N.money(p.price) + " " + p.unit;
   };
   PLATES.forEach(d => {
-    const font = N.find(N.FONTS, d.fk), lines = d.lines.filter(Boolean), longest = Math.max.apply(null, lines.map(x => Array.from(x).length));
+    const font = N.fontOf(d.fk), lines = d.lines.filter(Boolean), longest = Math.max.apply(null, lines.map(x => Array.from(x).length));
     const wide = WIDE.has(d.fk) || /^(gold-3d|halo|front|steel|board)$/.test(d.style);
     items.push({ id: d.id, cat: d.cat, title: d.title, plate: d, font, lines, k: Math.round(Math.min(15, 62 / (Math.max(longest, 3) * (wide ? 0.68 : font.deva ? 0.62 : 0.52))) * 10) / 10, priceText: priceText(d.product), sub: d.sub });
   });
@@ -69,8 +69,8 @@
 
   const colourNames = i => i.cfg.t[1] && i.cfg.c2 && i.cfg.c2 !== i.cfg.c ? i.c1.label + " and " + i.c2.label.toLowerCase() : i.c1.label;
   const altOf = i => i.plate ? "Design idea: " + i.title.toLowerCase() + ", " + i.lines.join(" / ") + "." : "Neon sign design: " + i.lines.join(" / ") + ", " + i.font.label.replace(/[^\w &-]/g, "").trim() + " lettering, " + colourNames(i).toLowerCase() + ", on a " + (N.find(N.BACKDROPS, i.cfg.g).label.toLowerCase()) + ".";
-  const msgOne = i => "Hi Grafix Club, I like the “" + i.title + "” design (" + i.lines.join(" / ") + (i.cfg ? ", " + i.cfg.w + " ft" : "") + ") from your collection. Can you quote it?";
-  const msgMany = list => "Hi Grafix Club, I shortlisted these designs from your collection:\n" + list.map((i, n) => (n + 1) + ". " + i.title + " – “" + i.lines.join(" / ") + "”" + (i.cfg ? ", " + i.cfg.w + " ft, about " + N.money(i.est.total) : i.priceText ? ", " + i.priceText.toLowerCase() : "")).join("\n") + "\nPlease help me choose and share a quote.";
+  const msgOne = i => "Hi Grafix Club, I like the “" + i.title + "” design (" + i.lines.join(" / ") + (i.cfg ? ", " + N.sizeOf(i.cfg.z).label + " size" : "") + ") from your collection. Can you quote it?";
+  const msgMany = list => "Hi Grafix Club, I shortlisted these designs from your collection:\n" + list.map((i, n) => (n + 1) + ". " + i.title + " – “" + i.lines.join(" / ") + "”" + (i.cfg ? ", " + N.sizeOf(i.cfg.z).label + " size, about " + N.money(i.est.total) : i.priceText ? ", " + i.priceText.toLowerCase() : "")).join("\n") + "\nPlease help me choose and share a quote.";
 
   const plateCard = (i, on) =>
     '<li class="coll-card" data-id="' + i.id + '" data-cat="' + i.cat + '">' +
@@ -95,7 +95,7 @@
       '<div class="coll-body">' +
         '<div class="coll-top"><div><h3>' + esc(i.title) + '</h3><p class="coll-cat">' + esc(catLabel(i.cat)) + "</p></div>" +
         '<button type="button" class="fav" data-fav="' + i.id + '" aria-pressed="' + on + '" aria-label="Shortlist ' + esc(i.title) + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + N.find(N.ICONS, "heart").d + '"/></svg></button></div>' +
-        '<p class="coll-meta">' + esc(i.font.label.replace(/[^\w &-]/g, "").trim()) + " · " + esc(colourNames(i)) + " · " + i.cfg.w + ' ft</p>' +
+        '<p class="coll-meta">' + esc(i.font.label.replace(/[^\w &-]/g, "").trim()) + " · " + esc(colourNames(i)) + " · " + N.sizeOf(i.cfg.z).label + ' size</p>' +
         '<p class="coll-price">About <b>' + N.money(i.est.total) + '</b> <small>estimate' + (i.est.toConfirm.length ? ", symbol quoted extra" : "") + "</small></p>" +
         '<div class="coll-actions"><button type="button" class="btn btn-ghost btn-sm" data-use="' + i.id + '">Customise this</button>' +
         '<a class="btn btn-wa btn-sm" href="' + waUrl(msgOne(i)) + '" target="_blank" rel="noopener">Ask on WhatsApp<span class="sr-only"> about ' + esc(i.title) + " (opens in a new tab)</span></a></div>" +
