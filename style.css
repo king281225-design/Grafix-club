@@ -757,3 +757,7 @@ html.motion-off .marquee-track .dup{display:none}
 }
 .cw-mauve{background:radial-gradient(120% 90% at 50% 40%,#4a2a52,#1c0d22)}
 .cw-white{background:radial-gradient(120% 90% at 50% 40%,#f4f1ec,#d8d3ca)}
+
+/* collection: pictures supplied by the shop */
+.cw-photo{background:#0a0910;display:block;container-type:normal}
+.cw-photo img{width:100%;height:100%;object-fit:contain;display:block}
