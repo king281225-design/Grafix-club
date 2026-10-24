@@ -1,6 +1,6 @@
 /* =========================================================
    GRAFIX CLUB – Design collection
-   Pictures of the styles we make, in this order: name plates, neon, LED boards, acrylic.
+   Pictures of the styles we make, in the same order as the price list: name plates, LED boards, neon signs, number plates, lamination and stickers.
    Each picture is a design idea: the final size, finish and price are confirmed on a mock-up.
    Needs: config.js, common.js, neon-model.js (money formatting), catalogue.js (price list).
    The shortlist is stored only in this browser (localStorage) until the visitor taps WhatsApp.
@@ -21,13 +21,13 @@
   };
   const CATS = [
     { key: "plates", label: "Name plates" },
-    { key: "neon", label: "Neon designs" },
     { key: "led", label: "LED boards" },
-    { key: "acrylic", label: "Acrylic" },
-    { key: "lamination", label: "Bike & scooty lamination" }
+    { key: "neon", label: "Neon signs" },
+    { key: "numberplates", label: "Number plates" },
+    { key: "lamination", label: "Lamination & stickers" }
   ];
   /* every picture fills its card (cropped to 4:3); POS keeps the lettering in view on tall pictures */
-  const POS = { "d2-sharma": "50% 12%", "d4-vinay-priyanka": "50% 48%", "d8-seemas-nivas": "50% 52%", "d9-nanak": "50% 28%", "d13-backlit-directory": "50% 12%", "d14-sawants": "50% 42%", "d16-sri-nivas": "50% 30%", "d17-sanu": "50% 45%", "d25-happy-birthday": "50% 48%", "d31-happy-place-orange": "50% 33%", "d24-open-welcome": "50% 42%", "d20-coffee-time": "50% 45%", "d22-gold-3d-letters": "50% 55%", "d19-dhruv": "50% 38%", "d11-cafe-board": "50% 22%" };
+  const POS = { "d2-sharma": "50% 12%", "d4-vinay-priyanka": "50% 48%", "d8-seemas-nivas": "50% 52%", "d9-nanak": "50% 28%", "d13-backlit-directory": "50% 12%", "d14-sawants": "50% 42%", "d16-sri-nivas": "50% 30%", "d17-sanu": "50% 45%", "d25-happy-birthday": "50% 48%", "d31-happy-place-orange": "50% 33%", "d24-open-welcome": "50% 42%", "d20-coffee-time": "50% 45%", "d22-gold-3d-letters": "50% 55%", "d19-dhruv": "50% 38%", "d11-cafe-board": "50% 22%", "d40-beauty-halo": "50% 52%", "d39-glossy-nail": "50% 45%" };
   const I = (id, cat, title, file, w, h, alt, product, sub) => ({ id, cat, title, file, w, h, alt, product, sub, priceText: priceText(product) });
   const ORDER = CATS.map(c => c.key);
   const items = [
@@ -57,18 +57,22 @@
     I("led-restaurant-board", "led", "Restaurant board with glowing script", "d12-restaurant-board", 900, 720, "Shop sign idea: black restaurant fascia with glowing warm script lettering and a line drawing, with a round side sign and warm light strip", "led-shop-board", "Backlit restaurant fascia"),
     I("led-rathods", "led", "Round backlit plate with Krishna", "d21-rathods", 750, 562, "Name plate idea: round backlit plate with a Krishna figure, a flute, a script name, a house number and a flower border, glowing around the edge", "led-name-plate", "Round plate with edge glow"),
     I("led-gold-3d", "led", "Gold 3D letters with warm backlight", "d22-gold-3d-letters", 736, 736, "Shop sign idea: shiny gold 3D block letters with a leaf symbol and a warm halo glow on a white wall", "acrylic-led-letters", "Gold 3D letters, halo-lit"),
+    I("led-glossy-nail", "led", "Round backlit board with crown and neon accents", "d39-glossy-nail", 512, 512, "Shop sign idea: round backlit board with a gold crown, a black hand with pink nails, pink neon hearts and a bow, and the name Glossy Nail", "led-shop-board", "Round backlit shop board with neon accents"),
     I("led-directory", "led", "Backlit directory sign", "d13-backlit-directory", 506, 900, "Sign idea: tall dark rounded board with a warm halo glow, a circular logo and wood-look arrow panels for directions", "led-shop-board", "Backlit directory board"),
-    I("ac-frosted", "acrylic", "Frosted acrylic lobby sign", "d23-frosted-acrylic", 900, 675, "Office sign idea: frosted acrylic panel on silver standoffs with black raised letters and a leaf logo", "acrylic-name-plate", "Frosted acrylic with raised letters"),
-    I("ac-gold-leaf", "acrylic", "Black and gold leaf plate", "d5-priyanka-abhishek", 900, 600, "Name plate idea: black acrylic plate with gold mirror leaf motif and gold script names", "acrylic-name-plate", "Black acrylic with gold lettering"),
-    I("ac-arch", "acrylic", "Arch plate with gold vine", "d4-vinay-priyanka", 842, 900, "Name plate idea: matte black arch-shaped plate with gold leaf vine, a house number and two names", "acrylic-name-plate", "Matte black arch plate"),
-    I("ac-gold-3d", "acrylic", "Gold 3D letters on black", "d9-nanak", 675, 900, "Name plate idea: matte black plate with raised gold 3D script lettering", "acrylic-name-plate", "Raised gold lettering"),
+    I("ac-beauty-halo", "plates", "Round white acrylic sign with gold ring", "d40-beauty-halo", 784, 1056, "Wall sign idea: round white acrylic sign with a gold mirror ring and black 3D lettering on a wood-slat wall", "acrylic-name-plate", "Round acrylic sign with gold mirror ring"),
+    I("ac-frosted", "plates", "Frosted acrylic lobby sign", "d23-frosted-acrylic", 900, 675, "Office sign idea: frosted acrylic panel on silver standoffs with black raised letters and a leaf logo", "acrylic-name-plate", "Frosted acrylic with raised letters"),
+    I("ac-gold-leaf", "plates", "Black and gold leaf plate", "d5-priyanka-abhishek", 900, 600, "Name plate idea: black acrylic plate with gold mirror leaf motif and gold script names", "acrylic-name-plate", "Black acrylic with gold lettering"),
+    I("ac-arch", "plates", "Arch plate with gold vine", "d4-vinay-priyanka", 842, 900, "Name plate idea: matte black arch-shaped plate with gold leaf vine, a house number and two names", "acrylic-name-plate", "Matte black arch plate"),
+    I("ac-gold-3d", "plates", "Gold 3D letters on black", "d9-nanak", 675, 900, "Name plate idea: matte black plate with raised gold 3D script lettering", "acrylic-name-plate", "Raised gold lettering"),
     I("lm-bike-blue", "lamination", "Matte blue bike graphics", "d32-bike-blue", 800, 600, "Bike lamination idea: sports bike with matte blue and white sharp-edged graphics over black", "bike-lamination", "Matte blue bike graphics"),
     I("lm-bike-neon", "lamination", "Neon green bike graphics", "d33-bike-neon", 800, 600, "Bike lamination idea: sports bike with neon yellow-green slashes over a black body", "bike-lamination", "Neon edition bike graphics"),
     I("lm-bike-orange", "lamination", "Orange graphic bike wrap", "d34-bike-orange", 800, 600, "Bike lamination idea: sports bike with bold orange tiger-stripe graphics over black", "bike-lamination", "Orange graphic bike wrap"),
     I("lm-scooty-floral", "lamination", "Floral scooty wrap", "d35-scooty-floral", 800, 600, "Scooty lamination idea: black scooty with pink cherry blossom flowers on the front and side panels", "scooty-lamination", "Floral scooty wrap"),
     I("lm-scooty-sporty", "lamination", "Sporty white and teal scooty", "d36-scooty-sporty", 800, 600, "Scooty lamination idea: white scooty with sharp teal and blue sporty graphics", "scooty-lamination", "Sporty scooty graphics"),
     I("lm-scooty-matte", "lamination", "Matte black scooty with red", "d37-scooty-matte", 800, 600, "Scooty lamination idea: matte black scooty with dark red angular graphics", "scooty-lamination", "Matte finish scooty wrap"),
-    I("lm-scooty-elegant", "lamination", "Elegant white and lilac scooty", "d38-scooty-elegant", 800, 600, "Scooty lamination idea: white scooty with soft lilac and purple graphics", "scooty-lamination", "Elegant scooty graphics")
+    I("lm-scooty-elegant", "lamination", "Elegant white and lilac scooty", "d38-scooty-elegant", 800, 600, "Scooty lamination idea: white scooty with soft lilac and purple graphics", "scooty-lamination", "Elegant scooty graphics"),
+    I("np-bike", "numberplates", "3D acrylic bike number plate", "i-plate-bike", 720, 720, "Motorbike number plate (illustrative photo)", "bike-3d-plate", "Raised-letter acrylic bike plate"),
+    I("np-car", "numberplates", "3D acrylic car number plate", "i-plate-car", 720, 720, "Car with a number plate (illustrative photo)", "car-3d-plate", "Raised-letter acrylic car plates, sold as a pair")
   ].sort((a, b) => ORDER.indexOf(a.cat) - ORDER.indexOf(b.cat));
   const byId = new Map(items.map(i => [i.id, i]));
   const catLabel = key => (CATS.find(c => c.key === key) || {}).label || key;
@@ -84,7 +88,7 @@
   const cardHtml = i => {
     const on = fav.includes(i.id);
     return '<li class="coll-card" data-id="' + i.id + '" data-cat="' + i.cat + '">' +
-      '<div class="cw cw-photo"' + (POS[i.file] ? ' style="--pos:' + POS[i.file] + '"' : "") + '><img src="assets/designs/' + i.file + '.jpg" alt="' + esc(i.alt) + '" width="' + i.w + '" height="' + i.h + '" loading="lazy" decoding="async"></div>' +
+      '<div class="cw cw-photo' + (i.file.indexOf("i-") === 0 ? " cw-stock" : "") + '"' + (POS[i.file] ? ' style="--pos:' + POS[i.file] + '"' : "") + '><img src="assets/' + (i.file.indexOf("i-") === 0 ? "ideas/" : "designs/") + i.file + '.jpg" alt="' + esc(i.alt) + '" width="' + i.w + '" height="' + i.h + '" loading="lazy" decoding="async"></div>' +
       '<div class="coll-body"><div class="coll-top"><div><h3>' + esc(i.title) + '</h3><p class="coll-cat">' + esc(catLabel(i.cat)) + "</p></div>" +
         '<button type="button" class="fav" data-fav="' + i.id + '" aria-pressed="' + on + '" aria-label="Shortlist ' + esc(i.title) + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + N.find(N.ICONS, "heart").d + '"/></svg></button></div>' +
         '<p class="coll-meta">' + esc(i.sub) + ". Final design is confirmed on a mock-up.</p>" +
@@ -116,9 +120,17 @@
     document.getElementById("collSend").href = waUrl(msgMany(list));
   }
 
+  const setFilter = key => {
+    if (!cats.some(c => c.key === key)) return;
+    filter = key;
+    root.querySelectorAll("[data-filter]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.filter === key)));
+    paint();
+  };
+  /* "See our ... collection" links in the price list open the matching category */
+  document.addEventListener("click", e => { const a = e.target.closest("a[data-coll]"); if (a) setFilter(a.dataset.coll); });
   root.addEventListener("click", e => {
     const fb = e.target.closest("[data-filter]");
-    if (fb) { filter = fb.dataset.filter; root.querySelectorAll("[data-filter]").forEach(b => b.setAttribute("aria-pressed", String(b === fb))); paint(); return; }
+    if (fb) { setFilter(fb.dataset.filter); return; }
     const hb = e.target.closest("[data-fav]");
     if (hb) {
       const id = hb.dataset.fav, i = byId.get(id), at = fav.indexOf(id);

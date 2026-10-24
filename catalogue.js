@@ -26,11 +26,11 @@
   "use strict";
 
   const CATEGORIES = [
-    { name: "Neon Signs", slug: "neon-signs", color: "#ff2e93", blurb: "Custom LED neon names, quotes and logos." },
-    { name: "LED Boards", slug: "led-boards", color: "#ffc933", blurb: "Shop boards and 3D letters." },
-    { name: "Number Plates", slug: "number-plates", color: "#27e6ff", blurb: "Raised-letter acrylic plates." },
-    { name: "Name Plates", slug: "name-plates", color: "#9b5cff", blurb: "Home, office and clinic plates." },
-    { name: "Lamination & Stickers", slug: "lamination-stickers", color: "#ff8a1f", blurb: "Bike, scooty and vinyl work." }
+    { name: "Name Plates", slug: "name-plates", coll: "plates", color: "#9b5cff", blurb: "Home, office and clinic plates." },
+    { name: "LED Boards", slug: "led-boards", coll: "led", color: "#ffc933", blurb: "Shop boards and 3D letters." },
+    { name: "Neon Signs", slug: "neon-signs", coll: "neon", color: "#ff2e93", blurb: "Custom LED neon names, quotes and logos." },
+    { name: "Number Plates", slug: "number-plates", coll: "numberplates", color: "#27e6ff", blurb: "Raised-letter acrylic plates." },
+    { name: "Lamination & Stickers", slug: "lamination-stickers", coll: "lamination", color: "#ff8a1f", blurb: "Bike, scooty and vinyl work." }
   ];
 
   const PRODUCTS = [
@@ -60,6 +60,8 @@
   /** Alt text for card photos. "d*" are design pictures (assets/designs); "p*" are the shop's own photos (assets/shop); "i-*" are free-licence stock photos (assets/ideas),
       shown with an "Illustrative photo" badge – they show the product type, not Grafix Club's own work. */
   const IMAGE_ALT = {
+    "d39-glossy-nail": "Shop sign idea: round backlit board with a gold crown, a black hand with pink nails, pink neon hearts and a bow, and the name Glossy Nail",
+    "d40-beauty-halo": "Wall sign idea: round white acrylic sign with a gold mirror ring and black 3D lettering on a wood-slat wall",
     "d32-bike-blue": "Bike lamination idea: sports bike with matte blue graphics",
     "d33-bike-neon": "Bike lamination idea: sports bike with neon green graphics",
     "d34-bike-orange": "Bike lamination idea: sports bike with orange graphics",

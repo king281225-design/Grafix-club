@@ -173,6 +173,9 @@ h1{font-family:var(--ff-d);font-weight:800;line-height:.95;letter-spacing:-.03em
 html.js .panel-h{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 html.js .price-panel+.price-panel{margin-top:0}
 .price-panel:focus-visible{outline-offset:6px}
+.see-coll{margin-top:18px}
+.see-coll .btn{border-color:var(--gold);color:var(--gold)}
+.cw-stock::after{content:"Illustrative photo";position:absolute;left:10px;bottom:10px;z-index:1;font-size:.72rem;line-height:1;padding:5px 8px;border-radius:999px;background:rgba(7,6,11,.82);color:#f6f3ff;border:1px solid rgba(255,255,255,.2)}
 .price-row{display:flex;align-items:center;gap:16px;padding:18px 22px;border-radius:16px;background:var(--bg2);border:1px solid var(--line);transition:.25s;animation:rowIn .45s both}
 .price-row:hover{border-color:var(--gold);transform:translateX(6px);background:var(--bg3)}
 .price-row .nm{flex:1;min-width:0}

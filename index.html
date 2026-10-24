@@ -87,58 +87,48 @@
         "itemListElement": [
           {
             "@type": "OfferCatalog",
-            "name": "Neon Signs",
+            "name": "Name Plates",
             "itemListElement": [
               {
                 "@type": "Offer",
                 "priceSpecification": {
                   "@type": "PriceSpecification",
-                  "minPrice": 2499,
+                  "minPrice": 699,
                   "priceCurrency": "INR"
                 },
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Custom neon name sign",
-                  "description": "Up to 2 ft wide, 12V LED neon",
-                  "category": "Neon Signs"
+                  "name": "Acrylic name plate",
+                  "description": "Home, office, clinic",
+                  "category": "Name Plates"
                 }
               },
               {
                 "@type": "Offer",
                 "priceSpecification": {
-                  "@type": "UnitPriceSpecification",
-                  "price": 800,
-                  "priceCurrency": "INR",
-                  "referenceQuantity": {
-                    "@type": "QuantitativeValue",
-                    "value": 1,
-                    "unitCode": "FTK"
-                  }
+                  "@type": "PriceSpecification",
+                  "minPrice": 1499,
+                  "priceCurrency": "INR"
                 },
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Custom neon logo / quote",
-                  "description": "Priced by area, any colour",
-                  "category": "Neon Signs"
+                  "name": "Steel letter name plate",
+                  "description": "Gold / silver / black",
+                  "category": "Name Plates"
                 }
               },
               {
                 "@type": "Offer",
                 "priceSpecification": {
-                  "@type": "UnitPriceSpecification",
-                  "price": 1000,
-                  "priceCurrency": "INR",
-                  "referenceQuantity": {
-                    "@type": "QuantitativeValue",
-                    "value": 1,
-                    "unitCode": "FTK"
-                  }
+                  "@type": "PriceSpecification",
+                  "minPrice": 1999,
+                  "priceCurrency": "INR"
                 },
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Neon + acrylic backboard",
-                  "description": "Cut-to-shape or rectangle",
-                  "category": "Neon Signs"
+                  "name": "LED backlit name plate",
+                  "description": "Warm or cool white",
+                  "category": "Name Plates"
                 }
               }
             ]
@@ -208,6 +198,64 @@
           },
           {
             "@type": "OfferCatalog",
+            "name": "Neon Signs",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "priceSpecification": {
+                  "@type": "PriceSpecification",
+                  "minPrice": 2499,
+                  "priceCurrency": "INR"
+                },
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Custom neon name sign",
+                  "description": "Up to 2 ft wide, 12V LED neon",
+                  "category": "Neon Signs"
+                }
+              },
+              {
+                "@type": "Offer",
+                "priceSpecification": {
+                  "@type": "UnitPriceSpecification",
+                  "price": 800,
+                  "priceCurrency": "INR",
+                  "referenceQuantity": {
+                    "@type": "QuantitativeValue",
+                    "value": 1,
+                    "unitCode": "FTK"
+                  }
+                },
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Custom neon logo / quote",
+                  "description": "Priced by area, any colour",
+                  "category": "Neon Signs"
+                }
+              },
+              {
+                "@type": "Offer",
+                "priceSpecification": {
+                  "@type": "UnitPriceSpecification",
+                  "price": 1000,
+                  "priceCurrency": "INR",
+                  "referenceQuantity": {
+                    "@type": "QuantitativeValue",
+                    "value": 1,
+                    "unitCode": "FTK"
+                  }
+                },
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Neon + acrylic backboard",
+                  "description": "Cut-to-shape or rectangle",
+                  "category": "Neon Signs"
+                }
+              }
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
             "name": "Number Plates",
             "itemListElement": [
               {
@@ -265,54 +313,6 @@
                   "name": "LED edge-lit plate",
                   "description": "Illuminated border",
                   "category": "Number Plates"
-                }
-              }
-            ]
-          },
-          {
-            "@type": "OfferCatalog",
-            "name": "Name Plates",
-            "itemListElement": [
-              {
-                "@type": "Offer",
-                "priceSpecification": {
-                  "@type": "PriceSpecification",
-                  "minPrice": 699,
-                  "priceCurrency": "INR"
-                },
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Acrylic name plate",
-                  "description": "Home, office, clinic",
-                  "category": "Name Plates"
-                }
-              },
-              {
-                "@type": "Offer",
-                "priceSpecification": {
-                  "@type": "PriceSpecification",
-                  "minPrice": 1499,
-                  "priceCurrency": "INR"
-                },
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Steel letter name plate",
-                  "description": "Gold / silver / black",
-                  "category": "Name Plates"
-                }
-              },
-              {
-                "@type": "Offer",
-                "priceSpecification": {
-                  "@type": "PriceSpecification",
-                  "minPrice": 1999,
-                  "priceCurrency": "INR"
-                },
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "LED backlit name plate",
-                  "description": "Warm or cool white",
-                  "category": "Name Plates"
                 }
               }
             ]
@@ -532,14 +532,13 @@
     </header>
 
     <div class="cards">
-      <article class="card tilt reveal" style="--c:#ff2e93">
-        <div class="card-img"><img src="assets/designs/d1-ram-harleen.jpg" alt="Neon sign idea: two names in warm yellow script inside a pink neon heart" loading="lazy" decoding="async" width="360" height="360"></div>
+      <article class="card tilt reveal" style="--c:#9b5cff">
+        <div class="card-img"><img src="assets/designs/d5-priyanka-abhishek.jpg" alt="Name plate idea: black acrylic plate with gold leaf motif and gold script names" loading="lazy" decoding="async" width="360" height="360"></div>
         <div class="card-body">
-          <span class="badge">Most popular</span>
-          <h3>Custom Neon Signs</h3>
-          <p>Names, quotes, logos and birthday or wedding signs in flexible LED neon. Indoor, café and shop-ready.</p>
-          <p class="from">From <b>₹800</b> / sq ft</p>
-          <a class="more" href="#studio">Design yours <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <h3>Name Plates</h3>
+          <p>Home, office and clinic name plates in acrylic, steel and wood-look, plain or LED backlit.</p>
+          <p class="from">From <b>₹699</b> / plate</p>
+          <a class="more" data-wa data-msg="Hi Grafix Club, I want a name plate for my home/office." href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I%20want%20a%20name%20plate%20for%20my%20home%2Foffice." target="_blank" rel="noopener">Get a quote <span class="sr-only">for name plates on WhatsApp (opens in a new tab) </span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
       </article>
 
@@ -553,6 +552,17 @@
         </div>
       </article>
 
+      <article class="card tilt reveal" style="--c:#ff2e93">
+        <div class="card-img"><img src="assets/designs/d1-ram-harleen.jpg" alt="Neon sign idea: two names in warm yellow script inside a pink neon heart" loading="lazy" decoding="async" width="360" height="360"></div>
+        <div class="card-body">
+          <span class="badge">Most popular</span>
+          <h3>Custom Neon Signs</h3>
+          <p>Names, quotes, logos and birthday or wedding signs in flexible LED neon. Indoor, café and shop-ready.</p>
+          <p class="from">From <b>₹800</b> / sq ft</p>
+          <a class="more" href="#studio">Design yours <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
       <article class="card tilt reveal" style="--c:#27e6ff">
         <div class="card-img stock"><img src="assets/ideas/i-plate-car.jpg" alt="Car with a number plate (illustrative photo)" loading="lazy" decoding="async" width="360" height="360"></div>
         <div class="card-body">
@@ -560,16 +570,6 @@
           <p>Raised-letter acrylic plates in black, white, carbon and chrome finishes for bikes and cars.</p>
           <p class="from">From <b>₹349</b> / plate</p>
           <a class="more" data-wa data-msg="Hi Grafix Club, I want a 3D number plate." href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I%20want%20a%203D%20number%20plate." target="_blank" rel="noopener">Order a plate <span class="sr-only">on WhatsApp (opens in a new tab) </span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        </div>
-      </article>
-
-      <article class="card tilt reveal" style="--c:#9b5cff">
-        <div class="card-img"><img src="assets/designs/d5-priyanka-abhishek.jpg" alt="Name plate idea: black acrylic plate with gold leaf motif and gold script names" loading="lazy" decoding="async" width="360" height="360"></div>
-        <div class="card-body">
-          <h3>Name Plates</h3>
-          <p>Home, office and clinic name plates in acrylic, steel and wood-look, plain or LED backlit.</p>
-          <p class="from">From <b>₹699</b> / plate</p>
-          <a class="more" data-wa data-msg="Hi Grafix Club, I want a name plate for my home/office." href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I%20want%20a%20name%20plate%20for%20my%20home%2Foffice." target="_blank" rel="noopener">Get a quote <span class="sr-only">for name plates on WhatsApp (opens in a new tab) </span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
       </article>
 
@@ -618,25 +618,26 @@
     <div class="tabs reveal" id="priceTabs" role="tablist" aria-label="Price categories" hidden></div>
     <div class="price-panels reveal" id="pricePanels">
 <!--@prices-->
-      <section class="price-panel" id="panel-neon-signs" data-slug="neon-signs" data-name="Neon Signs" aria-labelledby="ph-neon-signs">
-        <h3 class="panel-h" id="ph-neon-signs">Neon Signs</h3>
+      <section class="price-panel" id="panel-name-plates" data-slug="name-plates" data-name="Name Plates" aria-labelledby="ph-name-plates">
+        <h3 class="panel-h" id="ph-name-plates">Name Plates</h3>
         <ul class="price-list">
         <li class="price-row">
-          <div class="nm"><b>Custom neon name sign</b><small>Up to 2 ft wide, 12V LED neon</small></div>
-          <div class="pr">₹2,499<small>from</small></div>
-          <a class="btn btn-ghost ask" data-wa data-msg="Hi Grafix Club, I'd like a quote for: Custom neon name sign." href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I'd%20like%20a%20quote%20for%3A%20Custom%20neon%20name%20sign." target="_blank" rel="noopener">Ask<span class="sr-only"> about Custom neon name sign on WhatsApp (opens in a new tab)</span></a>
+          <div class="nm"><b>Acrylic name plate</b><small>Home, office, clinic</small></div>
+          <div class="pr">₹699<small>from</small></div>
+          <a class="btn btn-ghost ask" data-wa data-msg="Hi Grafix Club, I'd like a quote for: Acrylic name plate." href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I'd%20like%20a%20quote%20for%3A%20Acrylic%20name%20plate." target="_blank" rel="noopener">Ask<span class="sr-only"> about Acrylic name plate on WhatsApp (opens in a new tab)</span></a>
         </li>
         <li class="price-row">
-          <div class="nm"><b>Custom neon logo / quote</b><small>Priced by area, any colour</small></div>
-          <div class="pr">₹800<small>per sq ft</small></div>
-          <a class="btn btn-ghost ask" data-wa data-msg="Hi Grafix Club, I'd like a quote for: Custom neon logo / quote." href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I'd%20like%20a%20quote%20for%3A%20Custom%20neon%20logo%20%2F%20quote." target="_blank" rel="noopener">Ask<span class="sr-only"> about Custom neon logo / quote on WhatsApp (opens in a new tab)</span></a>
+          <div class="nm"><b>Steel letter name plate</b><small>Gold / silver / black</small></div>
+          <div class="pr">₹1,499<small>from</small></div>
+          <a class="btn btn-ghost ask" data-wa data-msg="Hi Grafix Club, I'd like a quote for: Steel letter name plate." href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I'd%20like%20a%20quote%20for%3A%20Steel%20letter%20name%20plate." target="_blank" rel="noopener">Ask<span class="sr-only"> about Steel letter name plate on WhatsApp (opens in a new tab)</span></a>
         </li>
         <li class="price-row">
-          <div class="nm"><b>Neon + acrylic backboard</b><small>Cut-to-shape or rectangle</small></div>
-          <div class="pr">₹1,000<small>per sq ft</small></div>
-          <a class="btn btn-ghost ask" data-wa data-msg="Hi Grafix Club, I'd like a quote for: Neon + acrylic backboard." href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I'd%20like%20a%20quote%20for%3A%20Neon%20%2B%20acrylic%20backboard." target="_blank" rel="noopener">Ask<span class="sr-only"> about Neon + acrylic backboard on WhatsApp (opens in a new tab)</span></a>
+          <div class="nm"><b>LED backlit name plate</b><small>Warm or cool white</small></div>
+          <div class="pr">₹1,999<small>from</small></div>
+          <a class="btn btn-ghost ask" data-wa data-msg="Hi Grafix Club, I'd like a quote for: LED backlit name plate." href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I'd%20like%20a%20quote%20for%3A%20LED%20backlit%20name%20plate." target="_blank" rel="noopener">Ask<span class="sr-only"> about LED backlit name plate on WhatsApp (opens in a new tab)</span></a>
         </li>
         </ul>
+        <p class="see-coll"><a class="btn btn-ghost" href="#collection" data-coll="plates">See our name plates collection<span aria-hidden="true"> &rarr;</span></a></p>
       </section>
       <section class="price-panel" id="panel-led-boards" data-slug="led-boards" data-name="LED Boards" aria-labelledby="ph-led-boards">
         <h3 class="panel-h" id="ph-led-boards">LED Boards</h3>
@@ -657,6 +658,28 @@
           <a class="btn btn-ghost ask" data-wa data-msg="Hi Grafix Club, I'd like a quote for: Steel / acrylic letters." href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I'd%20like%20a%20quote%20for%3A%20Steel%20%2F%20acrylic%20letters." target="_blank" rel="noopener">Ask<span class="sr-only"> about Steel / acrylic letters on WhatsApp (opens in a new tab)</span></a>
         </li>
         </ul>
+        <p class="see-coll"><a class="btn btn-ghost" href="#collection" data-coll="led">See our led boards collection<span aria-hidden="true"> &rarr;</span></a></p>
+      </section>
+      <section class="price-panel" id="panel-neon-signs" data-slug="neon-signs" data-name="Neon Signs" aria-labelledby="ph-neon-signs">
+        <h3 class="panel-h" id="ph-neon-signs">Neon Signs</h3>
+        <ul class="price-list">
+        <li class="price-row">
+          <div class="nm"><b>Custom neon name sign</b><small>Up to 2 ft wide, 12V LED neon</small></div>
+          <div class="pr">₹2,499<small>from</small></div>
+          <a class="btn btn-ghost ask" data-wa data-msg="Hi Grafix Club, I'd like a quote for: Custom neon name sign." href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I'd%20like%20a%20quote%20for%3A%20Custom%20neon%20name%20sign." target="_blank" rel="noopener">Ask<span class="sr-only"> about Custom neon name sign on WhatsApp (opens in a new tab)</span></a>
+        </li>
+        <li class="price-row">
+          <div class="nm"><b>Custom neon logo / quote</b><small>Priced by area, any colour</small></div>
+          <div class="pr">₹800<small>per sq ft</small></div>
+          <a class="btn btn-ghost ask" data-wa data-msg="Hi Grafix Club, I'd like a quote for: Custom neon logo / quote." href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I'd%20like%20a%20quote%20for%3A%20Custom%20neon%20logo%20%2F%20quote." target="_blank" rel="noopener">Ask<span class="sr-only"> about Custom neon logo / quote on WhatsApp (opens in a new tab)</span></a>
+        </li>
+        <li class="price-row">
+          <div class="nm"><b>Neon + acrylic backboard</b><small>Cut-to-shape or rectangle</small></div>
+          <div class="pr">₹1,000<small>per sq ft</small></div>
+          <a class="btn btn-ghost ask" data-wa data-msg="Hi Grafix Club, I'd like a quote for: Neon + acrylic backboard." href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I'd%20like%20a%20quote%20for%3A%20Neon%20%2B%20acrylic%20backboard." target="_blank" rel="noopener">Ask<span class="sr-only"> about Neon + acrylic backboard on WhatsApp (opens in a new tab)</span></a>
+        </li>
+        </ul>
+        <p class="see-coll"><a class="btn btn-ghost" href="#collection" data-coll="neon">See our neon signs collection<span aria-hidden="true"> &rarr;</span></a></p>
       </section>
       <section class="price-panel" id="panel-number-plates" data-slug="number-plates" data-name="Number Plates" aria-labelledby="ph-number-plates">
         <h3 class="panel-h" id="ph-number-plates">Number Plates</h3>
@@ -677,26 +700,7 @@
           <a class="btn btn-ghost ask" data-wa data-msg="Hi Grafix Club, I'd like a quote for: LED edge-lit plate." href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I'd%20like%20a%20quote%20for%3A%20LED%20edge-lit%20plate." target="_blank" rel="noopener">Ask<span class="sr-only"> about LED edge-lit plate on WhatsApp (opens in a new tab)</span></a>
         </li>
         </ul>
-      </section>
-      <section class="price-panel" id="panel-name-plates" data-slug="name-plates" data-name="Name Plates" aria-labelledby="ph-name-plates">
-        <h3 class="panel-h" id="ph-name-plates">Name Plates</h3>
-        <ul class="price-list">
-        <li class="price-row">
-          <div class="nm"><b>Acrylic name plate</b><small>Home, office, clinic</small></div>
-          <div class="pr">₹699<small>from</small></div>
-          <a class="btn btn-ghost ask" data-wa data-msg="Hi Grafix Club, I'd like a quote for: Acrylic name plate." href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I'd%20like%20a%20quote%20for%3A%20Acrylic%20name%20plate." target="_blank" rel="noopener">Ask<span class="sr-only"> about Acrylic name plate on WhatsApp (opens in a new tab)</span></a>
-        </li>
-        <li class="price-row">
-          <div class="nm"><b>Steel letter name plate</b><small>Gold / silver / black</small></div>
-          <div class="pr">₹1,499<small>from</small></div>
-          <a class="btn btn-ghost ask" data-wa data-msg="Hi Grafix Club, I'd like a quote for: Steel letter name plate." href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I'd%20like%20a%20quote%20for%3A%20Steel%20letter%20name%20plate." target="_blank" rel="noopener">Ask<span class="sr-only"> about Steel letter name plate on WhatsApp (opens in a new tab)</span></a>
-        </li>
-        <li class="price-row">
-          <div class="nm"><b>LED backlit name plate</b><small>Warm or cool white</small></div>
-          <div class="pr">₹1,999<small>from</small></div>
-          <a class="btn btn-ghost ask" data-wa data-msg="Hi Grafix Club, I'd like a quote for: LED backlit name plate." href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I'd%20like%20a%20quote%20for%3A%20LED%20backlit%20name%20plate." target="_blank" rel="noopener">Ask<span class="sr-only"> about LED backlit name plate on WhatsApp (opens in a new tab)</span></a>
-        </li>
-        </ul>
+        <p class="see-coll"><a class="btn btn-ghost" href="#collection" data-coll="numberplates">See our number plates collection<span aria-hidden="true"> &rarr;</span></a></p>
       </section>
       <section class="price-panel" id="panel-lamination-stickers" data-slug="lamination-stickers" data-name="Lamination &amp; Stickers" aria-labelledby="ph-lamination-stickers">
         <h3 class="panel-h" id="ph-lamination-stickers">Lamination &amp; Stickers</h3>
@@ -722,6 +726,7 @@
           <a class="btn btn-ghost ask" data-wa data-msg="Hi Grafix Club, I'd like a quote for: Computerised sticker." href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I'd%20like%20a%20quote%20for%3A%20Computerised%20sticker." target="_blank" rel="noopener">Ask<span class="sr-only"> about Computerised sticker on WhatsApp (opens in a new tab)</span></a>
         </li>
         </ul>
+        <p class="see-coll"><a class="btn btn-ghost" href="#collection" data-coll="lamination">See our lamination &amp; stickers collection<span aria-hidden="true"> &rarr;</span></a></p>
       </section>
 <!--@/prices-->
     </div>
@@ -735,7 +740,7 @@
     <header class="sec-head reveal">
       <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Design collection</p>
       <h2 id="collection-h">Pick a design, then make it <em>yours</em>.</h2>
-      <p class="lead">Browse our design ideas by type: name plates, neon designs, LED boards, acrylic and bike &amp; scooty lamination. Tap the heart to shortlist your favourites, then send the shortlist to us on WhatsApp and we will help you decide. Want a neon sign? Build it yourself in the Neon Studio below.</p>
+      <p class="lead">Browse our design ideas by type: name plates, LED boards, neon signs, number plates, and lamination &amp; stickers. Tap the heart to shortlist your favourites, then send the shortlist to us on WhatsApp and we will help you decide. Want a neon sign? Build it yourself in the Neon Studio below.</p>
     </header>
     <noscript><div class="callout"><b>The design collection needs JavaScript.</b> <p>Message us on <a class="text-link" href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20please%20share%20your%20design%20ideas.">WhatsApp</a> and we will send ideas.</p></div></noscript>
     <div id="collectionApp"></div>
