@@ -26,12 +26,18 @@
     { key: "acrylic", label: "Acrylic" }
   ];
   /* every picture fills its card (cropped to 4:3); POS keeps the lettering in view on tall pictures */
-  const POS = { "d2-sharma": "50% 12%", "d4-vinay-priyanka": "50% 48%", "d8-seemas-nivas": "50% 52%", "d9-nanak": "50% 28%", "d13-backlit-directory": "50% 12%", "d11-cafe-board": "50% 22%" };
+  const POS = { "d2-sharma": "50% 12%", "d4-vinay-priyanka": "50% 48%", "d8-seemas-nivas": "50% 52%", "d9-nanak": "50% 28%", "d13-backlit-directory": "50% 12%", "d14-sawants": "50% 42%", "d16-sri-nivas": "50% 30%", "d17-sanu": "50% 45%", "d19-dhruv": "50% 38%", "d11-cafe-board": "50% 22%" };
   const I = (id, cat, title, file, w, h, alt, product, sub) => ({ id, cat, title, file, w, h, alt, product, sub, priceText: priceText(product) });
   const ORDER = CATS.map(c => c.key);
   const items = [
     I("pl-brass-wood", "plates", "Walnut plate with brass frame", "d7-solanki", 900, 600, "Name plate idea: walnut wood plate with a brass frame and raised brass Ganesha motif and lettering", "steel-name-plate", "Walnut and brass plate"),
     I("pl-wall-letters", "plates", "Black wall-mounted name letters", "d2-sharma", 560, 900, "Name sign idea: black cut-out lettering mounted on a textured outside wall next to a front door", "steel-acrylic-letters", "Cut-out wall letters"),
+    I("pl-sawants", "plates", "Script name sign with house number", "d14-sawants", 736, 736, "Name sign idea: slim metal script lettering with a heart and a house number on a plain rod, softly backlit on a cream wall", "led-name-plate", "Backlit script name sign"),
+    I("pl-evaara", "plates", "Leaf-arc plate with gold script", "d15-evaara", 900, 600, "Name plate idea: cream plate with a gold leaf arc, a house number and a script name with a warm backlight", "led-name-plate", "Backlit plate with gold leaf arc"),
+    I("pl-sri-nivas", "plates", "Flute and feather backlit name sign", "d16-sri-nivas", 736, 736, "Name sign idea: black cut-out lettering on a flute shape with a peacock feather and a hanging number plate, glowing behind", "led-name-plate", "Backlit cut-out name sign with hanging number"),
+    I("pl-white-gold", "plates", "White acrylic with gold mirror letters", "d17-sanu", 736, 736, "Name plate idea: white acrylic plate with raised gold mirror lettering and gold corner pieces", "acrylic-name-plate", "White acrylic with gold mirror lettering"),
+    I("pl-krishna-led", "plates", "Backlit plate with Krishna silhouette", "d18-aadhyan", 735, 586, "Name plate idea: frosted plate with a black Krishna silhouette, a flute and a script name, with a warm backlight", "led-name-plate", "Backlit plate with silhouette"),
+    I("pl-wood-brass", "plates", "Teak plate with brass figure", "d19-dhruv", 736, 736, "Name plate idea: teak wood plate with raised brass lettering, a house number, a flute and a brass figure", "steel-name-plate", "Teak and brass plate"),
     I("ne-heart", "neon", "Heart neon name sign", "d1-ram-harleen", 890, 755, "Neon sign idea: two names in warm yellow script inside a pink neon heart with small hearts, on a black wall", "neon-name-sign", "Neon name sign"),
     I("led-krishna", "led", "Backlit plate with Krishna motif", "d3-rohit-ananya", 900, 600, "Name plate idea: frosted acrylic plate with a warm backlight, a flute-and-feather motif and two names", "led-name-plate", "Backlit LED name plate"),
     I("led-om-wood", "led", "Wood plate with Om and warm glow", "d6-flat-104", 900, 600, "Name plate idea: carved wood plate with an Om symbol, gold lettering and a warm backlight", "led-name-plate", "Carved wood plate with LED backlight"),
