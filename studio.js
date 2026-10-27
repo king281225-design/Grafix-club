@@ -167,6 +167,33 @@
     return r;
   }
 
+  /* Average stroke thickness of the letters, in sign units, measured from the pixels of the typed text in its font.
+     Used to give every font the same neon-tube thickness. Returns 0 when it cannot be measured yet (font still loading). */
+  const stemCache = new Map();
+  function inkStem(font, lines, fs) {
+    try {
+      if (document.fonts && font.gf && !document.fonts.check('100px "' + font.gf + '"')) return 0;
+      const key = font.css + "|" + Math.round(fs) + "|" + lines.join("\n");
+      if (stemCache.has(key)) return stemCache.get(key);
+      const c = document.createElement("canvas"), x = c.getContext("2d", { willReadFrequently: true });
+      x.font = fs + "px " + font.css;
+      const pad = 24, lineH = Math.ceil(fs * 1.5);
+      const w = Math.ceil(Math.max.apply(null, lines.map(l => x.measureText(l || " ").width))) + pad * 2, h = lineH * lines.length + pad;
+      if (w * h > 3000000) return 0;
+      c.width = w; c.height = h;
+      x.font = fs + "px " + font.css; x.fillStyle = "#000";
+      lines.forEach((l, i) => x.fillText(l, pad, pad / 2 + lineH * (i + 0.8)));
+      const d = x.getImageData(0, 0, w, h).data;
+      const on = (i, j) => i >= 0 && j >= 0 && i < w && j < h && d[(j * w + i) * 4 + 3] > 127;
+      let area = 0, edge = 0;
+      for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) if (on(i, j)) { area++; if (!on(i - 1, j) || !on(i + 1, j) || !on(i, j - 1) || !on(i, j + 1)) edge++; }
+      const st = edge ? (2 * area) / edge : 0;
+      if (stemCache.size > 200) stemCache.clear();
+      stemCache.set(key, st);
+      return st;
+    } catch (e) { return 0; }
+  }
+
   function measureWidth(text, fontCss, size) {
     const t = node("text", { "font-family": fontCss, "font-size": size, x: 0, y: 0, visibility: "hidden" }, svg);
     t.textContent = text || " ";
@@ -240,11 +267,23 @@
     const signW = Math.round(textW + iconSize + gap + padX * 2), signX = (W - signW) / 2;
     const textLeft = signX + padX + iconSize + gap, cx = textLeft + textW / 2;
 
+    /* Every font gets exactly the same neon-tube thickness (TUBE). Thin letters are thickened, medium ones thinned,
+       and very heavy ones are drawn as a tube round the outline, so the tube is the same in every font. */
+    const TUBE = 7, stem = inkStem(font, show, fs) || TUBE;
+    const mode = stem <= TUBE + 0.5 ? "grow" : stem <= TUBE * 3.2 ? "thin" : "outline";
+    const grow = mode === "grow" ? Math.max(0, TUBE - stem) : 0, shrink = mode === "thin" ? (stem - TUBE) / 2 : 0;
+    const tubeW = w => (mode === "grow" ? grow + w : mode === "thin" ? w : TUBE + w);
+
     while (svg.firstChild) svg.removeChild(svg.firstChild);
     svg.setAttribute("viewBox", "0 0 " + W + " " + H);
     const defs = node("defs", {}, svg);
-    const mkFilter = (id, dev) => { const fl = node("filter", { id, x: "-40%", y: "-80%", width: "180%", height: "260%" }, defs); node("feGaussianBlur", { stdDeviation: dev }, fl); };
+    const mkFilter = (id, dev) => {
+      const fl = node("filter", { id, x: "-40%", y: "-80%", width: "180%", height: "260%" }, defs);
+      if (shrink > 0) node("feMorphology", { operator: "erode", radius: shrink.toFixed(2), in: "SourceGraphic", result: "thin" }, fl);
+      if (dev > 0) node("feGaussianBlur", { stdDeviation: dev, in: shrink > 0 ? "thin" : "SourceGraphic" }, fl);
+    };
     mkFilter("gcGlowWide", 26); mkFilter("gcGlowMid", 11); mkFilter("gcGlowTight", 4); mkFilter("gcShadow", 7);
+    if (shrink > 0) mkFilter("gcCore", 0);
     const overlays = paintWall(defs, cfg, W, H);
     node("rect", { x: 0, y: 0, width: W, height: H, fill: "url(#gcWall)" }, svg);
     if (bgPhoto) {
@@ -273,15 +312,16 @@
 
     const drawLines = (parent, attrsIn) => {
       const attrsFor = i => (typeof attrsIn === "function" ? attrsIn(i) : attrsIn), attrs = attrsFor(0);
+      const textAttrs = i => { const o = Object.assign({}, attrsFor(i)); delete o.iw; return o; };
       show.forEach((s, i) => {
-        const t = node("text", Object.assign({ x: cx, y: y0 + band * (i + 0.5), "text-anchor": "middle", "dominant-baseline": "central", "font-family": font.css, "font-size": fs }, attrsFor(i)), parent);
+        const t = node("text", Object.assign({ x: cx, y: y0 + band * (i + 0.5), "text-anchor": "middle", "dominant-baseline": "central", "font-family": font.css, "font-size": fs }, textAttrs(i)), parent);
         t.textContent = s;
       });
       if (icon.d) {
         const sc = iconSize / 24, cyI = y0 + signH / 2;
-        const p = node("path", Object.assign({ d: icon.d, transform: "translate(" + signX + " " + (cyI - iconSize / 2) + ") scale(" + sc + ")", "stroke-linejoin": "round", "stroke-linecap": "round" }, attrs), parent);
+        const p = node("path", Object.assign({ d: icon.d, transform: "translate(" + signX + " " + (cyI - iconSize / 2) + ") scale(" + sc + ")", "stroke-linejoin": "round", "stroke-linecap": "round" }, textAttrs(0)), parent);
         if (attrs.fill !== "none") p.setAttribute("fill", "none");
-        p.setAttribute("stroke-width", String(((+attrs["stroke-width"] || 2) * 0.9) / sc));
+        p.setAttribute("stroke-width", String(((+attrs.iw || +attrs["stroke-width"] || 2) * 0.9) / sc));
       }
     };
 
@@ -296,11 +336,14 @@
 
     // soft shadow the sign throws on the wall, then the wide, medium and tight glow layers and the tube itself
     const wrap = node("g", { opacity: placeholder ? 0.35 : 1 }, sign);
-    drawLines(node("g", { filter: "url(#gcShadow)", transform: "translate(7 12)", opacity: light ? 0.38 : 0.5 }, wrap), { fill: "#000", stroke: "#000", "stroke-width": 6 });
-    drawLines(node("g", { filter: "url(#gcGlowWide)", opacity: light ? 0.3 : 0.9 }, wrap), i => ({ fill: glowOf(lineColor(i).hex), stroke: glowOf(lineColor(i).hex), "stroke-width": 12 }));
-    drawLines(node("g", { filter: "url(#gcGlowMid)", opacity: light ? 0.35 : 0.95 }, wrap), i => ({ fill: glowOf(lineColor(i).hex), stroke: glowOf(lineColor(i).hex), "stroke-width": 8 }));
-    if (!light) drawLines(node("g", { filter: "url(#gcGlowTight)" }, wrap), i => ({ fill: lineColor(i).hex, stroke: lineColor(i).hex, "stroke-width": 5 }));
-    drawLines(node("g", {}, wrap), i => ({ fill: light ? lineColor(i).hex : tint(lineColor(i).hex), stroke: lineColor(i).hex, "stroke-width": 2.6, "paint-order": "stroke" }));
+    const lay = (fillC, strokeC, w, extra) => Object.assign({ fill: mode === "outline" ? "none" : fillC, stroke: strokeC, "stroke-width": tubeW(w), iw: w }, extra || {});
+    drawLines(node("g", { filter: "url(#gcShadow)", transform: "translate(7 12)", opacity: light ? 0.38 : 0.5 }, wrap), lay("#000", "#000", 6));
+    drawLines(node("g", { filter: "url(#gcGlowWide)", opacity: light ? 0.3 : 0.9 }, wrap), i => lay(glowOf(lineColor(i).hex), glowOf(lineColor(i).hex), 18));
+    drawLines(node("g", { filter: "url(#gcGlowMid)", opacity: light ? 0.35 : 0.95 }, wrap), i => lay(glowOf(lineColor(i).hex), glowOf(lineColor(i).hex), 12));
+    if (!light) drawLines(node("g", { filter: "url(#gcGlowTight)" }, wrap), i => lay(lineColor(i).hex, lineColor(i).hex, 6));
+    const coreAttrs = shrink > 0 ? { filter: "url(#gcCore)" } : {};
+    drawLines(node("g", coreAttrs, wrap), i => lay(light ? lineColor(i).hex : tint(lineColor(i).hex), lineColor(i).hex, 2.6, { "paint-order": "stroke" }));
+    if (mode === "outline") drawLines(node("g", {}, wrap), i => ({ fill: "none", stroke: light ? lineColor(i).hex : tint(lineColor(i).hex), "stroke-width": TUBE - 2.4, iw: 2 }));
 
     // mounting hardware: four small standoffs at the corners of the sign
     const hw = node("g", {}, sign);

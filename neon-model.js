@@ -25,7 +25,7 @@
     { key: "dreamy", label: "Dreamy", css: "'Neonderthaw', cursive", gf: "Neonderthaw", ratio: 0.45 },
     { key: "flow", label: "Flow", css: "'Yellowtail', cursive", gf: "Yellowtail", ratio: 0.42 },
     { key: "original", label: "ORIGINAL", css: "'Bebas Neue', sans-serif", gf: "Bebas Neue", ratio: 0.3 },
-    { key: "classic", label: "CLASSIC", css: "'Rozha One', serif", gf: "Rozha One", ratio: 0.4, deva: true },
+    { key: "classic", label: "CLASSIC", css: "'Poppins', sans-serif", gf: "Poppins", ratio: 0.4, deva: true },
     { key: "boyz", label: "Boyz", css: "'Permanent Marker', cursive", gf: "Permanent Marker", ratio: 0.42 },
     { key: "funky", label: "Funky", css: "'Monoton', sans-serif", gf: "Monoton", ratio: 0.34 },
     { key: "chic", label: "Chic", css: "'Great Vibes', cursive", gf: "Great Vibes", ratio: 0.4 },
