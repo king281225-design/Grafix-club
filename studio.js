@@ -151,6 +151,22 @@
   const drawFont = cfg => { const ft = N.fontOf(cfg.f); return (DEVA.test(cfg.t.join("")) && !ft.deva) ? N.fontOf("quirky") : ft; };
   const SCALE = { regular: 0.74, medium: 0.87, large: 1 };
 
+  /* height of a capital letter as a share of the font size (measured, so every font gets the same letter height) */
+  const capCache = {};
+  function capRatio(font) {
+    if (capCache[font.css]) return capCache[font.css];
+    let r = 0.7, loaded = true;
+    try {
+      if (document.fonts && font.gf) loaded = document.fonts.check('100px "' + font.gf + '"');
+      const c = document.createElement("canvas").getContext("2d");
+      c.font = "100px " + font.css;
+      const a = c.measureText("H").actualBoundingBoxAscent;
+      if (a > 25 && a < 120) r = a / 100;
+    } catch (e) { /* keep the default */ }
+    if (loaded) capCache[font.css] = r;
+    return r;
+  }
+
   function measureWidth(text, fontCss, size) {
     const t = node("text", { "font-family": fontCss, "font-size": size, x: 0, y: 0, visibility: "hidden" }, svg);
     t.textContent = text || " ";
@@ -212,12 +228,17 @@
     const show = lines.map(s => s || "");
     const placeholder = !show[0];
     if (placeholder) show[0] = "Your text";
-    const W = 800, signW = 600, signX = (W - signW) / 2, y0 = 70;
-    const signH = Math.round(signW * font.ratio * lines.length), band = signH / lines.length;
+    const W = 800, y0 = 70;
+    /* Same letter height for every font: only the Size card (and the number of lines) changes how tall the letters are.
+       The sign is as wide as the letters need, so a wider font or a longer word gives a longer sign, never a bigger one. */
+    const CAP = 118, band = 190, signH = band * lines.length;
     const H = y0 + signH + 110;
+    const fs = CAP / capRatio(font);
     const icon = N.find(N.ICONS, cfg.i);
-    const iconSize = icon.d ? Math.min(band * 0.7, 150) : 0, gap = icon.d ? 36 : 0;
-    const textLeft = signX + iconSize + gap, textW = signW - iconSize - gap, cx = textLeft + textW / 2;
+    const iconSize = icon.d ? Math.min(band * 0.7, 150) : 0, gap = icon.d ? 36 : 0, padX = 46;
+    const textW = Math.max.apply(null, show.map(s => measureWidth(s, font.css, fs)));
+    const signW = Math.round(textW + iconSize + gap + padX * 2), signX = (W - signW) / 2;
+    const textLeft = signX + padX + iconSize + gap, cx = textLeft + textW / 2;
 
     while (svg.firstChild) svg.removeChild(svg.firstChild);
     svg.setAttribute("viewBox", "0 0 " + W + " " + H);
@@ -234,13 +255,8 @@
       overlays.forEach(o => { if (o === "pores") node("rect", { x: 0, y: 0, width: W, height: H, fill: "url(#gcPores)" }, svg); else node("rect", { x: 0, y: 0, width: W, height: H, filter: "url(#" + o + ")", opacity: 1 }, svg); });
     }
 
-    // font size: fit the widest line to the available width, never taller than the line band
-    const probe = 100;
-    const widest = Math.max.apply(null, show.map(s => measureWidth(s, font.css, probe)));
-    const fs = Math.max(18, Math.min(probe * textW / widest, band * 0.92));
-
     // the whole sign (spill, tubes, hardware, dimension marks) scales with the chosen size, around the middle of the wall
-    const k = SCALE[cfg.z] || 1, midY = y0 + signH / 2;
+    const k = Math.min(SCALE[cfg.z] || 1, 720 / signW), midY = y0 + signH / 2;   /* the Size card scales the sign; very long text is shrunk to stay on screen */
     const sign = node("g", { transform: "translate(" + W / 2 + " " + midY + ") scale(" + k + ") translate(" + (-W / 2) + " " + (-midY) + ")" }, svg);
 
     // light spilling onto the wall: a soft pool of the neon colour behind the sign
