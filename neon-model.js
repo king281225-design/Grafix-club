@@ -18,7 +18,7 @@
 })(typeof self !== "undefined" ? self : this, function () {
   "use strict";
 
-  // The 15 styles customers pick from, in this order. ratio = approximate letter height / sign width (drawing only).
+  // The 28 styles customers pick from, in this order. ratio = approximate letter height / sign width (drawing only).
   // deva = the font has Devanagari (Hindi) letters. Fonts are free Google Fonts that match each style name.
   const FONTS = [
     { key: "passionate", label: "Passionate", css: "'Pacifico', cursive", gf: "Pacifico", ratio: 0.42 },
@@ -35,7 +35,20 @@
     { key: "robo", label: "ROBO", css: "'Orbitron', sans-serif", gf: "Orbitron", ratio: 0.36 },
     { key: "grooving", label: "Grooving", css: "'Bungee', sans-serif", gf: "Bungee", ratio: 0.36 },
     { key: "quirky", label: "Quirky", css: "'Kalam', cursive", gf: "Kalam", ratio: 0.4, deva: true },
-    { key: "stylish", label: "Stylish", css: "'Righteous', sans-serif", gf: "Righteous", ratio: 0.34 }
+    { key: "stylish", label: "Stylish", css: "'Righteous', sans-serif", gf: "Righteous", ratio: 0.34 },
+    { key: "sassy", label: "Sassy", css: "'Sassy Frass', cursive", gf: "Sassy Frass", ratio: 0.4 },
+    { key: "glam", label: "Glam", css: "'Allura', cursive", gf: "Allura", ratio: 0.4 },
+    { key: "mayasans", label: "MAYA-SANS", css: "'Josefin Sans', sans-serif", gf: "Josefin Sans", ratio: 0.34 },
+    { key: "chemistry", label: "Chemistry", css: "'Mr De Haviland', cursive", gf: "Mr De Haviland", ratio: 0.4 },
+    { key: "acoustic", label: "Acoustic", css: "'Over the Rainbow', cursive", gf: "Over the Rainbow", ratio: 0.4 },
+    { key: "sparky", label: "Sparky", css: "'Reenie Beanie', cursive", gf: "Reenie Beanie", ratio: 0.4 },
+    { key: "vibey", label: "Vibey", css: "'Caveat', cursive", gf: "Caveat", ratio: 0.4 },
+    { key: "lofi", label: "LoFi", css: "'Handlee', cursive", gf: "Handlee", ratio: 0.4 },
+    { key: "dope", label: "DOPE", css: "'Bungee Inline', sans-serif", gf: "Bungee Inline", ratio: 0.36 },
+    { key: "bossy", label: "Bossy", css: "'Yesteryear', cursive", gf: "Yesteryear", ratio: 0.4 },
+    { key: "iconic", label: "ICONIC", css: "'Alfa Slab One', serif", gf: "Alfa Slab One", ratio: 0.36 },
+    { key: "jolly", label: "Jolly", css: "'Sofia', cursive", gf: "Sofia", ratio: 0.4 },
+    { key: "modern", label: "MODERN", css: "'Tenor Sans', sans-serif", gf: "Tenor Sans", ratio: 0.34 }
   ];
   // Styles used by older share links, saved designs and the name-plate cards. Not offered in the picker; normalize() maps them to the 15 above.
   const LEGACY_FONTS = [
