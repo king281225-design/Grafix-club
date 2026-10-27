@@ -29,8 +29,7 @@
     { name: "Name Plates", slug: "name-plates", coll: "plates", color: "#9b5cff", blurb: "Home, office and clinic plates." },
     { name: "LED Boards", slug: "led-boards", coll: "led", color: "#ffc933", blurb: "Shop boards and 3D letters." },
     { name: "Neon Signs", slug: "neon-signs", coll: "neon", color: "#ff2e93", blurb: "Custom LED neon names, quotes and logos." },
-    { name: "Number Plates", slug: "number-plates", coll: "numberplates", color: "#27e6ff", blurb: "Raised-letter acrylic plates." },
-    { name: "Lamination & Stickers", slug: "lamination-stickers", coll: "lamination", color: "#ff8a1f", blurb: "Bike, scooty and vinyl work." }
+    { name: "Steel Letters & Stickers", slug: "steel-letters-stickers", coll: "letters", color: "#ff8a1f", blurb: "Steel and acrylic letters, vinyl stickers and decals." }
   ];
 
   const PRODUCTS = [
@@ -41,20 +40,14 @@
     // ---- LED Boards
     { id: "led-shop-board", cat: "LED Boards", name: "LED shop sign board", desc: "Backlit, outdoor-ready", price: 600, unit: "per sq ft", basis: "sqft", lit: true, materials: [], tags: ["shop", "outdoor", "signage", "backlit", "signboard"], image: "d12-restaurant-board" },
     { id: "acrylic-led-letters", cat: "LED Boards", name: "3D acrylic LED letters", desc: "Front-lit or halo-lit", price: 750, unit: "per sq ft", basis: "sqft", lit: true, materials: ["Acrylic"], tags: ["3d", "front-lit", "halo-lit", "letters", "shop"], image: "d10-halo-letters" },
-    { id: "steel-acrylic-letters", cat: "LED Boards", name: "Steel / acrylic letters", desc: "Brushed steel, gold, black", price: 150, unit: "per inch", basis: "inch", lit: false, materials: ["Steel", "Acrylic"], tags: ["letters", "gold", "black", "brushed"], image: "d2-sharma" },
-    // ---- Number Plates
-    { id: "bike-3d-plate", cat: "Number Plates", name: "3D acrylic number plate, bike", desc: "Black, white or carbon finish", price: 349, unit: "per plate", basis: "piece", lit: false, materials: ["Acrylic"], tags: ["bike", "3d", "carbon", "raised letters"], image: "i-plate-bike" },
-    { id: "car-3d-plate", cat: "Number Plates", name: "3D acrylic number plate, car", desc: "Pair, raised letters", price: 799, unit: "per pair", basis: "piece", lit: false, materials: ["Acrylic"], tags: ["car", "3d", "pair", "raised letters"], image: "i-plate-car" },
-    { id: "led-edge-plate", cat: "Number Plates", name: "LED edge-lit plate", desc: "Illuminated border", price: 1499, unit: "per pair", basis: "piece", lit: true, materials: [], tags: ["edge-lit", "border", "led"], image: "p12" },
     // ---- Name Plates
     { id: "acrylic-name-plate", cat: "Name Plates", name: "Acrylic name plate", desc: "Home, office, clinic", price: 699, unit: "from", basis: "from", lit: false, materials: ["Acrylic"], tags: ["home", "office", "clinic"], image: "d5-priyanka-abhishek" },
     { id: "steel-name-plate", cat: "Name Plates", name: "Steel letter name plate", desc: "Gold / silver / black", price: 1499, unit: "from", basis: "from", lit: false, materials: ["Steel"], tags: ["gold", "silver", "black", "letters"], image: "d7-solanki" },
     { id: "led-name-plate", cat: "Name Plates", name: "LED backlit name plate", desc: "Warm or cool white", price: 1999, unit: "from", basis: "from", lit: true, materials: [], tags: ["backlit", "warm white", "cool white", "led"], image: "d3-rohit-ananya" },
-    // ---- Lamination & Stickers
-    { id: "scooty-lamination", cat: "Lamination & Stickers", name: "Scooty lamination", desc: "Partial or full body", price: 799, unit: "from", basis: "from", lit: false, materials: [], tags: ["scooty", "wrap", "body"], image: "d36-scooty-sporty" },
-    { id: "bike-lamination", cat: "Lamination & Stickers", name: "Bike lamination", desc: "Tank, mudguard, full wrap", price: 999, unit: "from", basis: "from", lit: false, materials: [], tags: ["bike", "tank", "mudguard", "wrap"], image: "d34-bike-orange" },
-    { id: "car-decal", cat: "Lamination & Stickers", name: "Car decal / graphics", desc: "Vinyl cut, any design", price: 399, unit: "from", basis: "from", lit: false, materials: ["Vinyl"], tags: ["car", "graphics", "vinyl cut"], image: "i-car-decal" },
-    { id: "computerised-sticker", cat: "Lamination & Stickers", name: "Computerised sticker", desc: "Name, logo, small decals", price: 49, unit: "per piece", basis: "piece", lit: false, materials: ["Vinyl"], tags: ["decal", "logo", "name", "vinyl"], image: "i-vinyl-apply" }
+    // ---- Steel Letters & Stickers
+    { id: "steel-acrylic-letters", cat: "Steel Letters & Stickers", name: "Steel / acrylic letters", desc: "Brushed steel, gold, black", price: 150, unit: "per inch", basis: "inch", lit: false, materials: ["Steel", "Acrylic"], tags: ["letters", "gold", "black", "brushed"], image: "d2-sharma" },
+    { id: "car-decal", cat: "Steel Letters & Stickers", name: "Car decal / graphics", desc: "Vinyl cut, any design", price: 399, unit: "from", basis: "from", lit: false, materials: ["Vinyl"], tags: ["car", "graphics", "vinyl cut"], image: "i-car-decal" },
+    { id: "computerised-sticker", cat: "Steel Letters & Stickers", name: "Computerised sticker", desc: "Name, logo, small decals", price: 49, unit: "per piece", basis: "piece", lit: false, materials: ["Vinyl"], tags: ["decal", "logo", "name", "vinyl"], image: "i-vinyl-apply" }
   ];
 
   /** Alt text for card photos. "d*" are design pictures (assets/designs); "p*" are the shop's own photos (assets/shop); "i-*" are free-licence stock photos (assets/ideas),
@@ -62,13 +55,6 @@
   const IMAGE_ALT = {
     "d39-glossy-nail": "Shop sign idea: round backlit board with a gold crown, a black hand with pink nails, pink neon hearts and a bow, and the name Glossy Nail",
     "d40-beauty-halo": "Wall sign idea: round white acrylic sign with a gold mirror ring and black 3D lettering on a wood-slat wall",
-    "d32-bike-blue": "Bike lamination idea: sports bike with matte blue graphics",
-    "d33-bike-neon": "Bike lamination idea: sports bike with neon green graphics",
-    "d34-bike-orange": "Bike lamination idea: sports bike with orange graphics",
-    "d35-scooty-floral": "Scooty lamination idea: black scooty with pink flowers",
-    "d36-scooty-sporty": "Scooty lamination idea: white scooty with teal graphics",
-    "d37-scooty-matte": "Scooty lamination idea: matte black scooty with red graphics",
-    "d38-scooty-elegant": "Scooty lamination idea: white scooty with lilac graphics",
     "d1-ram-harleen": "Neon sign idea: two names in warm yellow script inside a pink neon heart",
     "d31-happy-place-orange": "Neon quote sign in orange script beside a palm plant",
     "d28-coffee": "Warm yellow Coffee neon sign with a cup on a clear backing",
@@ -78,11 +64,8 @@
     "d5-priyanka-abhishek": "Name plate idea: black acrylic plate with gold leaf motif and gold script names",
     "d7-solanki": "Name plate idea: walnut plate with a brass frame and raised brass lettering",
     "d3-rohit-ananya": "Name plate idea: frosted plate with a warm backlight and script names",
-    "i-plate-bike": "Motorbike number plate (illustrative photo)",
-    "i-plate-car": "Car with a number plate (illustrative photo)",
     "i-car-decal": "Car with vinyl decals and graphics (illustrative photo)",
     "i-vinyl-apply": "Installer applying a white vinyl wrap to a car (illustrative photo)",
-    p12: "3D acrylic number plates displayed at Grafix Club",
   };
 
   /* ---------------- facets ---------------- */
@@ -90,7 +73,7 @@
   const BASES = [
     { id: "sqft", label: "Per sq ft" },
     { id: "inch", label: "Per inch" },
-    { id: "piece", label: "Per plate, pair or piece" },
+    { id: "piece", label: "Per piece" },
     { id: "from", label: "Fixed starting price" }
   ];
   const PRICE_BANDS = [
@@ -125,8 +108,6 @@
 
   // Query-side synonyms, using the vocabulary the shop itself uses.
   const SYNONYMS = {
-    scooter: ["scooty"], motorcycle: ["bike"], motorbike: ["bike"], wrap: ["lamination"], wrapping: ["lamination"],
-    license: ["number", "plate"], licence: ["number", "plate"], registration: ["number", "plate"],
     signboard: ["board", "sign"], hoarding: ["board"], glow: ["neon", "led"], light: ["led", "neon", "illuminated"],
     lit: ["illuminated"], sticker: ["decal"], decal: ["sticker"], nameboard: ["name", "plate"], banner: ["board"]
   };
