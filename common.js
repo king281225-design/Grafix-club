@@ -75,6 +75,7 @@
     if (!hd) return;
     const setH = () => document.documentElement.style.setProperty("--hh", hd.offsetHeight + "px");
     setH(); addEventListener("resize", setH);
+    if (window.ResizeObserver) new ResizeObserver(setH).observe(hd);   /* the top bar folds away on scroll, so keep --hh in step for sticky parts */
     const onScroll = () => {
       hd.classList.toggle("scrolled", scrollY > 40);
       if (bar) { const max = document.documentElement.scrollHeight - innerHeight; bar.style.width = (max > 0 ? scrollY / max * 100 : 0) + "%"; }
