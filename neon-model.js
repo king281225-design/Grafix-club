@@ -125,7 +125,6 @@
     { key: "open", label: "OPEN sign", cfg: { t: ["OPEN", ""], f: "original", c: "p-red", z: "regular" } },
     { key: "vibes", label: "Good vibes", cfg: { t: ["Good", "Vibes"], f: "boyz", c: "p-lightblue", z: "medium" } },
     { key: "welcome", label: "Welcome", cfg: { t: ["Welcome", ""], f: "passionate", c: "p-yellow", z: "medium" } },
-    { key: "backboard", label: "With backboard", cfg: { t: ["Your Name", ""], f: "passionate", c: "p-purple", z: "medium", b: "shape" } },
     { key: "wedding", label: "Wedding", cfg: { t: ["Mr & Mrs", ""], f: "chic", c: "p-pink", z: "medium", i: "heart" } },
     { key: "cafe", label: "Cafe", cfg: { t: ["Coffee", "& Chai"], f: "funky", c: "p-orange", c2: "p-lightblue", z: "medium" } },
     { key: "swagatam", label: "Hindi welcome", cfg: { t: ["\u0938\u094D\u0935\u093E\u0917\u0924\u092E\u094D", ""], f: "quirky", c: "p-yellow", z: "medium" } }
