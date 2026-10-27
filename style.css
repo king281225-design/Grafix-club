@@ -800,3 +800,27 @@ html.motion-off .marquee-track .dup{display:none}
   .studio-grid .preview{position:sticky;top:var(--hh,70px);z-index:30;min-height:0;box-shadow:0 10px 26px rgba(0,0,0,.6)}
   .studio-grid .preview svg{width:auto;max-width:100%;max-height:34vh;margin-inline:auto}
 }
+
+/* ---- phone polish: quick-action bar fits, shortlist bar sits above it, smoother taps and scrolling ---- */
+html{-webkit-tap-highlight-color:transparent}
+a,button,label,.chip-btn,summary{touch-action:manipulation}
+@media (max-width:40em){
+  .action-bar{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
+  .action-bar a{flex-direction:column;gap:2px;padding:7px 2px;min-height:48px;font-size:.72rem;line-height:1.15;border-radius:12px;white-space:nowrap}
+  .action-bar .ic{width:20px;height:20px}
+  .coll-bar{bottom:calc(var(--ab,72px) + 10px);margin-top:16px;padding:10px 12px;gap:8px;border-radius:14px;flex-direction:column;align-items:stretch;flex-wrap:nowrap}
+  .coll-bar p{flex:none;font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .coll-bar-actions{flex-wrap:nowrap}
+  .coll-bar-actions .btn{flex:1 1 auto;justify-content:center;white-space:nowrap;padding-inline:12px;font-size:.84rem}
+  .coll-bar-actions #collClear{flex:0 0 auto}
+  .coll-card{content-visibility:auto;contain-intrinsic-size:auto 560px}
+}
+@media (max-width:40em){
+  /* every tap target at least 44px tall, without changing how the text looks */
+  .more,.text-link,.tb-call,.tb-item,.motion-toggle,.link-btn,footer a,.pcard a{display:inline-flex;align-items:center;min-height:44px}
+  .help-btn{min-width:44px;min-height:44px;display:inline-grid;place-items:center;margin:-9px}
+  main a[href^="tel:"],main a[href^="mailto:"],footer a[href^="tel:"],footer a[href^="mailto:"],.contact a[href^="tel:"],.contact a[href^="mailto:"]{display:inline-flex;align-items:center;min-height:44px}
+  p .text-link,p a[href^="tel:"],p a[href^="mailto:"]{display:inline;min-height:0}
+  .chip-remove,.chip button{min-height:40px;min-width:40px}
+  .badge,.pop,.tag{font-size:.75rem}
+}

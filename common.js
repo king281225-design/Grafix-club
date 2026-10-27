@@ -75,6 +75,9 @@
     if (!hd) return;
     const setH = () => document.documentElement.style.setProperty("--hh", hd.offsetHeight + "px");
     setH(); addEventListener("resize", setH);
+    /* the phone quick-action bar is fixed to the bottom: publish its height as --ab so sticky bars (the shortlist) sit above it */
+    const ab = $(".action-bar");
+    if (ab) { const setA = () => document.documentElement.style.setProperty("--ab", ab.offsetHeight + "px"); setA(); addEventListener("resize", setA); if (window.ResizeObserver) new ResizeObserver(setA).observe(ab); }
     if (window.ResizeObserver) new ResizeObserver(setH).observe(hd);   /* the top bar folds away on scroll, so keep --hh in step for sticky parts */
     const onScroll = () => {
       hd.classList.toggle("scrolled", scrollY > 40);
