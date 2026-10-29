@@ -28,7 +28,7 @@ const CONFIG = {
 
   /* Automatic Instagram gallery: paste the JSON feed URL from a feed service (e.g. https://feeds.behold.so/XXXX).
      Leave "" to show only the "Follow on Instagram" button. Only feeds.behold.so is allowed by the security policy. */
-  instagramFeed: "",
+  instagramFeed: "https://feeds.behold.so/haJ4WHeUxRL3KwUYceCQ",
   fallback: {
     instagram: "https://www.google.com/search?q=Grafix+Club+Janakpuri+instagram",
     facebook: "https://www.facebook.com/search/top?q=Grafix%20Club%20Delhi"
