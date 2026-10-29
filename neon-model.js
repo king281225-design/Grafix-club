@@ -19,39 +19,22 @@
   "use strict";
 
   // bs = size of the style button text; thin = hairline letters that get a slightly heavier outline on the button so they stay readable.
-  // The 28 styles customers pick from, in this order (thin, single-line neon looks, so every style lights up the same way). ratio = approximate letter height / sign width (drawing only).
+  // The 9 styles customers pick from, in this order (thin, single-line neon looks, so every style lights up the same way). ratio = approximate letter height / sign width (drawing only).
   // deva = the font has Devanagari (Hindi) letters. hi = the Hindi font used for the preview when the text is Hindi and the style has no Hindi letters of its own (a similar look, so every style still changes the preview). Fonts are free Google Fonts that match each style name.
   const FONTS = [
-    { key: "passionate", label: "Passionate", css: "'Allison', cursive", gf: "Allison", ratio: 0.4, bs: 1.55, thin: true, hi: { gf: "Tillana", css: "'Tillana', cursive" } },
-    { key: "dreamy", label: "Dreamy", css: "'Neonderthaw', cursive", gf: "Neonderthaw", ratio: 0.4, bs: 1.1, hi: { gf: "Amita", css: "'Amita', cursive" } },
-    { key: "flow", label: "Flowy", css: "'Sacramento', cursive", gf: "Sacramento", ratio: 0.4, bs: 1.2, hi: { gf: "Dekko", css: "'Dekko', cursive" } },
-    { key: "original", label: "ORIGINAL", css: "'Bungee Outline', sans-serif", gf: "Bungee Outline", ratio: 0.4, lines: true, hi: { gf: "Khand", css: "'Khand', sans-serif" } },
-    { key: "classic", label: "CLASSIC", css: "'Poiret One', sans-serif", gf: "Poiret One", ratio: 0.4, hi: { gf: "Poppins", css: "'Poppins', sans-serif" } },
-    { key: "boyz", label: "Boujee", css: "'Zeyada', cursive", gf: "Zeyada", ratio: 0.4, hi: { gf: "Sarpanch", css: "'Sarpanch', sans-serif" } },
-    { key: "funky", label: "Funky", css: "'Qwitcher Grypen', cursive", gf: "Qwitcher Grypen", w: 400, ratio: 0.4, bs: 1.45, thin: true, hi: { gf: "Modak", css: "'Modak', cursive" } },
-    { key: "chic", label: "Chic", css: "'Mrs Saint Delafield', cursive", gf: "Mrs Saint Delafield", ratio: 0.4, bs: 1.6, thin: true, hi: { gf: "Kurale", css: "'Kurale', serif" } },
-    { key: "delight", label: "Delight", css: "'Hurricane', cursive", gf: "Hurricane", ratio: 0.4, hi: { gf: "Laila", css: "'Laila', serif" } },
-    { key: "classy", label: "Classy", css: "'Euphoria Script', cursive", gf: "Euphoria Script", ratio: 0.4, bs: 1.35, thin: true, hi: { gf: "Arya", css: "'Arya', sans-serif" } },
-    { key: "romantic", label: "Romantic", css: "'Great Vibes', cursive", gf: "Great Vibes", ratio: 0.4, bs: 1.15, hi: { gf: "Gotu", css: "'Gotu', sans-serif" } },
+    { key: "delight", label: "Delight", css: "'Hurricane', cursive", gf: "Hurricane", ratio: 0.4, bs: 1.55, thin: true, hi: { gf: "Laila", css: "'Laila', serif" } },
     { key: "robo", label: "ROBO", css: "'Comfortaa', sans-serif", gf: "Comfortaa", w: 300, ratio: 0.4, hi: { gf: "Rajdhani", css: "'Rajdhani', sans-serif" } },
-    { key: "grooving", label: "Charming", css: "'Dancing Script', cursive", gf: "Dancing Script", ratio: 0.4, hi: { gf: "Yatra One", css: "'Yatra One', cursive" } },
-    { key: "quirky", label: "Quirky", css: "'Cedarville Cursive', cursive", gf: "Cedarville Cursive", ratio: 0.4, bs: 1.1, hi: { gf: "Kalam", css: "'Kalam', cursive" } },
-    { key: "stylish", label: "Stylish", css: "'Allura', cursive", gf: "Allura", ratio: 0.4, bs: 1.25, hi: { gf: "Baloo 2", css: "'Baloo 2', cursive" } },
-    { key: "sassy", label: "Sassy", css: "'Sassy Frass', cursive", gf: "Sassy Frass", ratio: 0.4, bs: 1.45, thin: true, hi: { gf: "Jaini", css: "'Jaini', cursive" } },
-    { key: "glam", label: "Glam", css: "'Corinthia', cursive", gf: "Corinthia", ratio: 0.4, bs: 1.6, thin: true, hi: { gf: "Kadwa", css: "'Kadwa', serif" } },
     { key: "mayasans", label: "MAYA-SANS", css: "'Josefin Sans', sans-serif", gf: "Josefin Sans", w: 200, ratio: 0.4, hi: { gf: "Hind", css: "'Hind', sans-serif" } },
-    { key: "chemistry", label: "Chemistry", css: "'Mr De Haviland', cursive", gf: "Mr De Haviland", ratio: 0.4, bs: 1.6, thin: true, hi: { gf: "Sahitya", css: "'Sahitya', serif" } },
-    { key: "acoustic", label: "Acoustic", css: "'Over the Rainbow', cursive", gf: "Over the Rainbow", ratio: 0.4, bs: 1.1, hi: { gf: "Mukta", css: "'Mukta', sans-serif" } },
-    { key: "sparky", label: "Sparky", css: "'Homemade Apple', cursive", gf: "Homemade Apple", ratio: 0.4, bs: 0.92, hi: { gf: "Pragati Narrow", css: "'Pragati Narrow', sans-serif" } },
-    { key: "vibey", label: "Vibey", css: "'Waiting for the Sunrise', cursive", gf: "Waiting for the Sunrise", ratio: 0.4, bs: 1.15, hi: { gf: "Palanquin Dark", css: "'Palanquin Dark', sans-serif" } },
+    { key: "vibey", label: "Vibey", css: "'Waiting for the Sunrise', cursive", gf: "Waiting for the Sunrise", ratio: 0.4, bs: 1.35, hi: { gf: "Palanquin Dark", css: "'Palanquin Dark', sans-serif" } },
+    { key: "boyz", label: "Boujee", css: "'Zeyada', cursive", gf: "Zeyada", ratio: 0.4, bs: 1.35, hi: { gf: "Sarpanch", css: "'Sarpanch', sans-serif" } },
+    { key: "funky", label: "Funky", css: "'Qwitcher Grypen', cursive", gf: "Qwitcher Grypen", w: 400, ratio: 0.4, bs: 1.45, thin: true, hi: { gf: "Modak", css: "'Modak', cursive" } },
     { key: "lofi", label: "LoFi", css: "'Quicksand', sans-serif", gf: "Quicksand", w: 300, ratio: 0.4, hi: { gf: "Sura", css: "'Sura', serif" } },
-    { key: "dope", label: "DOPE", css: "'Bungee Hairline', sans-serif", gf: "Bungee Hairline", ratio: 0.4, bs: 1.05, thin: true, hi: { gf: "Teko", css: "'Teko', sans-serif" } },
-    { key: "bossy", label: "Bossy", css: "'Ephesis', cursive", gf: "Ephesis", ratio: 0.4, bs: 1.45, thin: true, hi: { gf: "Eczar", css: "'Eczar', serif" } },
-    { key: "iconic", label: "ICONIC", css: "'Cinzel', serif", gf: "Cinzel", ratio: 0.4, hi: { gf: "Rozha One", css: "'Rozha One', serif" } },
-    { key: "jolly", label: "Jolly", css: "'Arizonia', cursive", gf: "Arizonia", ratio: 0.4, bs: 1.1, hi: { gf: "Inknut Antiqua", css: "'Inknut Antiqua', serif" } },
-    { key: "modern", label: "MODERN", css: "'Megrim', sans-serif", gf: "Megrim", ratio: 0.4, hi: { gf: "Karma", css: "'Karma', serif" } }
+    { key: "classic", label: "CLASSIC", css: "'Poiret One', sans-serif", gf: "Poiret One", ratio: 0.4, hi: { gf: "Poppins", css: "'Poppins', sans-serif" } },
+    { key: "original", label: "ORIGINAL", css: "'Bungee Outline', sans-serif", gf: "Bungee Outline", ratio: 0.4, lines: true, hi: { gf: "Khand", css: "'Khand', sans-serif" } }
   ];
-  // Styles used by older share links, saved designs and the name-plate cards. Not offered in the picker; normalize() maps them to the 15 above.
+  // Styles that were offered before (old links, saved designs, collection cards): each opens in the closest of the 9 styles above.
+  const RETIRED_FONTS = {"passionate": "delight", "dreamy": "delight", "flow": "delight", "chic": "delight", "classy": "delight", "romantic": "delight", "grooving": "delight", "quirky": "vibey", "stylish": "delight", "sassy": "delight", "glam": "delight", "chemistry": "delight", "acoustic": "vibey", "sparky": "vibey", "dope": "original", "bossy": "delight", "iconic": "classic", "jolly": "delight", "modern": "classic"};
+  // Styles used by older share links, saved designs and the name-plate cards. Not offered in the picker; normalize() maps them to the 9 above.
   const LEGACY_FONTS = [
     { key: "script", label: "Script", css: "'Pacifico', cursive", gf: "Pacifico", ratio: 0.42, legacy: "passionate" },
     { key: "block", label: "BLOCK", css: "'Bebas Neue', sans-serif", gf: "Bebas Neue", ratio: 0.3, legacy: "original" },
@@ -149,13 +132,13 @@
     { key: "cup", label: "Coffee cup", d: "M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM16 10h2a2.5 2.5 0 0 1 0 5h-2M8 3c-1 1.5 1 2.5 0 4M12 3c-1 1.5 1 2.5 0 4" }
   ];
   const PRESETS = [
-    { key: "name", label: "Name sign", cfg: { t: ["Your Name", ""], f: "passionate", c: "p-pink", z: "medium" } },
+    { key: "name", label: "Name sign", cfg: { t: ["Your Name", ""], f: "delight", c: "p-pink", z: "medium" } },
     { key: "open", label: "OPEN sign", cfg: { t: ["OPEN", ""], f: "original", c: "p-red", z: "regular" } },
     { key: "vibes", label: "Good vibes", cfg: { t: ["Good", "Vibes"], f: "boyz", c: "p-lightblue", z: "medium" } },
-    { key: "welcome", label: "Welcome", cfg: { t: ["Welcome", ""], f: "passionate", c: "p-yellow", z: "medium" } },
-    { key: "wedding", label: "Wedding", cfg: { t: ["Mr & Mrs", ""], f: "chic", c: "p-pink", z: "medium", i: "heart" } },
+    { key: "welcome", label: "Welcome", cfg: { t: ["Welcome", ""], f: "delight", c: "p-yellow", z: "medium" } },
+    { key: "wedding", label: "Wedding", cfg: { t: ["Mr & Mrs", ""], f: "delight", c: "p-pink", z: "medium", i: "heart" } },
     { key: "cafe", label: "Cafe", cfg: { t: ["Coffee", "& Chai"], f: "funky", c: "p-orange", c2: "p-lightblue", z: "medium" } },
-    { key: "swagatam", label: "Hindi welcome", cfg: { t: ["\u0938\u094D\u0935\u093E\u0917\u0924\u092E\u094D", ""], f: "quirky", c: "p-yellow", z: "medium" } }
+    { key: "swagatam", label: "Hindi welcome", cfg: { t: ["\u0938\u094D\u0935\u093E\u0917\u0924\u092E\u094D", ""], f: "vibey", c: "p-yellow", z: "medium" } }
   ];
 
 
@@ -169,90 +152,90 @@
   ];
   const D = (id, cat, title, t, f, c, o) => ({ id, cat, title, cfg: Object.assign({ t, f, c, z: "medium" }, o || {}) });
   const COLLECTION = [
-    D("ananya", "name", "Soft pink name", ["Ananya", ""], "passionate", "p-pink"),
+    D("ananya", "name", "Soft pink name", ["Ananya", ""], "delight", "p-pink"),
     D("aryan", "name", "Gamer room", ["Aryan", ""], "robo", "p-lightblue"),
     D("kavya", "name", "Name with heart", ["Kavya", ""], "delight", "p-pink", { i: "heart" }),
-    D("home", "name", "Home sweet home", ["Home", "Sweet Home"], "classy", "p-cream", { c2: "p-orange", g: "wood" }),
-    D("vows", "wedding", "Mr & Mrs", ["Mr & Mrs", ""], "chic", "p-pink", { z: "large", i: "heart" }),
-    D("married", "wedding", "Just married", ["Just", "Married"], "romantic", "p-yellow", { c2: "p-cream" }),
-    D("together", "wedding", "Better together", ["Better", "Together"], "dreamy", "p-purple", { c2: "p-pink" }),
-    D("sangeet", "wedding", "Sangeet night", ["Sangeet", "Night"], "flow", "p-pink", { c2: "p-yellow", z: "large" }),
+    D("home", "name", "Home sweet home", ["Home", "Sweet Home"], "delight", "p-cream", { c2: "p-orange", g: "wood" }),
+    D("vows", "wedding", "Mr & Mrs", ["Mr & Mrs", ""], "delight", "p-pink", { z: "large", i: "heart" }),
+    D("married", "wedding", "Just married", ["Just", "Married"], "delight", "p-yellow", { c2: "p-cream" }),
+    D("together", "wedding", "Better together", ["Better", "Together"], "delight", "p-purple", { c2: "p-pink" }),
+    D("sangeet", "wedding", "Sangeet night", ["Sangeet", "Night"], "delight", "p-pink", { c2: "p-yellow", z: "large" }),
     D("coffee", "cafe", "Coffee and chai", ["Coffee", "& Chai"], "funky", "p-orange", { c2: "p-lightblue", g: "brick" }),
-    D("fresh", "cafe", "Fresh and hot", ["Fresh", "& Hot"], "classy", "p-orange", { c2: "p-yellow", g: "brick" }),
-    D("eat", "cafe", "Eat, drink, repeat", ["Eat Drink", "Repeat"], "grooving", "p-red", { c2: "p-cream" }),
-    D("sweet", "cafe", "Sweet tooth", ["Sweet", "Tooth"], "flow", "p-pink", { c2: "p-green" }),
+    D("fresh", "cafe", "Fresh and hot", ["Fresh", "& Hot"], "delight", "p-orange", { c2: "p-yellow", g: "brick" }),
+    D("eat", "cafe", "Eat, drink, repeat", ["Eat Drink", "Repeat"], "delight", "p-red", { c2: "p-cream" }),
+    D("sweet", "cafe", "Sweet tooth", ["Sweet", "Tooth"], "delight", "p-pink", { c2: "p-green" }),
     D("open", "shop", "OPEN sign", ["OPEN", ""], "original", "p-red", { z: "regular" }),
-    D("welcome", "shop", "Welcome", ["Welcome", ""], "passionate", "p-yellow", { g: "wood" }),
-    D("salon", "shop", "Salon and spa", ["Beauty", "Salon"], "chic", "p-pink", { c2: "p-cream", b: "rect" }),
-    D("studio", "shop", "Studio name", ["Photo", "Studio"], "stylish", "p-white", { c2: "p-blue", g: "concrete" }),
+    D("welcome", "shop", "Welcome", ["Welcome", ""], "delight", "p-yellow", { g: "wood" }),
+    D("salon", "shop", "Salon and spa", ["Beauty", "Salon"], "delight", "p-pink", { c2: "p-cream", b: "rect" }),
+    D("studio", "shop", "Studio name", ["Photo", "Studio"], "delight", "p-white", { c2: "p-blue", g: "concrete" }),
     D("vibes", "quotes", "Good vibes", ["Good", "Vibes"], "boyz", "p-lightblue", { c2: "p-pink" }),
-    D("dream", "quotes", "Dream big", ["Dream", "Big"], "quirky", "p-yellow", { c2: "p-orange" }),
+    D("dream", "quotes", "Dream big", ["Dream", "Big"], "vibey", "p-yellow", { c2: "p-orange" }),
     D("love", "quotes", "Love is all", ["Love", "Is All"], "delight", "p-red", { i: "heart" }),
-    D("stars", "quotes", "Be a star", ["Be A", "Star"], "classy", "p-yellow", { c2: "p-purple", i: "star" }),
-    D("kids", "kids", "Play room", ["Play", "Room"], "grooving", "p-green", { c2: "p-orange" }),
-    D("moon", "kids", "Little moon", ["Sweet", "Dreams"], "romantic", "p-yellow", { c2: "p-purple", i: "moon" }),
+    D("stars", "quotes", "Be a star", ["Be A", "Star"], "delight", "p-yellow", { c2: "p-purple", i: "star" }),
+    D("kids", "kids", "Play room", ["Play", "Room"], "delight", "p-green", { c2: "p-orange" }),
+    D("moon", "kids", "Little moon", ["Sweet", "Dreams"], "delight", "p-yellow", { c2: "p-purple", i: "moon" }),
     D("fit", "gym", "No pain, no gain", ["No Pain", "No Gain"], "original", "p-red", { c2: "p-cream", z: "large", g: "concrete" }),
     D("flex", "gym", "Beast mode", ["Beast", "Mode"], "robo", "p-green", { c2: "p-lightblue" }),
-    D("swagat", "hindi", "Swagatam", ["\u0938\u094d\u0935\u093e\u0917\u0924\u092e\u094d", ""], "quirky", "p-yellow", { g: "wood" }),
+    D("swagat", "hindi", "Swagatam", ["\u0938\u094d\u0935\u093e\u0917\u0924\u092e\u094d", ""], "vibey", "p-yellow", { g: "wood" }),
     D("shubh", "hindi", "Shubh labh", ["\u0936\u0941\u092d", "\u0932\u093e\u092d"], "classic", "p-orange", { c2: "p-yellow", g: "brick" }),
     D("ghar", "hindi", "Home name", ["\u092e\u0947\u0930\u093e \u0918\u0930", ""], "classic", "p-pink"),
-    D("vihaan", "name", "Bold boy's name", ["Vihaan", ""], "flow", "p-blue"),
-    D("ishita", "name", "Dreamy name", ["Ishita", ""], "dreamy", "p-purple", { i: "star" }),
-    D("mehendi", "wedding", "Mehendi night", ["Mehendi", "Night"], "flow", "p-green", { c2: "p-yellow", z: "large", g: "concrete" }),
-    D("savedate", "wedding", "Save the date", ["Save The", "Date"], "classy", "p-cream", { c2: "p-pink" }),
-    D("chaitime", "cafe", "Chai time", ["Chai", "Time"], "classy", "p-yellow", { c2: "p-orange", g: "brick" }),
-    D("burger", "cafe", "Burger bar", ["Burger", "Bar"], "grooving", "p-orange", { c2: "p-red" }),
-    D("boutique", "shop", "Boutique", ["Boutique", "Store"], "chic", "p-pink", { c2: "p-cream", b: "rect" }),
+    D("vihaan", "name", "Bold boy's name", ["Vihaan", ""], "delight", "p-blue"),
+    D("ishita", "name", "Dreamy name", ["Ishita", ""], "delight", "p-purple", { i: "star" }),
+    D("mehendi", "wedding", "Mehendi night", ["Mehendi", "Night"], "delight", "p-green", { c2: "p-yellow", z: "large", g: "concrete" }),
+    D("savedate", "wedding", "Save the date", ["Save The", "Date"], "delight", "p-cream", { c2: "p-pink" }),
+    D("chaitime", "cafe", "Chai time", ["Chai", "Time"], "delight", "p-yellow", { c2: "p-orange", g: "brick" }),
+    D("burger", "cafe", "Burger bar", ["Burger", "Bar"], "delight", "p-orange", { c2: "p-red" }),
+    D("boutique", "shop", "Boutique", ["Boutique", "Store"], "delight", "p-pink", { c2: "p-cream", b: "rect" }),
     D("techzone", "shop", "Tech zone", ["Tech", "Zone"], "robo", "p-lightblue", { c2: "p-pink" }),
-    D("wild", "quotes", "Stay wild", ["Stay", "Wild"], "flow", "p-green", { c2: "p-green" }),
-    D("happen", "quotes", "Make it happen", ["Make It", "Happen"], "quirky", "p-orange", { c2: "p-yellow", g: "concrete" }),
-    D("dino", "kids", "Dino land", ["Dino", "Land"], "grooving", "p-green", { c2: "p-yellow" }),
+    D("wild", "quotes", "Stay wild", ["Stay", "Wild"], "delight", "p-green", { c2: "p-green" }),
+    D("happen", "quotes", "Make it happen", ["Make It", "Happen"], "vibey", "p-orange", { c2: "p-yellow", g: "concrete" }),
+    D("dino", "kids", "Dino land", ["Dino", "Land"], "delight", "p-green", { c2: "p-yellow" }),
     D("littlestar", "kids", "Little star", ["Little", "Star"], "delight", "p-yellow", { c2: "p-pink", i: "star" }),
-    D("princess", "kids", "Princess room", ["Princess", "Room"], "chic", "p-pink", { c2: "p-purple", i: "heart" }),
+    D("princess", "kids", "Princess room", ["Princess", "Room"], "delight", "p-pink", { c2: "p-purple", i: "heart" }),
     D("superkid", "kids", "Super kid", ["Super", "Kid"], "boyz", "p-red", { c2: "p-lightblue" }),
     D("rise", "gym", "Rise and grind", ["Rise", "& Grind"], "original", "p-orange", { c2: "p-cream", z: "large" }),
-    D("trainhard", "gym", "Train hard", ["Train", "Hard"], "stylish", "p-red", { c2: "p-yellow", g: "concrete" }),
-    D("yoga", "gym", "Yoga studio", ["Yoga", "Studio"], "romantic", "p-green", { c2: "p-purple", g: "concrete" }),
+    D("trainhard", "gym", "Train hard", ["Train", "Hard"], "delight", "p-red", { c2: "p-yellow", g: "concrete" }),
+    D("yoga", "gym", "Yoga studio", ["Yoga", "Studio"], "delight", "p-green", { c2: "p-purple", g: "concrete" }),
     D("fitlife", "gym", "Fit life", ["Fit", "Life"], "funky", "p-green", { c2: "p-lightblue" }),
     D("diwali", "hindi", "Shubh Deepawali", ["\u0936\u0941\u092d", "\u0926\u0940\u092a\u093e\u0935\u0932\u0940"], "classic", "p-orange", { c2: "p-yellow", g: "brick" }),
     D("vivah", "hindi", "Shubh Vivah", ["\u0936\u0941\u092d", "\u0935\u093f\u0935\u093e\u0939"], "classic", "p-pink", { c2: "p-yellow", i: "heart" }),
-    D("mithai", "hindi", "Mithai ghar", ["\u092e\u093f\u0920\u093e\u0908", "\u0918\u0930"], "quirky", "p-yellow", { c2: "p-orange", g: "wood" }),
-    D("aadhya", "name", "Soft orange name", ["Aadhya", ""], "romantic", "p-orange"),
-    D("mira", "name", "Warm cream moon", ["Mira", ""], "dreamy", "p-cream", { i: "moon" }),
-    D("kabir", "name", "Green name", ["Kabir", ""], "stylish", "p-green"),
+    D("mithai", "hindi", "Mithai ghar", ["\u092e\u093f\u0920\u093e\u0908", "\u0918\u0930"], "vibey", "p-yellow", { c2: "p-orange", g: "wood" }),
+    D("aadhya", "name", "Soft orange name", ["Aadhya", ""], "delight", "p-orange"),
+    D("mira", "name", "Warm cream moon", ["Mira", ""], "delight", "p-cream", { i: "moon" }),
+    D("kabir", "name", "Green name", ["Kabir", ""], "delight", "p-green"),
     D("zara", "name", "Purple name", ["Zara", ""], "delight", "p-purple"),
-    D("forever", "wedding", "Forever starts here", ["Forever", "Starts Here"], "chic", "p-pink", { c2: "p-cream", z: "large", i: "heart" }),
+    D("forever", "wedding", "Forever starts here", ["Forever", "Starts Here"], "delight", "p-pink", { c2: "p-cream", z: "large", i: "heart" }),
     D("pose", "wedding", "Photo booth", ["Strike", "A Pose"], "boyz", "p-pink", { c2: "p-lightblue" }),
-    D("cheers", "wedding", "Cheers", ["Cheers", ""], "classy", "p-yellow", { z: "large" }),
-    D("party", "wedding", "Party time", ["Party", "Time"], "grooving", "p-pink", { c2: "p-lightblue" }),
-    D("orderhere", "cafe", "Order here", ["Order", "Here"], "stylish", "p-orange", { c2: "p-cream" }),
+    D("cheers", "wedding", "Cheers", ["Cheers", ""], "delight", "p-yellow", { z: "large" }),
+    D("party", "wedding", "Party time", ["Party", "Time"], "delight", "p-pink", { c2: "p-lightblue" }),
+    D("orderhere", "cafe", "Order here", ["Order", "Here"], "delight", "p-orange", { c2: "p-cream" }),
     D("coldcoffee", "cafe", "Cold coffee", ["Cold", "Coffee"], "funky", "p-lightblue", { c2: "p-orange", g: "brick" }),
-    D("baked", "cafe", "Fresh baked", ["Fresh", "Baked"], "classy", "p-orange", { c2: "p-cream", g: "brick" }),
-    D("lounge", "cafe", "The lounge", ["The", "Lounge"], "flow", "p-purple", { c2: "p-yellow" }),
-    D("comein", "shop", "Come on in", ["Come", "On In"], "quirky", "p-cream", { c2: "p-orange", g: "wood" }),
-    D("newarr", "shop", "New arrivals", ["New", "Arrivals"], "flow", "p-pink", { c2: "p-cream" }),
-    D("sale", "shop", "Big sale", ["Big", "Sale"], "grooving", "p-red", { c2: "p-yellow" }),
-    D("gift", "shop", "Gift shop", ["Gift", "Shop"], "chic", "p-lightblue", { c2: "p-pink" }),
-    D("riseshine", "quotes", "Rise and shine", ["Rise &", "Shine"], "classy", "p-yellow", { c2: "p-orange" }),
+    D("baked", "cafe", "Fresh baked", ["Fresh", "Baked"], "delight", "p-orange", { c2: "p-cream", g: "brick" }),
+    D("lounge", "cafe", "The lounge", ["The", "Lounge"], "delight", "p-purple", { c2: "p-yellow" }),
+    D("comein", "shop", "Come on in", ["Come", "On In"], "vibey", "p-cream", { c2: "p-orange", g: "wood" }),
+    D("newarr", "shop", "New arrivals", ["New", "Arrivals"], "delight", "p-pink", { c2: "p-cream" }),
+    D("sale", "shop", "Big sale", ["Big", "Sale"], "delight", "p-red", { c2: "p-yellow" }),
+    D("gift", "shop", "Gift shop", ["Gift", "Shop"], "delight", "p-lightblue", { c2: "p-pink" }),
+    D("riseshine", "quotes", "Rise and shine", ["Rise &", "Shine"], "delight", "p-yellow", { c2: "p-orange" }),
     D("games", "quotes", "Game room", ["Let The Games", "Begin"], "robo", "p-green", { c2: "p-lightblue" }),
     D("positive", "quotes", "Stay positive", ["Stay", "Positive"], "delight", "p-green", { c2: "p-yellow", g: "concrete" }),
-    D("kind", "quotes", "Be kind", ["Be", "Kind"], "romantic", "p-pink", { i: "heart" }),
-    D("rainbow", "kids", "Rainbow room", ["Rainbow", "Room"], "classy", "p-pink", { c2: "p-lightblue" }),
-    D("astro", "kids", "Little astronaut", ["Little", "Astronaut"], "stylish", "p-lightblue", { c2: "p-purple", i: "star" }),
+    D("kind", "quotes", "Be kind", ["Be", "Kind"], "delight", "p-pink", { i: "heart" }),
+    D("rainbow", "kids", "Rainbow room", ["Rainbow", "Room"], "delight", "p-pink", { c2: "p-lightblue" }),
+    D("astro", "kids", "Little astronaut", ["Little", "Astronaut"], "delight", "p-lightblue", { c2: "p-purple", i: "star" }),
     D("playtime", "kids", "Playtime", ["Play", "Time"], "boyz", "p-yellow", { c2: "p-green" }),
-    D("littleone", "kids", "Little one", ["Little", "One"], "romantic", "p-purple", { c2: "p-pink", i: "heart" }),
+    D("littleone", "kids", "Little one", ["Little", "One"], "delight", "p-purple", { c2: "p-pink", i: "heart" }),
     D("noexcuse", "gym", "No excuses", ["No", "Excuses"], "original", "p-red", { c2: "p-cream", z: "large" }),
-    D("sweat", "gym", "Sweat and smile", ["Sweat &", "Smile"], "flow", "p-orange", { c2: "p-yellow", g: "concrete" }),
-    D("pilates", "gym", "Pilates studio", ["Pilates", "Studio"], "romantic", "p-purple", { c2: "p-orange" }),
+    D("sweat", "gym", "Sweat and smile", ["Sweat &", "Smile"], "delight", "p-orange", { c2: "p-yellow", g: "concrete" }),
+    D("pilates", "gym", "Pilates studio", ["Pilates", "Studio"], "delight", "p-purple", { c2: "p-orange" }),
     D("cardio", "gym", "Cardio zone", ["Cardio", "Zone"], "robo", "p-pink", { c2: "p-lightblue" }),
     D("mata", "hindi", "Jai Mata Di", ["\u091c\u092f", "\u092e\u093e\u0924\u093e \u0926\u0940"], "classic", "p-red", { c2: "p-yellow", g: "brick" }),
     D("atithi", "hindi", "Atithi Devo Bhava", ["\u0905\u0924\u093f\u0925\u093f", "\u0926\u0947\u0935\u094b \u092d\u0935"], "classic", "p-yellow", { g: "wood" }),
     D("dukaan", "hindi", "Meri dukaan", ["\u092e\u0947\u0930\u0940", "\u0926\u0941\u0915\u093e\u0928"], "classic", "p-orange", { c2: "p-yellow" }),
-    D("parivar", "hindi", "Hamara parivar", ["\u0939\u092e\u093e\u0930\u093e", "\u092a\u0930\u093f\u0935\u093e\u0930"], "quirky", "p-pink", { c2: "p-yellow", i: "heart" })
+    D("parivar", "hindi", "Hamara parivar", ["\u0939\u092e\u093e\u0930\u093e", "\u092a\u0930\u093f\u0935\u093e\u0930"], "vibey", "p-pink", { c2: "p-yellow", i: "heart" })
   ];
 
   const LIMITS = { line: 20, notes: 200, maxLines: 3, maxQty: 20 };
-  const DEFAULTS = Object.freeze({ t: ["Hello", ""], f: "passionate", c: "p-pink", z: "regular", b: "none", u: "indoor", x: "pickup", i: "none", n: "", c2: "", g: "mauve",
+  const DEFAULTS = Object.freeze({ t: ["Hello", ""], f: "delight", c: "p-pink", z: "regular", b: "none", u: "indoor", x: "pickup", i: "none", n: "", c2: "", g: "mauve",
     p: "std", rs: "rainbow", al: "center", lh: "normal", sp: 0, c3: "", ip: "left", is: "m", ic: "", cw: 36, q: 1, dm: 0 });
   const ALL_FONTS = FONTS.concat(LEGACY_FONTS);
   /** Any font key, including the older ones used by name-plate cards. */
@@ -301,7 +284,7 @@
     if (l3 && !l2) errors.line2 = "Use line 2 before line 3.";
     [l1raw, l2raw, l3raw].forEach((r, i) => { if (Array.from(r.trim()).length > LIMITS.line) errors["line" + (i + 1)] = "Line " + (i + 1) + " can have up to " + LIMITS.line + " characters."; });
     const rawFont = String(raw.f || ""), legacyFont = (LEGACY_FONTS.find(o => o.key === rawFont) || {}).legacy;
-    const fontKey = pick(FONTS, legacyFont || rawFont, DEFAULTS.f), fontObj = find(FONTS, fontKey), allText = l1 + l2 + l3;
+    const wanted = legacyFont || rawFont, fontKey = pick(FONTS, RETIRED_FONTS[wanted] || wanted, DEFAULTS.f), fontObj = find(FONTS, fontKey), allText = l1 + l2 + l3;
     if (hasNonLatin(allText)) {
       const onlyLatinOrDeva = !/[^\u0000-\u024F\u2000-\u206F\u20A0-\u20CF\u0900-\u097F]/.test(allText);
       if (DEVA.test(allText) && !fontObj.deva) warnings.line1 = "This style has no Hindi letters, so the preview uses a Hindi font with a similar look. Tell us the style you want in the notes and we will confirm it on the mock-up.";
