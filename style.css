@@ -931,3 +931,34 @@ a,button,label,.chip-btn,summary{touch-action:manipulation}
 .drop{position:relative}
 .drop .drop-input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
 .own-design .btn,.quote-box .btn,.send-box .btn{white-space:normal;max-width:100%;text-align:center;height:auto}
+
+/* ================= Neon Studio, reference-style dark layout ================= */
+.designer-page{background:#000}
+.designer-page .studio{background:#000}
+.designer-head h1{font:700 clamp(1.8rem,4vw,2.6rem)/1.1 Inter,var(--ff-b);letter-spacing:-.01em}
+.designer-head h1 em{background:none;-webkit-background-clip:initial;background-clip:initial;color:#fff;font-style:normal}
+.na-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}
+.na-preview{aspect-ratio:1;border-radius:14px;border:1px solid #1d1b22;background:#050406;min-height:0}
+.na-preview svg{width:100%;height:100%}
+.na-controls{display:grid;gap:0}
+.na-controls .cfg-head h3{font:600 1.15rem Inter,var(--ff-b)}
+.na-controls .cfg-sec{margin-bottom:22px}
+.na-controls textarea#f-text{width:100%;min-height:96px;resize:vertical;background:#000;color:#fff;border:1.5px solid #e9e7ef;border-radius:8px;padding:14px 16px;font:400 1.1rem Inter,sans-serif;line-height:1.5}
+.na-controls textarea#f-text:focus{outline:none;border-color:#9900ff;box-shadow:0 0 0 3px rgba(153,0,255,.35)}
+.na-controls .font-grid{max-height:300px}
+.na-controls .fbtn-t{border-radius:6px;min-height:48px}
+.na-controls .swatches{gap:10px}
+.buy-box{display:grid;gap:10px;padding:18px;border:1px solid #1d1b22;border-radius:14px;background:#0a0910;margin-bottom:16px}
+.buy-box .buy-price{font-size:.95rem;color:var(--mute)}
+.buy-box .buy-price b#buyTotal{font:800 1.8rem var(--ff-d);color:#25d366;margin-left:4px}
+.buy-box .buy-wa{justify-content:center;width:100%}
+.na-more{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:36px;align-items:start}
+.na-more>*{min-width:0}
+@media (max-width:61.99em){
+  .na-grid{grid-template-columns:minmax(0,1fr);gap:18px}
+  .na-preview{aspect-ratio:auto}
+  .studio-grid .na-preview svg{max-height:40vh;width:auto;max-width:100%;aspect-ratio:1}
+  .na-more{grid-template-columns:minmax(0,1fr)}
+}
+.fbtn-t.thin{-webkit-text-stroke:.8px currentColor}
+.own-design .btn{min-height:44px}

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Custom Neon Sign Designer: design yours live | Grafix Club, Delhi</title>
-<meta name="description" content="Design a custom neon sign online: type your text, pick from 28 fonts, 10 neon colours or RGB, see it on your wall and get an instant estimate. Made in Janakpuri, Delhi.">
+<meta name="description" content="Design a custom neon sign online: type your text, pick from 28 neon fonts and 10 colours, see it glow and get an instant estimate. Made in Janakpuri, Delhi.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#07060b">
 <link rel="canonical" href="https://www.grafixclub.in/custom-neon-sign.html">
@@ -14,7 +14,7 @@
 <meta property="og:locale" content="en_IN">
 <meta property="og:url" content="https://www.grafixclub.in/custom-neon-sign.html">
 <meta property="og:title" content="Design your custom neon sign live | Grafix Club, Delhi">
-<meta property="og:description" content="Type your text, choose a font and colour, see it glowing on your wall and get an instant estimate.">
+<meta property="og:description" content="Type your text, choose a font and colour, see it glow and get an instant estimate.">
 <meta property="og:image" content="https://www.grafixclub.in/assets/designs/d1-ram-harleen.jpg">
 <meta property="og:image:alt" content="A custom neon name sign with two names in warm script inside a pink neon heart">
 <meta name="twitter:card" content="summary_large_image">
@@ -91,97 +91,76 @@
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="./">Home</a> <span aria-hidden="true">/</span> <span aria-current="page">Custom neon sign</span></nav>
     <header class="designer-head">
-      <h1 id="studio-h">Design your <em>neon sign</em> live</h1>
-      <p class="lead">Type your text, choose standard or RGB neon, pick a font, colour and size, and see it glowing on a wall or in a room. You get an instant estimate; we confirm the final design and price on a free mock-up.</p>
+      <h1 id="studio-h">Customise <em>Neon Sign</em></h1>
+      <p class="lead">Type your text, pick a font and a colour, and see it glow. We send you a free mock-up with the exact size and price.</p>
     </header>
 
     <noscript>
       <div class="callout"><b>The live designer needs JavaScript.</b>
-        <p>You can still order a neon sign: <a class="text-link" href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I%20would%20like%20a%20custom%20neon%20sign.">message us on WhatsApp</a> with your text, colour and size, or call <a class="text-link" href="tel:+919999306308">99993 06308</a>.</p></div>
+        <p>You can still order a neon sign: <a class="text-link" href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I%20would%20like%20a%20custom%20neon%20sign.">message us on WhatsApp</a> with your text and colour, or call <a class="text-link" href="tel:+919999306308">99993 06308</a>.</p></div>
     </noscript>
 
-    <div class="studio-grid" id="studioApp">
+    <div class="studio-grid na-grid" id="studioApp">
       <div class="studio-left">
         <p class="restore-note" id="restoreNote" hidden></p>
-        <div class="preview-wrap" id="previewWrap">
-          <div class="pv-tools" role="toolbar" aria-label="Preview tools">
-            <div class="pv-group" role="group" aria-label="Preview type"><button type="button" class="tool-btn" id="viewLife" aria-pressed="true">Room</button><button type="button" class="tool-btn" id="viewDesign" aria-pressed="false">Design</button></div>
-            <button type="button" class="tool-btn" id="lightBtn" aria-pressed="true">Light on</button>
-            <button type="button" class="tool-btn" id="animBtn" aria-pressed="true" hidden>Colour flow</button>
-            <label class="pv-glow"><span>Glow</span><input type="range" id="glowRange" min="40" max="160" step="10" value="100" aria-describedby="glowOut"><output id="glowOut"></output></label>
-            <div class="pv-group" role="group" aria-label="Zoom"><button type="button" class="tool-btn" id="zoomOut" aria-label="Zoom out">−</button><span class="zoom-val" id="zoomVal" aria-live="polite">100%</span><button type="button" class="tool-btn" id="zoomIn" aria-label="Zoom in">+</button><button type="button" class="tool-btn" id="fitBtn">Fit</button></div>
-            <button type="button" class="tool-btn" id="fsBtn">Full screen</button>
-            <div class="pv-group" role="group" aria-label="History"><button type="button" class="tool-btn" id="undoBtn" disabled><svg class="ic" aria-hidden="true"><use href="#i-undo"/></svg><span class="sr-only">Undo</span></button><button type="button" class="tool-btn" id="redoBtn" disabled><svg class="ic" aria-hidden="true"><use href="#i-redo"/></svg><span class="sr-only">Redo</span></button></div>
-          </div>
-          <figure class="preview" id="preview">
-            <svg id="neonSvg" viewBox="0 0 800 420" role="img" aria-label="Neon sign preview"></svg>
-            <div class="neon-fallback" id="neonFallback" hidden aria-hidden="true"></div>
-          </figure>
-        </div>
-        <p class="preview-cap"><b>Visual approximation.</b> Real neon colour, glow and letter shapes vary slightly. Glow, light and room settings change only the preview. We send a mock-up for your approval before anything is made. <span id="sizeTag"></span> <span id="rgbNote" hidden>The moving colours show what RGB neon can do; the exact colour modes depend on the controller and are confirmed with your quote.</span></p>
-        <div class="buy-row">
-          <p class="buy-price"><span id="buyPrefix"></span> <b id="buyTotal">–</b> <small class="design-id">Design ID <b id="designId">–</b></small></p>
-          <a class="btn btn-wa btn-lg" id="sendWaTop" href="#studio-form-start" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>Order on WhatsApp<span class="sr-only"> (opens in a new tab)</span></a>
-        </div>
-        <div class="presets">
-          <span id="presetsLabel">Start from an example, or see our <a class="text-link" href="./#collection">design ideas</a>:</span>
-          <div id="presets" role="group" aria-labelledby="presetsLabel"></div>
-        </div>
+        <figure class="preview na-preview" id="preview">
+          <svg id="neonSvg" viewBox="0 0 1000 1000" role="img" aria-label="Neon sign preview"></svg>
+          <div class="neon-fallback" id="neonFallback" hidden aria-hidden="true"></div>
+        </figure>
+        <p class="preview-cap"><b>Visual approximation.</b> Every style is shown with the same neon tube and glow. Real colour and letter shapes vary slightly; we confirm the exact design on your mock-up.</p>
       </div>
 
       <div class="studio-right">
-        <h2 class="studio-sub" id="studio-form-start" tabindex="-1">Customise your sign</h2>
-        <form class="controls" id="studioForm" novalidate aria-labelledby="studio-form-start"></form>
-        <section class="estimate-card" aria-labelledby="est-h">
-          <h3 id="est-h">Your estimate</h3>
-          <p class="est-line"><span id="estPrefix"></span> <b id="estTotal">–</b></p>
-          <table class="est-table"><caption class="sr-only">Estimate breakdown</caption><tbody id="estBody"></tbody></table>
-          <div id="estConfirm"></div>
-          <details class="how">
-            <summary>How is this estimated?</summary>
-            <p id="howText"></p>
-          </details>
-        </section>
-
-        <section class="send-box quote-box" id="quote" aria-labelledby="quote-h">
-          <h3 id="quote-h">Request a quote</h3>
-          <p class="hint">Your details go only into the WhatsApp message you send us; this website does not store them.</p>
-          <form id="quoteForm" novalidate>
-            <div class="q-grid">
-              <div class="field"><label for="q-name">Your name <em class="req">(required)</em></label><input id="q-name" type="text" autocomplete="name" maxlength="60" aria-describedby="qm-name"><p class="msg" id="qm-name" aria-live="polite"></p></div>
-              <div class="field"><label for="q-phone">Mobile number <em class="req">(required)</em></label><input id="q-phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" aria-describedby="qm-phone"><p class="msg" id="qm-phone" aria-live="polite"></p></div>
-              <div class="field"><label for="q-email">E-mail <em class="opt">(optional)</em></label><input id="q-email" type="email" autocomplete="email" maxlength="120" aria-describedby="qm-email"><p class="msg" id="qm-email" aria-live="polite"></p></div>
-              <div class="field"><label for="q-business">Business or brand name <em class="opt">(optional)</em></label><input id="q-business" type="text" autocomplete="organization" maxlength="60"></div>
-            </div>
-            <p class="hint">Quantity, indoor or outdoor use, fitting and instructions come from <b>More options</b> above, and your design ID and estimate are added automatically.</p>
-            <a class="btn btn-wa btn-lg" id="q-send" href="#quote" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>Send quote request on WhatsApp<span class="sr-only"> (opens in a new tab)</span></a>
-            <p class="ok-note" id="quoteDone" role="status" hidden></p>
-          </form>
-        </section>
-
-        <section class="send-box" aria-labelledby="send-h">
-          <h3 id="send-h">Save or share your design</h3>
-          <div class="send-row">
-            <a class="btn btn-wa btn-lg" id="sendWa" href="#studio-form-start" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>Send on WhatsApp<span class="sr-only"> (opens in a new tab)</span></a>
-            <a class="btn btn-ghost btn-lg" id="sendMail" href="#studio-form-start"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>Send by e-mail</a>
-            <button class="btn btn-ghost btn-lg" id="shareBtn" type="button" hidden>Share…</button>
-          </div>
-          <p class="hint">No payment is taken on this website. Your WhatsApp message contains every choice, the design ID and the estimate, so we can reply with a mock-up and final price.</p>
-          <div class="field link-row">
-            <label for="designUrl">Link to this design</label>
-            <div class="input-row"><input type="text" id="designUrl" readonly><button class="btn btn-ghost" type="button" id="copyLink">Copy link</button></div>
-            <p class="hint" id="copyNote" aria-live="polite"></p>
-          </div>
-          <div class="save-row"><button class="btn btn-ghost" type="button" id="saveBtn">Save this design on this device</button><span class="hint" id="savedNote"></span></div>
-          <div class="save-row"><button class="btn btn-ghost" type="button" id="dlBtn"><svg class="ic" aria-hidden="true"><use href="#i-dl"/></svg>Download preview image</button><span class="hint" id="dlNote" aria-live="polite"></span></div>
-        </section>
-
-        <section class="saved" aria-labelledby="saved-h">
-          <h3 id="saved-h">Saved designs</h3>
-          <p class="hint" id="savedEmpty">Nothing saved yet. Saved designs stay in this browser only.</p>
-          <ul class="saved-list" id="savedList"></ul>
-        </section>
+        <h2 class="studio-sub sr-only" id="studio-form-start" tabindex="-1">Customise your sign</h2>
+        <form class="controls na-controls" id="studioForm" novalidate aria-labelledby="studio-form-start"></form>
       </div>
+    </div>
+
+    <div class="na-more">
+      <section class="estimate-card" aria-labelledby="est-h">
+        <h3 id="est-h">Your estimate</h3>
+        <p class="est-line"><span id="estPrefix"></span> <b id="estTotal">–</b></p>
+        <table class="est-table"><caption class="sr-only">Estimate breakdown</caption><tbody id="estBody"></tbody></table>
+        <div id="estConfirm"></div>
+        <details class="how"><summary>How is this estimated?</summary><p id="howText"></p></details>
+      </section>
+
+      <section class="send-box quote-box" id="quote" aria-labelledby="quote-h">
+        <h3 id="quote-h">Request a quote</h3>
+        <p class="hint">Your details go only into the WhatsApp message you send us; this website does not store them.</p>
+        <form id="quoteForm" novalidate>
+          <div class="q-grid">
+            <div class="field"><label for="q-name">Your name <em class="req">(required)</em></label><input id="q-name" type="text" autocomplete="name" maxlength="60" aria-describedby="qm-name"><p class="msg" id="qm-name" aria-live="polite"></p></div>
+            <div class="field"><label for="q-phone">Mobile number <em class="req">(required)</em></label><input id="q-phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" aria-describedby="qm-phone"><p class="msg" id="qm-phone" aria-live="polite"></p></div>
+            <div class="field"><label for="q-email">E-mail <em class="opt">(optional)</em></label><input id="q-email" type="email" autocomplete="email" maxlength="120" aria-describedby="qm-email"><p class="msg" id="qm-email" aria-live="polite"></p></div>
+            <div class="field"><label for="q-business">Business or brand name <em class="opt">(optional)</em></label><input id="q-business" type="text" autocomplete="organization" maxlength="60"></div>
+          </div>
+          <a class="btn btn-wa btn-lg" id="q-send" href="#quote" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>Send quote request on WhatsApp<span class="sr-only"> (opens in a new tab)</span></a>
+          <p class="ok-note" id="quoteDone" role="status" hidden></p>
+        </form>
+      </section>
+
+      <section class="send-box" aria-labelledby="send-h">
+        <h3 id="send-h">Save or share your design</h3>
+        <div class="send-row">
+          <a class="btn btn-wa btn-lg" id="sendWa" href="#studio-form-start" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>Send on WhatsApp<span class="sr-only"> (opens in a new tab)</span></a>
+          <a class="btn btn-ghost btn-lg" id="sendMail" href="#studio-form-start"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>Send by e-mail</a>
+          <button class="btn btn-ghost btn-lg" id="shareBtn" type="button" hidden>Share…</button>
+        </div>
+        <div class="field link-row">
+          <label for="designUrl">Link to this design</label>
+          <div class="input-row"><input type="text" id="designUrl" readonly><button class="btn btn-ghost" type="button" id="copyLink">Copy link</button></div>
+          <p class="hint" id="copyNote" aria-live="polite"></p>
+        </div>
+        <div class="save-row"><button class="btn btn-ghost" type="button" id="saveBtn">Save this design on this device</button><span class="hint" id="savedNote"></span></div>
+        <div class="save-row"><button class="btn btn-ghost" type="button" id="dlBtn"><svg class="ic" aria-hidden="true"><use href="#i-dl"/></svg>Download preview image</button><span class="hint" id="dlNote" aria-live="polite"></span></div>
+      </section>
+
+      <section class="saved" aria-labelledby="saved-h">
+        <h3 id="saved-h">Saved designs</h3>
+        <p class="hint" id="savedEmpty">Nothing saved yet. Saved designs stay in this browser only.</p>
+        <ul class="saved-list" id="savedList"></ul>
+      </section>
     </div>
   </div>
 </section>
