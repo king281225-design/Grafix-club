@@ -38,6 +38,7 @@ const CONFIG = {
   neonRatePerSqFt: 800,            // custom neon, per sq ft  (price list: "Custom neon logo / quote")
   neonBackboardRatePerSqFt: 1000,  // neon + acrylic backboard, per sq ft (price list: "Neon + acrylic backboard")
   neonMinPrice: 1500,              // minimum estimate shown in the studio
+  neonRgbRatePerSqFt: 0,           // RGB / multicolour neon, per sq ft. 0 = not set yet: RGB signs show "price on confirmation"
 
   /* ---- Neon Studio limits ---- */
   maxUploadMB: 5                   // reference photo / logo upload limit

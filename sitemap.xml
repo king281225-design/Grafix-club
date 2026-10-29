@@ -5,4 +5,9 @@
   <url>
     <loc>https://www.grafixclub.in/</loc>
   </url>
+  <url>
+    <loc>https://www.grafixclub.in/custom-neon-sign.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

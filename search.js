@@ -96,7 +96,7 @@
     const actions = h("div", { class: "pcard-actions" }, [
       h("a", { class: "btn btn-wa", href: waUrl("Hi Grafix Club, I'd like a quote for: " + p.name + "."), target: "_blank", rel: "noopener" }, ["Ask on WhatsApp", h("span", { class: "sr-only", text: " about " + p.name + " (opens in a new tab)" })])
     ]);
-    if (p.studio) actions.appendChild(h("a", { class: "btn btn-ghost", href: "./?preset=" + encodeURIComponent(p.studio) + "#studio" }, ["Design it in Neon Studio", h("span", { class: "sr-only", text: " for " + p.name })]));
+    if (p.studio) actions.appendChild(h("a", { class: "btn btn-ghost", href: "custom-neon-sign.html?preset=" + encodeURIComponent(p.studio) }, ["Design it in Neon Studio", h("span", { class: "sr-only", text: " for " + p.name })]));
     const body = h("div", { class: "pcard-body" }, [
       h("span", { class: "cat", text: p.cat }), h("h3", { id: tid, text: p.name }), h("p", { class: "desc", text: p.desc }), priceNode(p), tags, actions
     ]);

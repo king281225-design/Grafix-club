@@ -94,13 +94,33 @@
   const BACKDROPS = [
     { key: "mauve", label: "Default Wall", c: "#2a1330" }, { key: "brick", label: "Dark Brick Wall", c: "#2d1713" },
     { key: "concrete", label: "Concrete Wall", c: "#5a5d63" }, { key: "white", label: "White Wall", c: "#ece9e4", light: true },
-    { key: "wood", label: "Wooden Wall", c: "#6b4423" }
+    { key: "wood", label: "Wooden Wall", c: "#6b4423" },
+    { key: "bedroom", label: "Bedroom", c: "#2b2538", room: true }, { key: "cafe", label: "Cafe", c: "#2a1d14", room: true },
+    { key: "office", label: "Office Reception", c: "#c9ced6", room: true, light: true }, { key: "gaming", label: "Gaming Room", c: "#14112a", room: true }
   ];
   const LEGACY_BACKDROPS = { night: "mauve", black: "mauve", navy: "mauve", purple: "mauve", terracotta: "brick", green: "concrete", light: "white", cream: "white", marble: "white", custom: "mauve" };
   // Sizes. width x height in inches is per letter: the sign gets longer with more text.
   const SIZES = [
     { key: "regular", label: "Regular", w: 3, h: 10 }, { key: "medium", label: "Medium", w: 4, h: 13 }, { key: "large", label: "Large", w: 5, h: 15 }
   ];
+  // Custom size: the customer types the overall sign width; letter size follows the text (letters keep the 3:10 width:height ratio of the sizes above).
+  const CUSTOM_SIZE = { key: "custom", label: "Custom", minW: 12, maxW: 120 };
+  // Product types. RGB is priced at neonRgbRatePerSqFt when config.js sets it; otherwise the RGB part is "price on confirmation".
+  const PRODUCT_TYPES = [
+    { key: "std", label: "Standard neon", hint: "One fixed colour per line" },
+    { key: "rgb", label: "RGB multicolour", hint: "Colour-changing neon" }
+  ];
+  // RGB colour previews (the preview shows the look; the real colour modes are confirmed with the controller we supply).
+  const RGB_STYLES = [
+    { key: "rainbow", label: "Rainbow", stops: ["#FF2D55", "#FF9500", "#FFE600", "#34C759", "#00C7FF", "#5856D6", "#AF52DE"] },
+    { key: "sunset", label: "Sunset", stops: ["#FF2D78", "#FF6A3D", "#FFB800"] },
+    { key: "ocean", label: "Ocean", stops: ["#0057FF", "#00C2FF", "#7B61FF"] },
+    { key: "party", label: "Party", stops: ["#FF00AA", "#00E0FF", "#7CFF00"] }
+  ];
+  const ALIGNS = [{ key: "center", label: "Centre" }, { key: "left", label: "Left" }, { key: "right", label: "Right" }];
+  const LINE_HEIGHTS = [{ key: "tight", label: "Tight", k: 0.82 }, { key: "normal", label: "Normal", k: 1 }, { key: "loose", label: "Loose", k: 1.22 }];
+  const ICON_POSITIONS = [{ key: "left", label: "Left of text" }, { key: "right", label: "Right of text" }, { key: "top", label: "Above text" }];
+  const ICON_SIZES = [{ key: "s", label: "Small", k: 0.7 }, { key: "m", label: "Medium", k: 1 }, { key: "l", label: "Large", k: 1.3 }];
   const BACKINGS = [
     { key: "none", label: "No backing", hint: "Neon only" },
     { key: "rect", label: "Acrylic rectangle", hint: "Clear panel behind the sign" },
@@ -119,7 +139,14 @@
     { key: "heart", label: "Heart", d: "M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z" },
     { key: "star", label: "Star", d: "M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z" },
     { key: "bolt", label: "Bolt", d: "M13 2L4 14h7l-1 8 9-12h-7z" },
-    { key: "moon", label: "Moon", d: "M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" }
+    { key: "moon", label: "Moon", d: "M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" },
+    { key: "crown", label: "Crown", d: "M3 18h18M4 18l-1-10 5 4 4-7 4 7 5-4-1 10" },
+    { key: "flower", label: "Flower", d: "M12 9.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM12 9.5C10 6 10.5 3 12 3s2 3 0 6.5M14.5 12c3.5-2 6.5-1.5 6.5 0s-3 2-6.5 0M12 14.5c2 3.5 1.5 6.5 0 6.5s-2-3 0-6.5M9.5 12C6 14 3 13.5 3 12s3-2 6.5 0" },
+    { key: "music", label: "Music note", d: "M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM20 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" },
+    { key: "arrow", label: "Arrow", d: "M3 12h16M13 6l6 6-6 6" },
+    { key: "wings", label: "Wings", d: "M12 8c-2-3-6-4-10-3 1 4 4 7 10 8M12 8c2-3 6-4 10-3-1 4-4 7-10 8M12 8v10" },
+    { key: "sparkle", label: "Sparkle", d: "M12 2c.8 5 2 7.2 7 8-5 .8-6.2 3-7 8-.8-5-2-7.2-7-8 5-.8 6.2-3 7-8z" },
+    { key: "cup", label: "Coffee cup", d: "M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM16 10h2a2.5 2.5 0 0 1 0 5h-2M8 3c-1 1.5 1 2.5 0 4M12 3c-1 1.5 1 2.5 0 4" }
   ];
   const PRESETS = [
     { key: "name", label: "Name sign", cfg: { t: ["Your Name", ""], f: "passionate", c: "p-pink", z: "medium" } },
@@ -224,8 +251,9 @@
     D("parivar", "hindi", "Hamara parivar", ["\u0939\u092e\u093e\u0930\u093e", "\u092a\u0930\u093f\u0935\u093e\u0930"], "quirky", "p-pink", { c2: "p-yellow", i: "heart" })
   ];
 
-  const LIMITS = { line: 20, notes: 200, maxLines: 2 };
-  const DEFAULTS = Object.freeze({ t: ["Hello", ""], f: "passionate", c: "p-pink", z: "regular", b: "none", u: "indoor", x: "pickup", i: "none", n: "", c2: "", g: "mauve" });
+  const LIMITS = { line: 20, notes: 200, maxLines: 3, maxQty: 20 };
+  const DEFAULTS = Object.freeze({ t: ["Hello", ""], f: "passionate", c: "p-pink", z: "regular", b: "none", u: "indoor", x: "pickup", i: "none", n: "", c2: "", g: "mauve",
+    p: "std", rs: "rainbow", al: "center", lh: "normal", sp: 0, c3: "", ip: "left", is: "m", ic: "", cw: 36, q: 1, dm: 0 });
   const ALL_FONTS = FONTS.concat(LEGACY_FONTS);
   /** Any font key, including the older ones used by name-plate cards. */
   const fontOf = key => ALL_FONTS.find(o => o.key === key) || FONTS[0];
@@ -265,77 +293,108 @@
     raw = raw && typeof raw === "object" ? raw : {};
     const rt = Array.isArray(raw.t) ? raw.t : [raw.t, ""];
     const errors = {}, warnings = {};
-    const l1raw = String(rt[0] == null ? "" : rt[0]), l2raw = String(rt[1] == null ? "" : rt[1]);
-    const l1 = clean(l1raw, LIMITS.line), l2 = clean(l2raw, LIMITS.line);
-    if (!l1 && l2) errors.line1 = "Use line 1 first. Line 2 is optional.";
+    const rawLine = i => String(rt[i] == null ? "" : rt[i]);
+    const l1raw = rawLine(0), l2raw = rawLine(1), l3raw = rawLine(2);
+    const l1 = clean(l1raw, LIMITS.line), l2 = clean(l2raw, LIMITS.line), l3 = clean(l3raw, LIMITS.line);
+    if (!l1 && (l2 || l3)) errors.line1 = "Use line 1 first. Lines 2 and 3 are optional.";
     else if (!l1) errors.line1 = "Enter the text for your sign.";
-    if (Array.from(l1raw.trim()).length > LIMITS.line) errors.line1 = "Line 1 can have up to " + LIMITS.line + " characters.";
-    if (Array.from(l2raw.trim()).length > LIMITS.line) errors.line2 = "Line 2 can have up to " + LIMITS.line + " characters.";
+    if (l3 && !l2) errors.line2 = "Use line 2 before line 3.";
+    [l1raw, l2raw, l3raw].forEach((r, i) => { if (Array.from(r.trim()).length > LIMITS.line) errors["line" + (i + 1)] = "Line " + (i + 1) + " can have up to " + LIMITS.line + " characters."; });
     const rawFont = String(raw.f || ""), legacyFont = (LEGACY_FONTS.find(o => o.key === rawFont) || {}).legacy;
-    const fontKey = pick(FONTS, legacyFont || rawFont, DEFAULTS.f), fontObj = find(FONTS, fontKey), allText = l1 + l2;
+    const fontKey = pick(FONTS, legacyFont || rawFont, DEFAULTS.f), fontObj = find(FONTS, fontKey), allText = l1 + l2 + l3;
     if (hasNonLatin(allText)) {
       const onlyLatinOrDeva = !/[^\u0000-\u024F\u2000-\u206F\u20A0-\u20CF\u0900-\u097F]/.test(allText);
       if (DEVA.test(allText) && !fontObj.deva) warnings.line1 = "This style has no Hindi letters, so the preview uses a Hindi font with a similar look. Tell us the style you want in the notes and we will confirm it on the mock-up.";
       else if (!(DEVA.test(allText) && onlyLatinOrDeva)) warnings.line1 = "The preview font may not show this script correctly. Tell us the style you want in the notes and we will confirm it on the mock-up.";
     }
-    // size: a key; older links stored a width in feet, which maps to the closest of the three sizes
-    let z = pick(SIZES, raw.z, "");
+    // size: a key or "custom"; older links stored a width in feet, which maps to the closest of the three sizes
+    let z = raw.z === CUSTOM_SIZE.key ? CUSTOM_SIZE.key : pick(SIZES, raw.z, "");
     if (!z) { const w = Number(raw.w); z = Number.isFinite(w) && raw.w !== "" && raw.w !== null ? (w <= 2 ? "regular" : w <= 3.5 ? "medium" : "large") : DEFAULTS.z; }
+    const cwNum = raw.cw === undefined || raw.cw === null || raw.cw === "" ? DEFAULTS.cw : Number(raw.cw);
+    const cwOk = Number.isFinite(cwNum) && cwNum >= CUSTOM_SIZE.minW && cwNum <= CUSTOM_SIZE.maxW;
+    if (z === CUSTOM_SIZE.key && !cwOk) errors.cw = "Enter a width from " + CUSTOM_SIZE.minW + " to " + CUSTOM_SIZE.maxW + " inches.";
+    const cw = cwOk ? Math.round(cwNum) : Math.min(CUSTOM_SIZE.maxW, Math.max(CUSTOM_SIZE.minW, Math.round(Number.isFinite(cwNum) ? cwNum : DEFAULTS.cw)));
+    const qNum = raw.q === undefined || raw.q === null || raw.q === "" ? 1 : Number(raw.q);
+    const qOk = Number.isInteger(qNum) && qNum >= 1 && qNum <= LIMITS.maxQty;
+    if (!qOk) errors.q = "Quantity can be 1 to " + LIMITS.maxQty + ". For more, tell us in the notes.";
+    const q = qOk ? qNum : Math.min(LIMITS.maxQty, Math.max(1, Math.round(Number.isFinite(qNum) ? qNum : 1)));
     const notesRaw = String(raw.n == null ? "" : raw.n);
     if (Array.from(notesRaw.trim()).length > LIMITS.notes) errors.notes = "Notes can have up to " + LIMITS.notes + " characters.";
     const bgKey = pick(BACKDROPS, LEGACY_BACKDROPS[raw.g] || raw.g, DEFAULTS.g);
-    const c = colorKey(raw.c, DEFAULTS.c), c2 = l2 ? colorKey(raw.c2, "") : "";
+    const lines = [l1, l2, l3].filter(Boolean);
+    const c = colorKey(raw.c, DEFAULTS.c), c2 = lines[1] ? colorKey(raw.c2, "") : "", c3 = lines[2] ? colorKey(raw.c3, "") : "";
+    const sp = Number.isInteger(Number(raw.sp)) && Number(raw.sp) >= 0 && Number(raw.sp) <= 4 ? Number(raw.sp) : DEFAULTS.sp;
     const config = {
-      t: l1 ? (l2 ? [l1, l2] : [l1, ""]) : ["", ""],
+      t: l1 ? (lines.length === 3 ? lines : [lines[0], lines[1] || ""]) : ["", ""],
       f: fontKey, c, c2, g: bgKey, z,
       b: pick(BACKINGS, raw.b, DEFAULTS.b), u: pick(USES, raw.u, DEFAULTS.u), x: pick(FITTINGS, raw.x, DEFAULTS.x),
-      i: pick(ICONS, raw.i, DEFAULTS.i), n: clean(notesRaw, LIMITS.notes)
+      i: pick(ICONS, raw.i, DEFAULTS.i), n: clean(notesRaw, LIMITS.notes),
+      p: pick(PRODUCT_TYPES, raw.p, DEFAULTS.p), rs: pick(RGB_STYLES, raw.rs, DEFAULTS.rs),
+      al: pick(ALIGNS, raw.al, DEFAULTS.al), lh: pick(LINE_HEIGHTS, raw.lh, DEFAULTS.lh), sp, c3,
+      ip: pick(ICON_POSITIONS, raw.ip, DEFAULTS.ip), is: pick(ICON_SIZES, raw.is, DEFAULTS.is), ic: raw.ic ? colorKey(raw.ic, "") : "",
+      cw, q, dm: raw.dm === 1 || raw.dm === "1" || raw.dm === true ? 1 : 0
     };
     return { config, errors, warnings, ok: Object.keys(errors).length === 0 };
   }
 
-  const lineCount = cfg => (cfg.t[1] ? 2 : 1);
-  const sizeOf = key => find(SIZES, key);
+  const lineCount = cfg => Math.max(1, cfg.t.filter(Boolean).length);
+  const sizeOf = key => (key === CUSTOM_SIZE.key ? { key: CUSTOM_SIZE.key, label: CUSTOM_SIZE.label, w: 0, h: 0 } : find(SIZES, key));
   const COMBINING = /\p{M}/u;
   /** Length of one line in letters: a space counts as half a letter, accents and Hindi vowel signs as nothing. */
   const letters = line => Array.from(line || "").reduce((n, ch) => n + (/\s/.test(ch) ? 0.5 : COMBINING.test(ch) ? 0 : 1), 0);
+  const r100 = n => Math.round(n / 100) * 100;
+
+  /** Physical size: preset sizes use their letter size; Custom uses the typed width and derives the letter size from the text. */
+  function physicalSize(cfg) {
+    const lines = lineCount(cfg), longest = Math.max.apply(null, cfg.t.filter(Boolean).map(letters).concat([1]));
+    if (cfg.z === CUSTOM_SIZE.key) {
+      const letterW = cfg.cw / longest, letterH = Math.min(24, Math.max(5, Math.round(letterW * 10 / 3 * 10) / 10));
+      return { z: CUSTOM_SIZE.key, label: CUSTOM_SIZE.label, letterW: Math.round(letterW * 10) / 10, letterH, w: cfg.cw, h: Math.round(lines * letterH), lines };
+    }
+    const sz = find(SIZES, cfg.z);
+    return { z: sz.key, label: sz.label, letterW: sz.w, letterH: sz.h, w: Math.max(sz.w, Math.round(longest * sz.w)), h: lines * sz.h, lines };
+  }
 
   /**
-   * estimate(config, rates) -> { rows, total, size, minApplied, toConfirm }
-   *   sign width  = letters in the longest line x the size's letter width (inches)
-   *   sign height = lines x the size's letter height (inches)
+   * estimate(config, rates) -> { rows, total, perSign, size, minApplied, toConfirm }
+   *   sign width  = letters in the longest line x the size's letter width (inches), or the typed width for Custom
+   *   sign height = lines x the letter height (inches)
    *   area (sq ft) = width x height / 144
-   *   neon    = area x neonRatePerSqFt
+   *   neon    = area x neonRatePerSqFt (RGB signs use neonRgbRatePerSqFt when it is set)
    *   backing = area x (backboard rate - neon rate)   when an acrylic backing is chosen
-   *   each line is rounded to the nearest ₹100; total never goes below neonMinPrice
-   * Items the shop has not published a price for (outdoor build, fitting, symbols, notes)
+   *   each line is rounded to the nearest ₹100; one sign never goes below neonMinPrice; quantity multiplies the sign price
+   * Items the shop has not published a price for (outdoor build, fitting, symbols, dimmer, RGB without a rate, notes)
    * are NOT priced: they are listed in toConfirm and the total says "from".
    */
   function estimate(cfg, rates) {
-    const sz = sizeOf(cfg.z), lines = lineCount(cfg);
-    const wIn = Math.max(sz.w, Math.round(Math.max.apply(null, cfg.t.filter(Boolean).map(letters).concat([1])) * sz.w));
-    const hIn = lines * sz.h;
+    const size = physicalSize(cfg), wIn = size.w, hIn = size.h;
     const area = wIn * hIn / 144;
-    const r100 = n => Math.round(n / 100) * 100;
-    const rate = rates.neonRatePerSqFt, back = rates.neonBackboardRatePerSqFt;
+    const rgb = cfg.p === "rgb", rgbRate = Number(rates.neonRgbRatePerSqFt) > 0 ? Number(rates.neonRgbRatePerSqFt) : 0;
+    const rate = rgb && rgbRate ? rgbRate : rates.neonRatePerSqFt, back = rates.neonBackboardRatePerSqFt;
     const rows = [];
     const neon = r100(area * rate);
-    rows.push({ key: "neon", label: "Neon sign, " + sz.label + " letters, about " + wIn + " × " + hIn + " in (" + area.toFixed(1) + " sq ft at " + money(rate) + " per sq ft)", amount: neon });
+    const kind = rgb ? (rgbRate ? "RGB neon sign" : "Neon sign (RGB upgrade quoted separately)") : "Neon sign";
+    rows.push({ key: "neon", label: kind + ", " + size.label + " letters, about " + wIn + " × " + hIn + " in (" + area.toFixed(1) + " sq ft at " + money(rate) + " per sq ft)", amount: neon });
     let sum = neon;
     if (cfg.b !== "none") {
-      const extra = r100(area * Math.max(0, back - rate));
-      rows.push({ key: "backing", label: find(BACKINGS, cfg.b).label + " (" + money(Math.max(0, back - rate)) + " per sq ft extra)", amount: extra });
+      const extra = r100(area * Math.max(0, back - rates.neonRatePerSqFt));
+      rows.push({ key: "backing", label: find(BACKINGS, cfg.b).label + " (" + money(Math.max(0, back - rates.neonRatePerSqFt)) + " per sq ft extra)", amount: extra });
       sum += extra;
     }
     let minApplied = false;
     if (sum < rates.neonMinPrice) { rows.push({ key: "min", label: "Minimum order price adjustment", amount: rates.neonMinPrice - sum }); sum = rates.neonMinPrice; minApplied = true; }
+    const perSign = sum, q = cfg.q || 1;
+    if (q > 1) { rows.push({ key: "qty", label: "Quantity: " + q + " signs (" + money(perSign) + " each)", amount: perSign * (q - 1) }); sum = perSign * q; }
     const toConfirm = [];
+    if (rgb && !rgbRate) toConfirm.push("RGB multicolour neon: we confirm the price");
     if (cfg.u === "outdoor") toConfirm.push("Outdoor use: we confirm feasibility and price");
     if (cfg.x === "fit") toConfirm.push("Fitting at your location");
     if (cfg.i !== "none") toConfirm.push("Symbol (" + find(ICONS, cfg.i).label.toLowerCase() + ") adds neon length");
+    if (cfg.dm) toConfirm.push("Dimmer switch");
+    if (cfg.z === CUSTOM_SIZE.key) toConfirm.push("Custom size: letter size is worked out from your width and confirmed on the mock-up");
     if (cfg.n) toConfirm.push("Anything you wrote in the notes");
     if (hasNonLatin(cfg.t.join(""))) toConfirm.push("Lettering style for this script");
-    return { rows, total: sum, size: { z: sz.key, label: sz.label, letterW: sz.w, letterH: sz.h, w: wIn, h: hIn, area: Math.round(area * 10) / 10, lines }, minApplied, toConfirm };
+    return { rows, total: sum, perSign, size: Object.assign(size, { area: Math.round(area * 10) / 10 }), minApplied, toConfirm };
   }
 
   /* ---------- save / share encoding (URL-safe base64 of compact JSON) ---------- */
@@ -357,28 +416,55 @@
 
   /** Short label for the saved-designs list. */
   function summary(cfg) {
-    return cfg.t.filter(Boolean).join(" ") + " · " + colorOf(cfg.c).label + " · " + find(FONTS, cfg.f).label + " · " + sizeOf(cfg.z).label;
+    return cfg.t.filter(Boolean).join(" ") + " · " + (cfg.p === "rgb" ? "RGB " + find(RGB_STYLES, cfg.rs).label : colorOf(cfg.c).label) + " · " + find(FONTS, cfg.f).label + " · " + (cfg.z === CUSTOM_SIZE.key ? cfg.cw + " in wide" : sizeOf(cfg.z).label);
   }
 
-  /** Plain-text enquiry for WhatsApp / e-mail. */
+  /** Design reference: the same design always gets the same short code (a hash of its settings), e.g. GC-7K2Q9M. */
+  function designId(cfg) {
+    const str = JSON.stringify(normalize(cfg).config);
+    let h1 = 0x811c9dc5, h2 = 0x01000193;
+    for (let i = 0; i < str.length; i++) { const c = str.charCodeAt(i); h1 = Math.imul(h1 ^ c, 16777619) >>> 0; h2 = Math.imul(h2 ^ c, 2246822519) >>> 0; }
+    return "GC-" + ((h1 ^ (h2 << 7)) >>> 0).toString(36).toUpperCase().padStart(6, "0").slice(-6);
+  }
+
+  const colourText = cfg => {
+    if (cfg.p === "rgb") return "RGB multicolour (" + find(RGB_STYLES, cfg.rs).label + " preview)";
+    const extra = [];
+    if (cfg.t[1] && cfg.c2) extra.push("line 2: " + colorOf(cfg.c2).label);
+    if (cfg.t[2] && cfg.c3) extra.push("line 3: " + colorOf(cfg.c3).label);
+    return colorOf(cfg.c).label + (extra.length ? " (" + extra.join(", ") + ")" : "");
+  };
+
+  /** Plain-text enquiry for WhatsApp / e-mail. opts: { designUrl, hasFile, heading, customer: {name, phone, email, business}, ref } */
   function buildMessage(cfg, est, opts) {
     opts = opts || {};
     const L = [];
     L.push(opts.heading || "Hi Grafix Club, I designed a neon sign on your website.");
+    if (opts.ref) L.push("Reference: " + opts.ref);
+    const cu = opts.customer || {};
+    if (cu.name) L.push("Name: " + cu.name);
+    if (cu.phone) L.push("Mobile: " + cu.phone);
+    if (cu.email) L.push("E-mail: " + cu.email);
+    if (cu.business) L.push("Business / brand: " + cu.business);
+    L.push("Design ID: " + designId(cfg));
+    L.push("Type: " + find(PRODUCT_TYPES, cfg.p).label);
     L.push("Text: \"" + cfg.t.filter(Boolean).join(" / ") + "\"");
-    L.push("Colour: " + colorOf(cfg.c).label + (cfg.t[1] && cfg.c2 ? " (line 2: " + colorOf(cfg.c2).label + ")" : ""));
+    L.push("Colour: " + colourText(cfg));
     L.push("Style: " + find(FONTS, cfg.f).label);
-    L.push("Size: " + est.size.label + " (letters " + est.size.letterW + " in wide x " + est.size.letterH + " in high; whole sign about " + est.size.w + " x " + est.size.h + " in)");
+    L.push("Size: " + est.size.label + " (letters about " + est.size.letterW + " in wide x " + est.size.letterH + " in high; whole sign about " + est.size.w + " x " + est.size.h + " in)");
+    if (cfg.t.filter(Boolean).length > 1 && cfg.al !== "center") L.push("Alignment: " + find(ALIGNS, cfg.al).label);
     L.push("Background (preview only): " + find(BACKDROPS, cfg.g).label);
-    if (cfg.i !== "none") L.push("Symbol: " + find(ICONS, cfg.i).label);
+    if (cfg.i !== "none") L.push("Symbol: " + find(ICONS, cfg.i).label + ", " + find(ICON_SIZES, cfg.is).label.toLowerCase() + ", " + find(ICON_POSITIONS, cfg.ip).label.toLowerCase() + (cfg.ic && cfg.p !== "rgb" ? ", " + colorOf(cfg.ic).label : ""));
     L.push("Backing: " + find(BACKINGS, cfg.b).label);
     L.push("Use: " + find(USES, cfg.u).label);
     L.push("Fitting: " + find(FITTINGS, cfg.x).label);
+    if (cfg.dm) L.push("Extra: dimmer switch");
+    L.push("Quantity: " + (cfg.q || 1));
     if (cfg.n) L.push("Notes: " + cfg.n);
     L.push("Website estimate: " + money(est.total) + " (indicative, from)");
     if (est.toConfirm.length) L.push("To confirm: " + est.toConfirm.join("; "));
     if (opts.designUrl) L.push("Open my design: " + opts.designUrl);
-    if (opts.hasFile) L.push("I will attach my reference file in this chat.");
+    if (opts.hasFile) L.push("I will attach my logo / reference file in this chat.");
     L.push("Please confirm design and price.");
     return L.join("\n");
   }
@@ -404,5 +490,5 @@
     return { ok: true, type: real, message: "" };
   }
 
-  return { FONTS, fontOf, COLORS, BACKDROPS, SIZES, sizeOf, colorOf, luminance, isLightWall, BACKINGS, USES, FITTINGS, ICONS, PRESETS, COLLECTION, COLLECTION_CATEGORIES, LIMITS, DEFAULTS, FILE_TYPES, normalize, estimate, encode, decode, summary, buildMessage, checkFile, sniff, find, money, hasNonLatin };
+  return { CUSTOM_SIZE, PRODUCT_TYPES, RGB_STYLES, ALIGNS, LINE_HEIGHTS, ICON_POSITIONS, ICON_SIZES, physicalSize, designId, FONTS, fontOf, COLORS, BACKDROPS, SIZES, sizeOf, colorOf, luminance, isLightWall, BACKINGS, USES, FITTINGS, ICONS, PRESETS, COLLECTION, COLLECTION_CATEGORIES, LIMITS, DEFAULTS, FILE_TYPES, normalize, estimate, encode, decode, summary, buildMessage, checkFile, sniff, find, money, hasNonLatin };
 });

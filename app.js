@@ -1,11 +1,16 @@
 /* =========================================================
    GRAFIX CLUB – home page behaviour
    (price tabs, gallery lightbox, counters, pointer effects).
-   Shared behaviour lives in common.js, the neon builder in
-   studio.js, site settings in config.js.
+   Shared behaviour lives in common.js, the neon designer on
+   custom-neon-sign.html (studio.js), site settings in config.js.
    ========================================================= */
 (function () {
   "use strict";
+  /* design links shared before the designer had its own page (index.html?design=... or ?preset=...) open the designer */
+  (function oldStudioLinks() {
+    const sp = new URLSearchParams(location.search);
+    if (sp.has("design") || sp.has("preset")) location.replace("custom-neon-sign.html" + location.search);
+  })();
   const { $, $$, reduce } = GC;
   const motionOff = () => reduce || document.documentElement.classList.contains("motion-off");
 

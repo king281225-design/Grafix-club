@@ -30,7 +30,6 @@
 <script src="catalogue.js" defer></script>
 <script src="common.js" defer></script>
 <script src="neon-model.js" defer></script>
-<script src="studio.js" defer></script>
 <script src="collection.js" defer></script>
 <script src="instagram.js" defer></script>
 <script src="reviews.js" defer></script>
@@ -355,7 +354,7 @@
       <a href="#services">Services</a>
       <a href="#collection">Designs</a>
       <a href="#prices">Prices</a>
-      <a href="#studio">Neon Studio</a>
+      <a href="custom-neon-sign.html">Neon Studio</a>
       <a href="#reviews">Reviews</a>
       <a href="#gallery">Instagram</a>
       <a href="#visit">Visit</a>
@@ -477,7 +476,7 @@
           <p class="from">From <b>₹800</b> / sq ft</p>
           <div class="card-links">
           <a class="more" href="#collection" data-coll="neon">See collection <span class="sr-only">of Custom Neon Signs </span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-          <a class="more alt" href="#studio">Design yours in Neon Studio</a>
+          <a class="more alt" href="custom-neon-sign.html">Design yours in Neon Studio</a>
           </div>
         </div>
       </article>
@@ -626,73 +625,25 @@
 </section>
 
 <!-- ============ NEON STUDIO ============ -->
-<section class="section studio" id="studio" aria-labelledby="studio-h">
-  <div class="wrap">
-    <header class="sec-head reveal">
+<section class="section studio studio-teaser" id="studio" aria-labelledby="studio-h">
+  <div class="wrap teaser-grid">
+    <div class="teaser-copy reveal">
       <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Neon Studio</p>
       <h2 id="studio-h">Design your own <em>neon sign</em> live.</h2>
-      <p class="lead">Type your text, pick a font, colour, size and background, and see a live preview with an estimate. Send it to us and we will confirm the final design and price.</p>
-    </header>
-
-    <noscript>
-      <div class="callout"><b>The live designer needs JavaScript.</b>
-        <p>You can still order a neon sign: <a class="text-link" href="https://wa.me/919999306308?text=Hi%20Grafix%20Club%2C%20I%20would%20like%20a%20custom%20neon%20sign.">message us on WhatsApp</a> with your text, colour and size, or call <a class="text-link" href="tel:+919999306308">99993 06308</a>.</p></div>
-    </noscript>
-
-    <div class="studio-grid" id="studioApp">
-      <div class="studio-left">
-        <p class="restore-note" id="restoreNote" hidden></p>
-        <figure class="preview" id="preview">
-          <svg id="neonSvg" viewBox="0 0 800 420" role="img" aria-label="Neon sign preview"></svg>
-          <div class="neon-fallback" id="neonFallback" hidden aria-hidden="true"></div>
-        </figure>
-        <p class="preview-cap"><b>Visual approximation.</b> Real neon colour, glow and letter shapes vary slightly. We send a mock-up for your approval before anything is made. <span id="sizeTag"></span></p>
-        <div class="buy-row">
-          <p class="buy-price"><span id="buyPrefix"></span> <b id="buyTotal">–</b></p>
-          <a class="btn btn-wa btn-lg" id="sendWaTop" href="#studio-form-start" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>Order on WhatsApp<span class="sr-only"> (opens in a new tab)</span></a>
-        </div>
-        <div class="presets">
-          <span id="presetsLabel">Start from an example, or see our <a class="text-link" href="#collection">design ideas</a>:</span>
-          <div id="presets" role="group" aria-labelledby="presetsLabel"></div>
-        </div>
-      </div>
-
-      <div class="studio-right">
-        <h3 class="studio-sub" id="studio-form-start" tabindex="-1">Customise your sign</h3>
-        <form class="controls" id="studioForm" novalidate aria-labelledby="studio-form-start"></form>
-        <section class="estimate-card" aria-labelledby="est-h">
-          <h3 id="est-h">Your estimate</h3>
-          <p class="est-line"><span id="estPrefix"></span> <b id="estTotal">–</b></p>
-          <table class="est-table"><caption class="sr-only">Estimate breakdown</caption><tbody id="estBody"></tbody></table>
-          <div id="estConfirm"></div>
-          <details class="how">
-            <summary>How is this estimated?</summary>
-            <p id="howText"></p>
-          </details>
-        </section>
-        <section class="send-box" aria-labelledby="send-h">
-          <h3 id="send-h">Send your design to us</h3>
-          <div class="send-row">
-            <a class="btn btn-wa btn-lg" id="sendWa" href="#studio-form-start" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>Send on WhatsApp<span class="sr-only"> (opens in a new tab)</span></a>
-            <a class="btn btn-ghost btn-lg" id="sendMail" href="#studio-form-start"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>Send by e-mail</a>
-            <button class="btn btn-ghost btn-lg" id="shareBtn" type="button" hidden>Share…</button>
-          </div>
-          <p class="hint">No payment is taken on this website. Your WhatsApp message contains every choice and the estimate, so we can reply with a mock-up and final price.</p>
-          <div class="field link-row">
-            <label for="designUrl">Link to this design</label>
-            <div class="input-row"><input type="text" id="designUrl" readonly><button class="btn btn-ghost" type="button" id="copyLink">Copy link</button></div>
-            <p class="hint" id="copyNote" aria-live="polite"></p>
-          </div>
-          <div class="save-row"><button class="btn btn-ghost" type="button" id="saveBtn">Save this design on this device</button><span class="hint" id="savedNote"></span></div>
-        </section>
-
-        <section class="saved" aria-labelledby="saved-h">
-          <h3 id="saved-h">Saved designs</h3>
-          <p class="hint" id="savedEmpty">Nothing saved yet. Saved designs stay in this browser only.</p>
-          <ul class="saved-list" id="savedList"></ul>
-        </section>
-      </div>
+      <p class="lead">Type your text and see it glow. Choose standard or RGB neon, 28 fonts, 10 colours, any size, and see it on a wall or in a room, with an instant estimate.</p>
+      <ul class="teaser-points">
+        <li>Live preview with real neon glow</li>
+        <li>Up to 3 lines, symbols and your own logo</li>
+        <li>Instant estimate and a design ID to share</li>
+        <li>Send it on WhatsApp for a free mock-up</li>
+      </ul>
+      <div class="cta-row"><a class="btn btn-gold btn-lg" href="custom-neon-sign.html">Design your neon sign</a><a class="btn btn-ghost btn-lg" href="custom-neon-sign.html?type=rgb">Try RGB neon</a></div>
+      <p class="teaser-presets"><span>Or start from an example:</span> <a class="btn btn-ghost btn-sm" href="custom-neon-sign.html?preset=name">Name sign</a><a class="btn btn-ghost btn-sm" href="custom-neon-sign.html?preset=open">OPEN sign</a><a class="btn btn-ghost btn-sm" href="custom-neon-sign.html?preset=vibes">Good vibes</a><a class="btn btn-ghost btn-sm" href="custom-neon-sign.html?preset=welcome">Welcome</a><a class="btn btn-ghost btn-sm" href="custom-neon-sign.html?preset=wedding">Wedding</a><a class="btn btn-ghost btn-sm" href="custom-neon-sign.html?preset=cafe">Cafe</a><a class="btn btn-ghost btn-sm" href="custom-neon-sign.html?preset=swagatam">Hindi welcome</a></p>
     </div>
+    <a class="teaser-pic reveal" href="custom-neon-sign.html">
+      <img src="assets/designs/d1-ram-harleen.jpg" alt="A custom neon name sign: two names in warm yellow script inside a pink neon heart" width="736" height="736" loading="lazy" decoding="async">
+      <span class="teaser-badge">Open the designer &rarr;</span>
+    </a>
   </div>
 </section>
 
@@ -843,7 +794,7 @@
     </div>
     <nav class="foot-col" aria-labelledby="foot-explore">
       <h2 class="foot-h" id="foot-explore">Explore</h2>
-      <a href="#services">Services</a><a href="#collection">Design collection</a><a href="#prices">Price list</a><a href="#studio">Neon Studio</a><a href="search.html">Search products</a><a href="#gallery">Gallery</a><a href="#reviews">Reviews</a><a href="#visit">Visit us</a>
+      <a href="#services">Services</a><a href="#collection">Design collection</a><a href="#prices">Price list</a><a href="custom-neon-sign.html">Neon Studio</a><a href="search.html">Search products</a><a href="#gallery">Gallery</a><a href="#reviews">Reviews</a><a href="#visit">Visit us</a>
     </nav>
     <nav class="foot-col" aria-labelledby="foot-services">
       <h2 class="foot-h" id="foot-services">Services</h2>
