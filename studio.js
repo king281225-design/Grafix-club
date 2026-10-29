@@ -113,9 +113,9 @@
   let fontsRequested = false; const loadedFonts = new Set();
   const gfFamily = ft => "family=" + encodeURIComponent(ft.gf).replace(/%20/g, "+");
   const addCss = href => { const link = document.createElement("link"); link.rel = "stylesheet"; link.href = href; document.head.appendChild(link); };
-  function needFont(key) {
+  function needFont(ft) {
     if (!fontsRequested) return;
-    const ft = N.fontOf(key); if (loadedFonts.has(ft.gf)) return; loadedFonts.add(ft.gf);
+    if (loadedFonts.has(ft.gf)) return; loadedFonts.add(ft.gf);
     addCss("https://fonts.googleapis.com/css2?" + gfFamily(ft) + "&display=swap");
     if (document.fonts) document.fonts.load('48px "' + ft.gf + '"').catch(() => {});
   }
@@ -124,7 +124,7 @@
     const glyphs = Array.from(new Set(N.FONTS.map(ft => ft.label).join(""))).join("");
     addCss("https://fonts.googleapis.com/css2?" + N.FONTS.map(gfFamily).join("&") + "&text=" + encodeURIComponent(glyphs) + "&display=swap");
     if (document.fonts) document.fonts.addEventListener("loadingdone", () => draw(lastCfg, photoOpt()));
-    needFont(drawFont(lastCfg).key);
+    needFont(drawFont(lastCfg));
   }
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { ensureFonts(); io.disconnect(); } }, { rootMargin: "700px 0px" });
@@ -146,9 +146,9 @@
     const n = parseInt(hex.slice(1), 16), t = Math.min(0.5, (0.5 - l) * 1.1), m = c => Math.round(c + (255 - c) * t);
     return "rgb(" + m(n >> 16) + "," + m((n >> 8) & 255) + "," + m(n & 255) + ")";
   };
-  /** Hindi letters need a font that has them; the preview falls back to Quirky when the chosen style has none. */
+  /** Hindi letters need a font that has them; a style without Hindi letters uses its own look-alike Hindi font (ft.hi), so every style still changes the preview. */
   const DEVA = /[ऀ-ॿ]/;
-  const drawFont = cfg => { const ft = N.fontOf(cfg.f); return (DEVA.test(cfg.t.join("")) && !ft.deva) ? N.fontOf("quirky") : ft; };
+  const drawFont = cfg => { const ft = N.fontOf(cfg.f); return (DEVA.test(cfg.t.join("")) && !ft.deva && ft.hi) ? Object.assign({}, ft, { gf: ft.hi.gf, css: ft.hi.css, deva: true }) : ft; };
   const SCALE = { regular: 0.74, medium: 0.87, large: 1 };
 
   /* height of a capital letter as a share of the font size (measured, so every font gets the same letter height) */
@@ -395,7 +395,7 @@
     el("fontName").textContent = N.find(N.FONTS, cfg.f).label;
     el("sizeName").textContent = N.sizeOf(cfg.z).label;
     el("c2Field").hidden = !cfg.t[1];
-    needFont(drawFont(cfg).key);
+    needFont(drawFont(cfg));
     const bgMode = f.bg.value;
     el("bgName").textContent = bgMode === "photo" ? "Custom Background" : N.find(N.BACKDROPS, cfg.g).label;
     el("bgPhotoRow").hidden = bgMode !== "photo";
