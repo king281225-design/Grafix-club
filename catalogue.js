@@ -29,7 +29,7 @@
     { name: "Name Plates", slug: "name-plates", coll: "plates", color: "#9b5cff", blurb: "Home, office and clinic plates." },
     { name: "LED Boards", slug: "led-boards", coll: "led", color: "#ffc933", blurb: "Shop boards and 3D letters." },
     { name: "Neon Signs", slug: "neon-signs", coll: "neon", color: "#ff2e93", blurb: "Custom LED neon names, quotes and logos." },
-    { name: "Steel Letters & Stickers", slug: "steel-letters-stickers", coll: "letters", color: "#ff8a1f", blurb: "Steel and acrylic letters, vinyl stickers and decals." }
+    { name: "Acrylic Work", slug: "acrylic-work", coll: "acrylic", color: "#ff8a1f", blurb: "Acrylic and steel letters, logos, QR stands, vinyl stickers and decals.", keys: ["steel letters", "stickers", "letters"] }
   ];
 
   const PRODUCTS = [
@@ -44,10 +44,10 @@
     { id: "acrylic-name-plate", cat: "Name Plates", name: "Acrylic name plate", desc: "Home, office, clinic", price: 699, unit: "from", basis: "from", lit: false, materials: ["Acrylic"], tags: ["home", "office", "clinic"], image: "d5-priyanka-abhishek" },
     { id: "steel-name-plate", cat: "Name Plates", name: "Steel letter name plate", desc: "Gold / silver / black", price: 1499, unit: "from", basis: "from", lit: false, materials: ["Steel"], tags: ["gold", "silver", "black", "letters"], image: "d7-solanki" },
     { id: "led-name-plate", cat: "Name Plates", name: "LED backlit name plate", desc: "Warm or cool white", price: 1999, unit: "from", basis: "from", lit: true, materials: [], tags: ["backlit", "warm white", "cool white", "led"], image: "d3-rohit-ananya" },
-    // ---- Steel Letters & Stickers
-    { id: "steel-acrylic-letters", cat: "Steel Letters & Stickers", name: "Steel / acrylic letters", desc: "Brushed steel, gold, black", price: 150, unit: "per inch", basis: "inch", lit: false, materials: ["Steel", "Acrylic"], tags: ["letters", "gold", "black", "brushed"], image: "d2-sharma" },
-    { id: "car-decal", cat: "Steel Letters & Stickers", name: "Car decal / graphics", desc: "Vinyl cut, any design", price: 399, unit: "from", basis: "from", lit: false, materials: ["Vinyl"], tags: ["car", "graphics", "vinyl cut"], image: "i-car-decal" },
-    { id: "computerised-sticker", cat: "Steel Letters & Stickers", name: "Computerised sticker", desc: "Name, logo, small decals", price: 49, unit: "per piece", basis: "piece", lit: false, materials: ["Vinyl"], tags: ["decal", "logo", "name", "vinyl"], image: "i-vinyl-apply" }
+    // ---- Acrylic Work (formerly "Steel Letters & Stickers")
+    { id: "steel-acrylic-letters", cat: "Acrylic Work", name: "Steel / acrylic letters", desc: "Brushed steel, gold, black", price: 150, unit: "per inch", basis: "inch", lit: false, materials: ["Steel", "Acrylic"], tags: ["letters", "gold", "black", "brushed"], image: "d2-sharma" },
+    { id: "car-decal", cat: "Acrylic Work", name: "Car decal / graphics", desc: "Vinyl cut, any design", price: 399, unit: "from", basis: "from", lit: false, materials: ["Vinyl"], tags: ["car", "graphics", "vinyl cut"], image: "i-car-decal" },
+    { id: "computerised-sticker", cat: "Acrylic Work", name: "Computerised sticker", desc: "Name, logo, small decals", price: 49, unit: "per piece", basis: "piece", lit: false, materials: ["Vinyl"], tags: ["decal", "logo", "name", "vinyl"], image: "i-vinyl-apply" }
   ];
 
   /** Alt text for card photos. "d*" are design pictures (assets/designs); "p*" are the shop's own photos (assets/shop); "i-*" are free-licence stock photos (assets/ideas),
@@ -96,6 +96,8 @@
   })();
   const FACETS = { cat: CATEGORIES.map(c => ({ id: c.slug, label: c.name })), lit: LIT, mat: MATERIALS, price: PRICE_BANDS, basis: BASES };
   const byId = new Map(PRODUCTS.map(p => [p.id, p]));
+  /* old category links keep working after a rename */
+  const CAT_ALIASES = { "steel-letters-stickers": "acrylic-work" };
   const catBySlug = new Map(CATEGORIES.map(c => [c.slug, c]));
   const catByName = new Map(CATEGORIES.map(c => [c.name, c]));
 
@@ -113,10 +115,14 @@
   };
 
   const WEIGHTS = { name: 6, cat: 3, tags: 3, mat: 2, desc: 1.5 };
+  // A category word that is also a material (e.g. "acrylic" in "Acrylic Work") only matches products made of that
+  // material, so searching "acrylic" does not return the vinyl stickers that share the category.
+  const MAT_WORDS = new Set(PRODUCTS.flatMap(p => words(p.materials.join(" "))));
   const index = PRODUCTS.map(p => {
+    const own = new Set(words(p.materials.join(" ")));
     const f = {
       name: words(p.name),
-      cat: words(p.cat),
+      cat: words(p.cat).filter(w => !MAT_WORDS.has(w) || own.has(w)),
       tags: words(p.tags.join(" ")),
       mat: words(p.materials.join(" ")),
       desc: words(p.desc + (p.lit ? " illuminated" : ""))
@@ -266,7 +272,7 @@
     st.q = cleanQuery(sp.get("q"));
     Object.keys(FACETS).forEach(k => {
       const ok = new Set(FACETS[k].map(o => o.id));
-      st[k] = [...new Set(sp.getAll(k).map(v => String(v).toLowerCase()).filter(v => ok.has(v)))];
+      st[k] = [...new Set(sp.getAll(k).map(v => String(v).toLowerCase()).map(v => (k === "cat" && CAT_ALIASES[v]) || v).filter(v => ok.has(v)))];
     });
     const sort = sp.get("sort"); st.sort = SORTS.some(s => s.id === sort) ? sort : "relevance";
     const pg = parseInt(sp.get("page"), 10); st.page = Number.isFinite(pg) && pg > 0 && pg < 1000 ? pg : 1;
@@ -293,7 +299,7 @@
     const out = [];
     const qFold = words(q).join(" ");
     CATEGORIES.forEach(c => {
-      if (words(c.name).join(" ").startsWith(qFold) || c.slug.startsWith(fold(q).replace(/\s+/g, "-"))) out.push({ type: "category", label: c.name, sub: "Category", href: searchHref({ cat: [c.slug] }), cat: c.slug });
+      if (words(c.name).join(" ").startsWith(qFold) || c.slug.startsWith(fold(q).replace(/\s+/g, "-")) || (c.keys || []).some(k => k.startsWith(qFold))) out.push({ type: "category", label: c.name, sub: "Category", href: searchHref({ cat: [c.slug] }), cat: c.slug });
     });
     res.results.slice(0, Math.max(0, limit - 1 - out.length)).forEach(r => out.push({
       type: "product", label: r.product.name, sub: r.product.cat + " · from " + formatPrice(r.product.price) + (r.product.unit === "from" ? "" : " " + r.product.unit),
