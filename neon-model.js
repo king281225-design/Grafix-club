@@ -18,36 +18,37 @@
 })(typeof self !== "undefined" ? self : this, function () {
   "use strict";
 
+  // bs = size of the style button text; thin = hairline letters that get a slightly heavier outline on the button so they stay readable.
   // The 28 styles customers pick from, in this order. ratio = approximate letter height / sign width (drawing only).
   // deva = the font has Devanagari (Hindi) letters. hi = the Hindi font used for the preview when the text is Hindi and the style has no Hindi letters of its own (a similar look, so every style still changes the preview). Fonts are free Google Fonts that match each style name.
   const FONTS = [
     { key: "passionate", label: "Passionate", css: "'Pacifico', cursive", gf: "Pacifico", ratio: 0.42, hi: { gf: "Tillana", css: "'Tillana', cursive" } },
-    { key: "dreamy", label: "Dreamy", css: "'Neonderthaw', cursive", gf: "Neonderthaw", ratio: 0.45, hi: { gf: "Amita", css: "'Amita', cursive" } },
-    { key: "flow", label: "Flow", css: "'Yellowtail', cursive", gf: "Yellowtail", ratio: 0.42, hi: { gf: "Dekko", css: "'Dekko', cursive" } },
+    { key: "dreamy", label: "Dreamy", css: "'Neonderthaw', cursive", gf: "Neonderthaw", ratio: 0.45, bs: 1.35, thin: true, hi: { gf: "Amita", css: "'Amita', cursive" } },
+    { key: "flow", label: "Flow", css: "'Yellowtail', cursive", gf: "Yellowtail", ratio: 0.42, bs: 1.05, hi: { gf: "Dekko", css: "'Dekko', cursive" } },
     { key: "original", label: "ORIGINAL", css: "'Bebas Neue', sans-serif", gf: "Bebas Neue", ratio: 0.3, hi: { gf: "Khand", css: "'Khand', sans-serif" } },
     { key: "classic", label: "CLASSIC", css: "'Poppins', sans-serif", gf: "Poppins", ratio: 0.4, deva: true },
     { key: "boyz", label: "Boyz", css: "'Permanent Marker', cursive", gf: "Permanent Marker", ratio: 0.42, hi: { gf: "Sarpanch", css: "'Sarpanch', sans-serif" } },
     { key: "funky", label: "Funky", css: "'Monoton', sans-serif", gf: "Monoton", ratio: 0.34, hi: { gf: "Modak", css: "'Modak', cursive" } },
-    { key: "chic", label: "Chic", css: "'Great Vibes', cursive", gf: "Great Vibes", ratio: 0.4, hi: { gf: "Kurale", css: "'Kurale', serif" } },
-    { key: "delight", label: "Delight", css: "'Dancing Script', cursive", gf: "Dancing Script", ratio: 0.4, hi: { gf: "Laila", css: "'Laila', serif" } },
-    { key: "classy", label: "Classy", css: "'Satisfy', cursive", gf: "Satisfy", ratio: 0.38, hi: { gf: "Arya", css: "'Arya', sans-serif" } },
-    { key: "romantic", label: "Romantic", css: "'Sacramento', cursive", gf: "Sacramento", ratio: 0.38, hi: { gf: "Gotu", css: "'Gotu', sans-serif" } },
+    { key: "chic", label: "Chic", css: "'Great Vibes', cursive", gf: "Great Vibes", ratio: 0.4, bs: 1.5, thin: true, hi: { gf: "Kurale", css: "'Kurale', serif" } },
+    { key: "delight", label: "Delight", css: "'Dancing Script', cursive", gf: "Dancing Script", ratio: 0.4, bs: 1.12, hi: { gf: "Laila", css: "'Laila', serif" } },
+    { key: "classy", label: "Classy", css: "'Satisfy', cursive", gf: "Satisfy", ratio: 0.38, bs: 1.12, hi: { gf: "Arya", css: "'Arya', sans-serif" } },
+    { key: "romantic", label: "Romantic", css: "'Sacramento', cursive", gf: "Sacramento", ratio: 0.38, bs: 1.45, thin: true, hi: { gf: "Gotu", css: "'Gotu', sans-serif" } },
     { key: "robo", label: "ROBO", css: "'Orbitron', sans-serif", gf: "Orbitron", ratio: 0.36, hi: { gf: "Rajdhani", css: "'Rajdhani', sans-serif" } },
     { key: "grooving", label: "Grooving", css: "'Bungee', sans-serif", gf: "Bungee", ratio: 0.36, hi: { gf: "Yatra One", css: "'Yatra One', cursive" } },
-    { key: "quirky", label: "Quirky", css: "'Kalam', cursive", gf: "Kalam", ratio: 0.4, deva: true },
+    { key: "quirky", label: "Quirky", css: "'Kalam', cursive", gf: "Kalam", ratio: 0.4, bs: 1.08, deva: true },
     { key: "stylish", label: "Stylish", css: "'Righteous', sans-serif", gf: "Righteous", ratio: 0.34, hi: { gf: "Baloo 2", css: "'Baloo 2', cursive" } },
-    { key: "sassy", label: "Sassy", css: "'Sassy Frass', cursive", gf: "Sassy Frass", ratio: 0.4, hi: { gf: "Jaini", css: "'Jaini', cursive" } },
-    { key: "glam", label: "Glam", css: "'Allura', cursive", gf: "Allura", ratio: 0.4, hi: { gf: "Kadwa", css: "'Kadwa', serif" } },
+    { key: "sassy", label: "Sassy", css: "'Sassy Frass', cursive", gf: "Sassy Frass", ratio: 0.4, bs: 1.9, thin: true, hi: { gf: "Jaini", css: "'Jaini', cursive" } },
+    { key: "glam", label: "Glam", css: "'Allura', cursive", gf: "Allura", ratio: 0.4, bs: 1.4, thin: true, hi: { gf: "Kadwa", css: "'Kadwa', serif" } },
     { key: "mayasans", label: "MAYA-SANS", css: "'Josefin Sans', sans-serif", gf: "Josefin Sans", ratio: 0.34, hi: { gf: "Hind", css: "'Hind', sans-serif" } },
-    { key: "chemistry", label: "Chemistry", css: "'Mr De Haviland', cursive", gf: "Mr De Haviland", ratio: 0.4, hi: { gf: "Sahitya", css: "'Sahitya', serif" } },
-    { key: "acoustic", label: "Acoustic", css: "'Over the Rainbow', cursive", gf: "Over the Rainbow", ratio: 0.4, hi: { gf: "Mukta", css: "'Mukta', sans-serif" } },
-    { key: "sparky", label: "Sparky", css: "'Reenie Beanie', cursive", gf: "Reenie Beanie", ratio: 0.4, hi: { gf: "Pragati Narrow", css: "'Pragati Narrow', sans-serif" } },
-    { key: "vibey", label: "Vibey", css: "'Caveat', cursive", gf: "Caveat", ratio: 0.4, hi: { gf: "Palanquin Dark", css: "'Palanquin Dark', sans-serif" } },
-    { key: "lofi", label: "LoFi", css: "'Handlee', cursive", gf: "Handlee", ratio: 0.4, hi: { gf: "Sura", css: "'Sura', serif" } },
+    { key: "chemistry", label: "Chemistry", css: "'Mr De Haviland', cursive", gf: "Mr De Haviland", ratio: 0.4, bs: 1.6, thin: true, hi: { gf: "Sahitya", css: "'Sahitya', serif" } },
+    { key: "acoustic", label: "Acoustic", css: "'Over the Rainbow', cursive", gf: "Over the Rainbow", ratio: 0.4, bs: 1.1, hi: { gf: "Mukta", css: "'Mukta', sans-serif" } },
+    { key: "sparky", label: "Sparky", css: "'Reenie Beanie', cursive", gf: "Reenie Beanie", ratio: 0.4, bs: 1.4, thin: true, hi: { gf: "Pragati Narrow", css: "'Pragati Narrow', sans-serif" } },
+    { key: "vibey", label: "Vibey", css: "'Caveat', cursive", gf: "Caveat", ratio: 0.4, bs: 1.2, hi: { gf: "Palanquin Dark", css: "'Palanquin Dark', sans-serif" } },
+    { key: "lofi", label: "LoFi", css: "'Handlee', cursive", gf: "Handlee", ratio: 0.4, bs: 1.1, hi: { gf: "Sura", css: "'Sura', serif" } },
     { key: "dope", label: "DOPE", css: "'Bungee Inline', sans-serif", gf: "Bungee Inline", ratio: 0.36, hi: { gf: "Teko", css: "'Teko', sans-serif" } },
-    { key: "bossy", label: "Bossy", css: "'Yesteryear', cursive", gf: "Yesteryear", ratio: 0.4, hi: { gf: "Eczar", css: "'Eczar', serif" } },
+    { key: "bossy", label: "Bossy", css: "'Yesteryear', cursive", gf: "Yesteryear", ratio: 0.4, bs: 1.25, hi: { gf: "Eczar", css: "'Eczar', serif" } },
     { key: "iconic", label: "ICONIC", css: "'Alfa Slab One', serif", gf: "Alfa Slab One", ratio: 0.36, hi: { gf: "Rozha One", css: "'Rozha One', serif" } },
-    { key: "jolly", label: "Jolly", css: "'Sofia', cursive", gf: "Sofia", ratio: 0.4, hi: { gf: "Inknut Antiqua", css: "'Inknut Antiqua', serif" } },
+    { key: "jolly", label: "Jolly", css: "'Sofia', cursive", gf: "Sofia", ratio: 0.4, bs: 1.15, hi: { gf: "Inknut Antiqua", css: "'Inknut Antiqua', serif" } },
     { key: "modern", label: "MODERN", css: "'Tenor Sans', sans-serif", gf: "Tenor Sans", ratio: 0.34, hi: { gf: "Karma", css: "'Karma', serif" } }
   ];
   // Styles used by older share links, saved designs and the name-plate cards. Not offered in the picker; normalize() maps them to the 15 above.

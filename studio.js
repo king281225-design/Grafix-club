@@ -23,7 +23,7 @@
 
   /** The 15 style buttons, each drawn in its own font. */
   const fontButtonsHtml = () => '<div class="font-grid">' + N.FONTS.map((ft, i) =>
-    '<label class="fbtn"><input type="radio" name="font" value="' + ft.key + '"' + (i === 0 ? " checked" : "") + '><span class="fbtn-t" style="font-family:' + ft.css + '">' + esc(ft.label) + "</span></label>").join("") + "</div>";
+    '<label class="fbtn"><input type="radio" name="font" value="' + ft.key + '"' + (i === 0 ? " checked" : "") + '><span class="fbtn-t' + (ft.thin ? " thin" : "") + '" style="font-family:' + ft.css + (ft.bs ? ";font-size:" + (1.3 * ft.bs).toFixed(2) + "rem" : "") + '">' + esc(ft.label) + "</span></label>").join("") + "</div>";
 
   const head = (id, title, nameId, extra) => '<div class="cfg-head"><h4 id="' + id + '">' + title + "</h4>" + (nameId ? '<b class="sel-name" id="' + nameId + '"></b>' : "") + (extra || "") + "</div>";
   const sizeCardsHtml = () => '<div class="size-grid">' + N.SIZES.map((z, i) =>
@@ -131,6 +131,9 @@
     io.observe(root);
   } else ensureFonts();
   root.addEventListener("focusin", ensureFonts);
+  /* also fetch the small style-button font file once the page is idle, so the buttons already show their own fonts when the visitor reaches them */
+  const idle = window.requestIdleCallback || (fn => setTimeout(fn, 1500));
+  if (document.readyState === "complete") idle(ensureFonts, { timeout: 4000 }); else addEventListener("load", () => idle(ensureFonts, { timeout: 4000 }));
 
   /* ---------------- live preview (SVG) ---------------- */
   function node(name, attrs, parent) {
