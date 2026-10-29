@@ -79,7 +79,7 @@
 
   /* ---------------- font loading ---------------- */
   let fontsRequested = false; const loadedFonts = new Set();
-  const gfFamily = ft => "family=" + encodeURIComponent(ft.gf).replace(/%20/g, "+");
+  const gfFamily = ft => "family=" + encodeURIComponent(ft.gf).replace(/%20/g, "+") + (ft.w ? ":wght@" + ft.w : "");   // w: load one light weight only, so the letters are thin like a neon tube
   const addCss = href => { const link = document.createElement("link"); link.rel = "stylesheet"; link.href = href; document.head.appendChild(link); };
   /* fullReady: styles whose complete font file has loaded (the small style-button file only has the label letters) */
   const fullReady = new Set();
@@ -161,35 +161,9 @@
     return w || text.length * size * 0.58;
   }
 
-  /* The dark room: a soft-lit wall and a dim sofa, drawn here (no photo), with a little of the neon colour falling on it. */
-  function paintRoom(defs, g, W, H, glowHex) {
-    const wall = node("radialGradient", { id: "gcWall", cx: 0.5, cy: 0.32, r: 0.9 }, defs);
-    node("stop", { offset: "0", "stop-color": "#1b1820" }, wall); node("stop", { offset: "0.55", "stop-color": "#0d0b10" }, wall); node("stop", { offset: "1", "stop-color": "#050406" }, wall);
-    node("rect", { x: 0, y: 0, width: W, height: H, fill: "url(#gcWall)" }, g);
-    const gr = node("filter", { id: "gcGrain", x: 0, y: 0, width: "100%", height: "100%" }, defs);
-    node("feTurbulence", { type: "fractalNoise", baseFrequency: 0.8, numOctaves: 3, seed: 5 }, gr);
-    node("feColorMatrix", { type: "matrix", values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0" }, gr);
-    node("rect", { x: 0, y: 0, width: W, height: H, filter: "url(#gcGrain)" }, g);
-    // floor and sofa, in the dark lower part of the room
-    node("rect", { x: 0, y: 900, width: W, height: H - 900, fill: "#060507" }, g);
-    const sofa = node("g", { opacity: 0.95 }, g);
-    const sf = node("linearGradient", { id: "gcSofa", x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
-    node("stop", { offset: "0", "stop-color": "#2e2a1c" }, sf); node("stop", { offset: "1", "stop-color": "#15130d" }, sf);
-    node("rect", { x: 150, y: 715, width: 700, height: 120, rx: 26, fill: "url(#gcSofa)" }, sofa);            // back
-    node("rect", { x: 110, y: 800, width: 780, height: 92, rx: 22, fill: "#1f1c13" }, sofa);                 // seat
-    node("rect", { x: 92, y: 760, width: 74, height: 136, rx: 30, fill: "#25211a" }, sofa);                  // arms
-    node("rect", { x: 834, y: 760, width: 74, height: 136, rx: 30, fill: "#25211a" }, sofa);
-    [[205, 735], [345, 728], [500, 724], [655, 728], [795, 735]].forEach(p => node("rect", { x: p[0] - 62, y: p[1], width: 124, height: 90, rx: 30, fill: "#383221" }, sofa));   // cushions
-    node("rect", { x: 130, y: 892, width: 16, height: 18, fill: "#0e0c08" }, sofa); node("rect", { x: 854, y: 892, width: 16, height: 18, fill: "#0e0c08" }, sofa);
-    // neon light falling on the sofa top
-    const lit = node("linearGradient", { id: "gcLit", x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
-    node("stop", { offset: "0", "stop-color": glowHex, "stop-opacity": 0.16 }, lit); node("stop", { offset: "1", "stop-color": glowHex, "stop-opacity": 0 }, lit);
-    node("rect", { x: 92, y: 715, width: 816, height: 180, rx: 26, fill: "url(#gcLit)", style: "mix-blend-mode:screen" }, sofa);
-  }
-
-  /* Layout constants, in preview units (the preview is 1000 x 1000). */
-  const W = 1000, H = 1000, BOX = { cx: 500, cy: 330, maxW: 640, maxH: 360, maxCap: 120 };
-  const TUBE = 3.6, GLOW = { wide: 14, mid: 5.5, tight: 2 };   // fixed on-screen sizes: the light looks the same in every font
+  /* Layout constants, in preview units (the preview is 1000 x 720). */
+  const W = 1000, H = 720, BOX = { cx: 500, cy: 360, maxW: 800, maxH: 440, maxCap: 150 };
+  const TUBE = 5.2, GLOW = { soft: 5, tight: 2 };   // fixed on-screen sizes: the light looks the same in every font
 
   function draw(cfg) {
     const font = drawFont(cfg), color = N.colorOf(cfg.c), hex = color.hex, gHex = glowOf(hex);
@@ -214,22 +188,31 @@
     while (svg.firstChild) svg.removeChild(svg.firstChild);
     svg.setAttribute("viewBox", "0 0 " + W + " " + H);
     const defs = node("defs", {}, svg);
+    /* Thinning heavy letters to the tube width: erode the thick parts, but keep the hairlines that the erode would wipe out
+       (hairlines = letter minus its "opening"), so no part of a letter ever disappears. */
+    const keepThin = (fl, r, out, src) => {
+      const k = out + "E"; src = src || "SourceGraphic";
+      node("feMorphology", { operator: "erode", radius: r.toFixed(3), in: src, result: k }, fl);
+      node("feMorphology", { operator: "dilate", radius: (r * 1.6).toFixed(3), in: k, result: k + "o" }, fl);   // a little wider, so no thin edge is left around thinned strokes
+      node("feComposite", { operator: "out", in: src, in2: k + "o", result: k + "h" }, fl);
+      const m = node("feMerge", { result: out }, fl);
+      node("feMergeNode", { in: k }, m); node("feMergeNode", { in: k + "h" }, m);
+    };
     const mkFilter = (id, dev) => {
       const fl = node("filter", { id, x: "-50%", y: "-100%", width: "200%", height: "300%" }, defs);
-      if (shrink > 0) node("feMorphology", { operator: "erode", radius: shrink.toFixed(2), in: "SourceGraphic", result: "thin" }, fl);
+      if (shrink > 0) keepThin(fl, shrink, "thin");
       if (dev > 0) node("feGaussianBlur", { stdDeviation: (dev / s).toFixed(2), in: shrink > 0 ? "thin" : "SourceGraphic" }, fl);
     };
-    mkFilter("gcGlowWide", GLOW.wide); mkFilter("gcGlowMid", GLOW.mid); mkFilter("gcGlowTight", GLOW.tight); mkFilter("gcShadow", 6);
+    mkFilter("gcGlowSoft", GLOW.soft); mkFilter("gcGlowTight", GLOW.tight);
     if (shrink > 0) mkFilter("gcTube", 0);
-    if (shrink + coreErode > 0.01) { const fl = node("filter", { id: "gcCore", x: "-50%", y: "-100%", width: "200%", height: "300%" }, defs); node("feMorphology", { operator: "erode", radius: (shrink + coreErode).toFixed(3), in: "SourceGraphic" }, fl); }
+    if (shrink + coreErode > 0.01) { const fl = node("filter", { id: "gcCore", x: "-50%", y: "-100%", width: "200%", height: "300%" }, defs);
+      // first thin the letter to the tube (as above), then thin the tube to the white core
+      if (shrink > 0) keepThin(fl, shrink, "tube");
+      if (coreErode > 0) keepThin(fl, coreErode, "core", shrink > 0 ? "tube" : "SourceGraphic"); }
 
+    // plain black background, like a sign photographed in the dark: no wall, no room, no halo around the sign
     const bg = node("g", { class: "gc-bg" }, svg);
-    paintRoom(defs, bg, W, H, gHex);
-
-    // soft pool of light on the wall around the sign (screen units, so it never changes with the font)
-    const sp = node("radialGradient", { id: "gcSpill" }, defs);
-    node("stop", { offset: "0", "stop-color": gHex, "stop-opacity": placeholder ? 0.12 : 0.32 }, sp); node("stop", { offset: "0.5", "stop-color": gHex, "stop-opacity": placeholder ? 0.04 : 0.12 }, sp); node("stop", { offset: "1", "stop-color": gHex, "stop-opacity": 0 }, sp);
-    node("ellipse", { cx: BOX.cx, cy: BOX.cy, rx: Math.max(260, textW * s * 0.75), ry: Math.max(170, textH * s * 0.9), fill: "url(#gcSpill)", style: "mix-blend-mode:screen" }, svg);
+    node("rect", { x: 0, y: 0, width: W, height: H, fill: "#000" }, bg);
 
     const sign = node("g", { class: "gc-sign", transform: "translate(" + BOX.cx + " " + BOX.cy + ") scale(" + s.toFixed(4) + ")" }, svg);
     const y0 = -((show.length - 1) * band) / 2;
@@ -239,14 +222,13 @@
     });
     const art = node("g", { class: "gc-art", opacity: placeholder ? 0.55 : 1 }, sign);
     const lay = (c, screenW, extra) => Object.assign({ fill: mode === "outline" ? "none" : c, stroke: c, "stroke-width": strokeFor(screenW).toFixed(3) }, extra || {});
-    drawLines(node("g", { filter: "url(#gcShadow)", transform: "translate(" + (5 / s).toFixed(1) + " " + (9 / s).toFixed(1) + ")", opacity: 0.55 }, art), lay("#000", T + 2));
-    drawLines(node("g", { filter: "url(#gcGlowWide)", opacity: 0.6 }, art), lay(gHex, T + 6));
-    drawLines(node("g", { filter: "url(#gcGlowMid)", opacity: 0.85 }, art), lay(gHex, T + 3));
-    drawLines(node("g", { filter: "url(#gcGlowTight)", opacity: 0.95 }, art), lay(hex, T + 1.2));
+    // only a thin glow hugging the tube (no big halo)
+    drawLines(node("g", { filter: "url(#gcGlowSoft)", opacity: 0.45 }, art), lay(gHex, T + 1.5));
+    drawLines(node("g", { filter: "url(#gcGlowTight)", opacity: 0.9 }, art), lay(hex, T + 0.8));
     drawLines(node("g", Object.assign({ class: "gc-tube" }, shrink > 0 ? { filter: "url(#gcTube)" } : {}), art), lay(hex, T));
     const coreGroup = node("g", Object.assign({ class: "gc-core" }, shrink + coreErode > 0.01 ? { filter: "url(#gcCore)" } : {}), art);
     drawLines(coreGroup, coreErode > 0 ? { fill: mode === "outline" ? "none" : tint(hex), stroke: mode === "outline" ? tint(hex) : "none", "stroke-width": mode === "outline" ? (CORE / s).toFixed(3) : 0, "data-hex": hex } : Object.assign(lay(tint(hex), CORE), { "data-hex": hex }));
-    coreGroup.setAttribute("data-core", CORE.toFixed(2)); coreGroup.setAttribute("data-tube", T.toFixed(2));
+    coreGroup.setAttribute("data-core", CORE.toFixed(2)); coreGroup.setAttribute("data-tube", T.toFixed(2)); coreGroup.setAttribute("data-mode", mode + " " + (stem / TUBEu).toFixed(2));
     return N.estimate(cfg, RATES);
   }
 
@@ -396,8 +378,9 @@
 
   /* ---------------- download a PNG of the preview (fonts embedded so the picture matches the screen) ---------------- */
   const blobToData = b => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(b); });
-  async function fontFaceCss(family, text) {
-    const css = await (await fetch("https://fonts.googleapis.com/css2?family=" + encodeURIComponent(family).replace(/%20/g, "+") + "&text=" + encodeURIComponent(text))).text();
+  async function fontFaceCss(ft, text) {
+    const family = ft.gf;
+    const css = await (await fetch("https://fonts.googleapis.com/css2?" + gfFamily(ft) + "&text=" + encodeURIComponent(text))).text();
     const srcs = [...css.matchAll(/url\((https:\/\/fonts\.gstatic\.com\/[^)]+)\)/g)].map(m => m[1]).slice(0, 4);
     let out = ""; for (const u of srcs) out += "@font-face{font-family:'" + family + "';src:url(" + await blobToData(await (await fetch(u)).blob()) + ");}";
     return out;
@@ -410,7 +393,7 @@
       const clone = svg.cloneNode(true), scale = 1.2, PW = W * scale, PH = H * scale;
       clone.setAttribute("xmlns", SVGNS); clone.setAttribute("width", PW); clone.setAttribute("height", PH);
       let note = "";
-      try { const st = document.createElementNS(SVGNS, "style"); st.textContent = await fontFaceCss(drawFont(lastCfg).gf, Array.from(new Set(lastCfg.t.join(""))).join("")); clone.insertBefore(st, clone.firstChild); }
+      try { const st = document.createElementNS(SVGNS, "style"); st.textContent = await fontFaceCss(drawFont(lastCfg), Array.from(new Set(lastCfg.t.join(""))).join("")); clone.insertBefore(st, clone.firstChild); }
       catch (e) { note = " The lettering may use a standard font because the style font could not be added."; }
       const src = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(clone)], { type: "image/svg+xml" })); urls.push(src);
       const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = () => rej(new Error("render")); i.src = src; });
