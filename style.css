@@ -332,7 +332,7 @@ html.js .reveal.in{opacity:1;transform:none}
   .g-item span{display:none}
   .scroll-cue{display:none}
   .brand-text small{display:none}
-  .action-bar{position:fixed;inset:auto 0 0 0;z-index:110;display:grid;grid-template-columns:1.2fr 1fr 1.3fr 1.1fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(7,6,11,.94);backdrop-filter:blur(14px);border-top:1px solid var(--line)}
+  .action-bar{position:fixed;inset:auto 0 0 0;z-index:110;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(7,6,11,.94);backdrop-filter:blur(14px);border-top:1px solid var(--line)}
   .action-bar a{display:flex;align-items:center;justify-content:center;gap:7px;padding:12px 6px;border-radius:14px;font-weight:600;font-size:.88rem;background:rgba(255,255,255,.07)}
   .action-bar a.wa{background:var(--green);color:#04170b}
   .action-bar a.coll{background:linear-gradient(135deg,var(--gold),var(--amber));color:#1a1000}
@@ -805,7 +805,7 @@ html.motion-off .marquee-track .dup{display:none}
 html{-webkit-tap-highlight-color:transparent}
 a,button,label,.chip-btn,summary{touch-action:manipulation}
 @media (max-width:40em){
-  .action-bar{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
+  .action-bar{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
   .action-bar a{flex-direction:column;gap:2px;padding:7px 2px;min-height:48px;font-size:.72rem;line-height:1.15;border-radius:12px;white-space:nowrap}
   .action-bar .ic{width:20px;height:20px}
   .coll-bar{bottom:calc(var(--ab,72px) + 10px);margin-top:16px;padding:10px 12px;gap:8px;border-radius:14px;flex-direction:column;align-items:stretch;flex-wrap:nowrap}
