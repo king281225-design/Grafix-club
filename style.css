@@ -281,7 +281,6 @@ details p{color:var(--mute);padding-bottom:20px}
 .disc{max-width:560px}
 
 /* action bar (mobile) */
-.action-bar{display:none}
 
 /* reveal */
 html.js .reveal{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
@@ -312,8 +311,8 @@ html.js .reveal.in{opacity:1;transform:none}
   .topbar .tb-item:first-child{display:none}
 }
 @media (max-width:40em){
-  html{scroll-padding-bottom:84px}
-  body{padding-bottom:76px}
+  html{scroll-padding-bottom:16px}
+  body{padding-bottom:0}
   .section{padding:72px 0}
   .hero{padding:36px 0 90px}
   .hero-visual{min-height:330px}
@@ -332,10 +331,6 @@ html.js .reveal.in{opacity:1;transform:none}
   .g-item span{display:none}
   .scroll-cue{display:none}
   .brand-text small{display:none}
-  .action-bar{position:fixed;inset:auto 0 0 0;z-index:110;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(7,6,11,.94);backdrop-filter:blur(14px);border-top:1px solid var(--line)}
-  .action-bar a{display:flex;align-items:center;justify-content:center;gap:7px;padding:12px 6px;border-radius:14px;font-weight:600;font-size:.88rem;background:rgba(255,255,255,.07)}
-  .action-bar a.wa{background:var(--green);color:#04170b}
-  .action-bar a.coll{background:linear-gradient(135deg,var(--gold),var(--amber));color:#1a1000}
 }
 @media (hover:none){.cursor-glow{display:none}.card::before{display:none}}
 @media (prefers-reduced-motion:reduce){
@@ -636,7 +631,32 @@ html.motion-off .marquee-track .dup{display:none}
 .coll-bar{position:sticky;bottom:12px;margin-top:22px;z-index:20;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:16px;background:#1a1626;border:1.5px solid var(--gold);box-shadow:0 8px 30px rgba(0,0,0,.5)}
 .coll-bar p{font-size:.92rem;flex:1 1 240px}
 .coll-bar-actions{display:flex;gap:8px;flex-wrap:wrap}
-@media (max-width:40em){.coll-grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}}
+.coll-cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;margin:0 0 18px;padding:16px 18px;border-radius:16px;background:linear-gradient(135deg,rgba(255,45,149,.16),rgba(255,201,51,.1));border:1.5px solid var(--pink)}
+.coll-cta[hidden]{display:none}
+.coll-cta p{flex:1 1 240px;font-size:.95rem;color:var(--mute)}
+.coll-cta p b{display:block;color:#fff;font-size:1.05rem}
+.coll-cta .btn{flex:none}
+@media (max-width:40em){.coll-cta .btn{width:100%;justify-content:center}}
+.coll-more{display:flex;justify-content:center;margin-top:26px}
+.coll-more .btn{width:100%;max-width:420px}
+@media (max-width:40em){
+  .coll-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .coll-card{border-radius:14px}
+  .coll-body{padding:10px 10px 12px;gap:4px}
+  .coll-body h3{font-size:.92rem;line-height:1.25}
+  .coll-cat{font-size:.72rem}
+  .coll-meta{display:none}
+  .coll-price{font-size:.85rem}
+  .coll-price small{display:none}
+  .coll-actions{padding-top:6px}
+  .coll-actions .btn{width:100%;justify-content:center;padding:9px 8px;font-size:.8rem;min-height:44px;animation:none}
+  .fav{width:40px;height:40px}
+  .fav svg{width:20px;height:20px}
+  .coll-top{gap:6px}
+  .coll-filters{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-inline:-16px;padding:2px 16px 6px;scroll-snap-type:x proximity}
+  .coll-filters::-webkit-scrollbar{display:none}
+  .coll-filters .chip-btn{flex:none;min-height:44px;scroll-snap-align:start}
+}
 
 /* ---------- Collection: name plates and shop letters (CSS drawings, not photos) ---------- */
 .cw-w-light{background:linear-gradient(160deg,#ece6da,#cfc7b8)}
@@ -805,10 +825,7 @@ html.motion-off .marquee-track .dup{display:none}
 html{-webkit-tap-highlight-color:transparent}
 a,button,label,.chip-btn,summary{touch-action:manipulation}
 @media (max-width:40em){
-  .action-bar{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
-  .action-bar a{flex-direction:column;gap:2px;padding:7px 2px;min-height:48px;font-size:.72rem;line-height:1.15;border-radius:12px;white-space:nowrap}
-  .action-bar .ic{width:20px;height:20px}
-  .coll-bar{bottom:calc(var(--ab,72px) + 10px);margin-top:16px;padding:10px 12px;gap:8px;border-radius:14px;flex-direction:column;align-items:stretch;flex-wrap:nowrap}
+  .coll-bar{bottom:calc(10px + env(safe-area-inset-bottom));margin-top:16px;padding:10px 12px;gap:8px;border-radius:14px;flex-direction:column;align-items:stretch;flex-wrap:nowrap}
   .coll-bar p{flex:none;font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .coll-bar-actions{flex-wrap:nowrap}
   .coll-bar-actions .btn{flex:1 1 auto;justify-content:center;white-space:nowrap;padding-inline:12px;font-size:.84rem}

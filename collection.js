@@ -193,17 +193,28 @@
   root.innerHTML =
     '<div class="coll-filters" role="group" aria-label="Filter designs by type" id="collFilters"></div>' +
     '<p class="coll-count" id="collCount" aria-live="polite"></p>' +
+    '<div class="coll-cta" id="collCta" hidden><p><b>Want your own name or words in neon?</b> Pick the text, font and colour and see it light up.</p><a class="btn btn-gold btn-lg" href="custom-neon-sign.html">Design your neon sign <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>' +
     '<ul class="coll-grid" id="collGrid"></ul>' +
+    '<div class="coll-more" id="collMoreWrap" hidden><button type="button" class="btn btn-ghost btn-lg" id="collMore"></button></div>' +
     '<div class="coll-bar" id="collBar" hidden role="region" aria-label="Your shortlist"><p id="collBarText"></p><div class="coll-bar-actions"><a class="btn btn-wa btn-sm" id="collSend" target="_blank" rel="noopener">Send shortlist on WhatsApp<span class="sr-only"> (opens in a new tab)</span></a><button type="button" class="btn btn-ghost btn-sm" id="collClear">Clear</button></div></div>';
   const grid = document.getElementById("collGrid"), bar = document.getElementById("collBar");
 
   const cats = [{ key: "all", label: "All designs" }].concat(CATS);
   document.getElementById("collFilters").innerHTML = cats.map(c => '<button type="button" class="chip-btn" data-filter="' + c.key + '" aria-pressed="' + (c.key === filter) + '">' + esc(c.label) + " <small>" + (c.key === "all" ? items.length : items.filter(i => i.cat === c.key).length) + "</small></button>").join("");
 
-  function paint() {
+  /* 12 designs at a time keeps the phone page short; "Show more" adds the next 12 */
+  const PAGE = 12;
+  let limit = PAGE;
+  function paint(keepLimit) {
+    if (!keepLimit) limit = PAGE;
     const shown = items.filter(i => filter === "all" || i.cat === filter);
-    grid.innerHTML = shown.map(cardHtml).join("");
-    document.getElementById("collCount").textContent = "Showing " + shown.length + " design" + (shown.length === 1 ? "" : "s") + (filter === "all" ? "" : " in “" + catLabel(filter) + "”") + ".";
+    const vis = shown.slice(0, limit), left = shown.length - vis.length;
+    grid.innerHTML = vis.map(cardHtml).join("");
+    document.getElementById("collCount").textContent = "Showing " + vis.length + (left ? " of " + shown.length : "") + " design" + (vis.length === 1 ? "" : "s") + (filter === "all" ? "" : " in “" + catLabel(filter) + "”") + ".";
+    document.getElementById("collCta").hidden = filter !== "neon";
+    const wrap = document.getElementById("collMoreWrap");
+    wrap.hidden = !left;
+    document.getElementById("collMore").textContent = "Show " + Math.min(PAGE, left) + " more designs" + (left > PAGE ? " (" + left + " left)" : "");
     paintBar();
   }
   function paintBar() {
@@ -236,7 +247,8 @@
       announce((fav.includes(id) ? "Added " : "Removed ") + i.title + (fav.includes(id) ? " to" : " from") + " your shortlist. " + fav.length + " shortlisted.");
     }
   });
-  document.getElementById("collClear").addEventListener("click", () => { fav = []; saveFav(); paint(); announce("Shortlist cleared."); });
+  document.getElementById("collClear").addEventListener("click", () => { fav = []; saveFav(); paint(true); announce("Shortlist cleared."); });
+  document.getElementById("collMore").addEventListener("click", () => { limit += PAGE; paint(true); announce("Showing " + Math.min(limit, items.filter(i => filter === "all" || i.cat === filter).length) + " designs."); });
 
   paint();
 })();
