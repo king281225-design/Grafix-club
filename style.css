@@ -49,11 +49,9 @@ body.has-mouse .cursor-glow{opacity:1}
 .status-open{color:#3bf08a}.status-closed{color:#ff7a7a}
 .nav-in{display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:16px}
 .brand{display:flex;align-items:center;gap:12px}
-.brand-mark{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font:800 1.15rem var(--ff-d);letter-spacing:-.04em;background:#0b0912;color:var(--pink);border:1.5px solid var(--pink);box-shadow:0 0 14px rgba(255,46,147,.55),inset 0 0 12px rgba(255,46,147,.25);position:relative}
-.brand-mark span{color:var(--gold);margin-right:-1px;text-shadow:0 0 10px var(--gold)}
-.brand-mark{text-shadow:0 0 10px var(--pink)}
+.brand-mark{width:44px;height:44px;display:block;flex:none;border-radius:12px;filter:drop-shadow(0 0 8px rgba(255,46,147,.55))}
 .brand-text{display:flex;flex-direction:column;line-height:1.05}
-.brand-text b{font:800 1.2rem var(--ff-d);letter-spacing:.02em;white-space:nowrap}
+.brand-text b{font:800 1.2rem var(--ff-d);letter-spacing:.02em;white-space:nowrap;text-shadow:0 0 12px rgba(255,46,147,.65)}
 .brand-text b i{font-style:normal;color:var(--gold);text-shadow:0 0 14px rgba(255,201,51,.6)}
 .brand-text small{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-top:3px}
 .nav{display:flex;align-items:center;gap:6px}
@@ -570,7 +568,7 @@ html.motion-off .marquee-track .dup{display:none}
 .nav-in{flex-wrap:nowrap}
 @media (max-width:30em){
   .brand{gap:9px}
-  .brand-mark{width:40px;height:40px;font-size:1.05rem}
+  .brand-mark{width:40px;height:40px}
   .brand-text b{font-size:.98rem}
   .hd-actions{gap:6px}
 }
